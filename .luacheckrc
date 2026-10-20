@@ -5,12 +5,12 @@ unused_args = false
 
 -- Variables globales que el addon define a propósito.
 globals = {
-  "WoWForeverGuideDB",
-  "WoWForeverGuideCharDB",
-  "SLASH_WOWFOREVERGUIDE1",
-  "SLASH_WOWFOREVERGUIDE2",
-  "WoWForeverGuide_OnAddonCompartmentClick",
-  SlashCmdList = { fields = { "WOWFOREVERGUIDE" } },
+  "ForeverProgressionGuideDB",
+  "ForeverProgressionGuideCharDB",
+  "SLASH_FOREVERPROGRESSIONGUIDE1",
+  "SLASH_FOREVERPROGRESSIONGUIDE2",
+  "ForeverProgressionGuide_OnAddonCompartmentClick",
+  SlashCmdList = { fields = { "FOREVERPROGRESSIONGUIDE" } },
 }
 
 -- API del cliente que se usa directamente (el resto pasa por ns.Compat.Call).

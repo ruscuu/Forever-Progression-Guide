@@ -1,4 +1,4 @@
-# WoW Forever Progression Guide
+# Forever Progression Guide
 
 Addon para WoW Forever que guía al jugador del nivel 1 al máximo: qué hacer a continuación, por qué y cómo. Interfaz en español e inglés, sin conexión durante la partida.
 
@@ -20,7 +20,7 @@ Comandos: `/wfg` (o `/guia`) abre la guía; `/wfg es|en|auto` cambia el idioma; 
 ## Instalación
 
 - **Desde una versión publicada:** descarga el `.zip` de *Releases* y descomprímelo en `World of Warcraft\_classic_beta_\Interface\AddOns\`. Con **WowUp** puedes instalarlo desde la URL de este repositorio para recibir las actualizaciones automáticamente.
-- **Desde el código:** copia o enlaza la carpeta `WoWForeverGuide/` en la misma ruta.
+- **Desde el código:** copia o enlaza la carpeta `ForeverProgressionGuide/` en la misma ruta.
 
 Si el juego lo marca como desactualizado, activa *Cargar addons desactualizados* en la selección de personaje.
 
@@ -35,7 +35,7 @@ Si el juego lo marca como desactualizado, activa *Cargar addons desactualizados*
 ## Estructura
 
 ```
-WoWForeverGuide/        el addon (Lua 5.1)
+ForeverProgressionGuide/ el addon (Lua 5.1)
   Core/                 arranque, eventos aislados, compatibilidad con la API
   Data/                 GENERADO por pipeline/build_data.py: no editar
   Engine/               recomendación, diario del cliente, equipo, objetivos
@@ -57,9 +57,9 @@ pip install lupa==2.8
 python -m unittest discover -s pipeline\tests   # pipeline
 python -m unittest discover -s tests            # addon
 python pipeline\build_data.py                   # regenerar datos tras cambiar data-sources\
-python pipeline\package.py 0.1.0                # crear release\WoWForeverGuide-0.1.0.zip
+python pipeline\package.py 0.1.0                # crear release\ForeverProgressionGuide-0.1.0.zip
 ```
 
-Para cambiar datos, edita `data-sources/seed/` o añade observaciones, nunca `WoWForeverGuide/Data/`. CI comprueba que los datos generados están al día.
+Para cambiar datos, edita `data-sources/seed/` o añade observaciones, nunca `ForeverProgressionGuide/Data/`. CI comprueba que los datos generados están al día.
 
 Para publicar a mano una versión, sube una etiqueta: `git tag v0.1.0 && git push origin v0.1.0`.

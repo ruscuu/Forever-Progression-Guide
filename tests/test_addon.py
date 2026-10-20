@@ -10,7 +10,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ADDON = ROOT / "WoWForeverGuide"
+ADDON = ROOT / "ForeverProgressionGuide"
 sys.path.insert(0, str(ROOT / "pipeline"))
 
 try:
@@ -29,16 +29,16 @@ class AddonTestCase(unittest.TestCase):
     def setUp(self):
         self.lua = lua51.LuaRuntime(unpack_returned_tuples=True)
         self.lua.execute((ROOT / "tests" / "wowmock.lua").read_text(encoding="utf-8"))
-        self.lua.execute("NS = {}\nfunction load_addon_file(src, name) assert(loadstring(src, '@' .. name))('WoWForeverGuide', NS) end")
+        self.lua.execute("NS = {}\nfunction load_addon_file(src, name) assert(loadstring(src, '@' .. name))('ForeverProgressionGuide', NS) end")
         self.mock = self.lua.globals().WOWMOCK
         self.load()
 
     def load(self):
         loader = self.lua.globals().load_addon_file
-        for name in toc_files("WoWForeverGuide.toc"):
+        for name in toc_files("ForeverProgressionGuide.toc"):
             loader((ADDON / name).read_text(encoding="utf-8"), name)
         self.ns = self.lua.globals().NS
-        self.fire("ADDON_LOADED", "WoWForeverGuide")
+        self.fire("ADDON_LOADED", "ForeverProgressionGuide")
         self.fire("PLAYER_LOGIN")
 
     def fire(self, event, *args):
@@ -56,14 +56,14 @@ class AddonTestCase(unittest.TestCase):
 
 class LoadingTest(AddonTestCase):
     def test_tocs_list_every_lua_file_once(self):
-        listed = toc_files("WoWForeverGuide.toc")
-        self.assertEqual(listed, toc_files("WoWForeverGuide_Camelot.toc"))
+        listed = toc_files("ForeverProgressionGuide.toc")
+        self.assertEqual(listed, toc_files("ForeverProgressionGuide_Camelot.toc"))
         on_disk = sorted(str(p.relative_to(ADDON)).replace("\\", "/") for p in ADDON.rglob("*.lua"))
         self.assertEqual(sorted(listed), on_disk)
         self.assertEqual(len(listed), len(set(listed)))
 
     def test_saved_variables_get_defaults(self):
-        db = self.lua.globals().WoWForeverGuideDB
+        db = self.lua.globals().ForeverProgressionGuideDB
         self.assertEqual(db.settings.language, "auto")
         self.assertEqual(self.ns.lang, "es")
 
@@ -111,10 +111,10 @@ class LocalizationTest(AddonTestCase):
 
     def test_language_switch(self):
         SlashCmdList = self.lua.globals().SlashCmdList
-        SlashCmdList.WOWFOREVERGUIDE("en")
+        SlashCmdList.FOREVERPROGRESSIONGUIDE("en")
         self.assertEqual(self.ns.L.TAB_DUNGEONS, "Dungeons")
         self.assertEqual(self.lua.eval("NS.Dungeons.Name(NS.Data.Dungeons[36])"), "The Deadmines")
-        SlashCmdList.WOWFOREVERGUIDE("es")
+        SlashCmdList.FOREVERPROGRESSIONGUIDE("es")
         self.assertEqual(self.ns.L.TAB_DUNGEONS, "Mazmorras")
         self.assertEqual(self.lua.eval("NS.Dungeons.Name(NS.Data.Dungeons[36])"), "Las Minas de la Muerte")
 
@@ -205,7 +205,7 @@ class CollectorTest(AddonTestCase):
 
     def test_instance_observation(self):
         self.enter_deadmines()
-        rec = self.lua.globals().WoWForeverGuideDB.contributions.instances[36]
+        rec = self.lua.globals().ForeverProgressionGuideDB.contributions.instances[36]
         self.assertEqual(rec.name, "Las Minas de la Muerte")
         self.assertEqual(rec.locale, "esES")
         self.assertTrue(rec.uiMapIDs[291])
@@ -219,15 +219,15 @@ class CollectorTest(AddonTestCase):
         self.fire("QUEST_ACCEPTED", 155)
         self.fire("QUEST_ACCEPTED", 3, 156)
         self.fire("QUEST_TURNED_IN", 155, 1200, 0)
-        quests = self.lua.globals().WoWForeverGuideDB.contributions.quests
+        quests = self.lua.globals().ForeverProgressionGuideDB.contributions.quests
         self.assertEqual(quests[155].xp, 1200)
         self.assertEqual(quests[155].level, 18)
         self.assertEqual(quests[156].accepted, 1)
 
     def test_collect_off(self):
-        self.lua.globals().SlashCmdList.WOWFOREVERGUIDE("collect off")
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("collect off")
         self.fire("QUEST_ACCEPTED", 155)
-        self.assertIsNone(self.lua.globals().WoWForeverGuideDB.contributions.quests[155])
+        self.assertIsNone(self.lua.globals().ForeverProgressionGuideDB.contributions.quests[155])
 
     def test_round_trip_through_pipeline(self):
         """Lo observado en el juego vuelve como dato verificado al generar."""
@@ -236,8 +236,8 @@ class CollectorTest(AddonTestCase):
         from luatable import parse_assignments
 
         self.enter_deadmines()
-        text = self.mock.SavedVariablesText("WoWForeverGuideDB")
-        db = parse_assignments(text)["WoWForeverGuideDB"]
+        text = self.mock.SavedVariablesText("ForeverProgressionGuideDB")
+        db = parse_assignments(text)["ForeverProgressionGuideDB"]
         contrib = import_contributions.normalize(db["contributions"])
         records = build_data.load_seed()
         notes = []
@@ -252,7 +252,7 @@ class CollectorTest(AddonTestCase):
 
 class UITest(AddonTestCase):
     def open(self, tab=None, arg="nil"):
-        self.lua.globals().SlashCmdList.WOWFOREVERGUIDE("")
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
         if tab:
             self.run_lua(f"NS.UI.Select('{tab}', {arg})")
 
@@ -261,7 +261,7 @@ class UITest(AddonTestCase):
         self.open()
         for tab in ("progress", "dungeons", "gear", "quests", "professions", "search"):
             self.run_lua(f"NS.UI.Select('{tab}')")
-        self.assertTrue(self.lua.eval("WoWForeverGuideFrame:IsShown()"))
+        self.assertTrue(self.lua.eval("ForeverProgressionGuideFrame:IsShown()"))
 
     def test_dungeon_detail_modes(self):
         self.open("dungeons", "{ instanceID = 36 }")

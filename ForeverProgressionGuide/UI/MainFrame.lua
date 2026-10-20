@@ -37,7 +37,7 @@ local function savePosition()
 end
 
 local function create()
-  frame = CreateFrame("Frame", "WoWForeverGuideFrame", UIParent, "BackdropTemplate")
+  frame = CreateFrame("Frame", "ForeverProgressionGuideFrame", UIParent, "BackdropTemplate")
   frame:SetFrameStrata("HIGH")
   frame:SetToplevel(true)
   local size = ns.char.window.size
@@ -59,7 +59,7 @@ local function create()
   frame:SetScript("OnDragStop", function() frame:StopMovingOrSizing() savePosition() end)
   frame:SetResizable(true)
   if frame.SetResizeBounds then frame:SetResizeBounds(700, 440) elseif frame.SetMinResize then frame:SetMinResize(700, 440) end
-  table.insert(UISpecialFrames, "WoWForeverGuideFrame")
+  table.insert(UISpecialFrames, "ForeverProgressionGuideFrame")
 
   local grip = CreateFrame("Button", nil, frame)
   grip:SetSize(16, 16)

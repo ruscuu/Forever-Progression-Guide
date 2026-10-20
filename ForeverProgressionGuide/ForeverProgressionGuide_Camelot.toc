@@ -1,15 +1,15 @@
 ## Interface: 16001
 ## Title: Forever Progression Guide
-## Title-esES: Guía de progresión de Forever
+## Title-esES: Forever Progression Guide
 ## Notes: Leveling guide for WoW Forever: next steps, dungeons with maps, bosses and class loot. Works offline.
 ## Notes-esES: Guía de progresión para WoW Forever: próximos pasos, mazmorras con mapas, jefes y botín de clase. Funciona sin conexión.
 ## Author: ruscuu
 ## Version: @project-version@
-## SavedVariables: WoWForeverGuideDB
-## SavedVariablesPerCharacter: WoWForeverGuideCharDB
+## SavedVariables: ForeverProgressionGuideDB
+## SavedVariablesPerCharacter: ForeverProgressionGuideCharDB
 ## IconTexture: Interface\Icons\INV_Misc_Book_09
-## AddonCompartmentFunc: WoWForeverGuide_OnAddonCompartmentClick
-## X-Website: https://github.com/ruscuu/RUSCUU-Guide
+## AddonCompartmentFunc: ForeverProgressionGuide_OnAddonCompartmentClick
+## X-Website: https://github.com/ruscuu/Forever-Progression-Guide
 
 Core\Init.lua
 Core\Compat.lua

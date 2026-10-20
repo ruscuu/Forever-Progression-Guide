@@ -8,7 +8,7 @@ fusiona como datos `verified_ingame`.
 No se guardan nombres de personaje, reino ni cuenta: solo datos del juego.
 
 Uso (Windows):
-    python pipeline\\import_contributions.py "C:\\...\\WTF\\Account\\MICUENTA\\SavedVariables\\WoWForeverGuide.lua"
+    python pipeline\\import_contributions.py "C:\\...\\WTF\\Account\\MICUENTA\\SavedVariables\\ForeverProgressionGuide.lua"
     python pipeline\\import_contributions.py --wow "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_"
 """
 
@@ -23,7 +23,7 @@ from luatable import parse_assignments  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTRIB_DIR = ROOT / "data-sources" / "contributions"
-SAVED_VAR = "WoWForeverGuideDB"
+SAVED_VAR = "ForeverProgressionGuideDB"
 
 
 def keys_of(table):
@@ -67,12 +67,12 @@ def import_file(path):
 
 
 def find_saved_variables(wow_dir):
-    return sorted(Path(wow_dir).glob(f"WTF/Account/*/SavedVariables/WoWForeverGuide.lua"))
+    return sorted(Path(wow_dir).glob(f"WTF/Account/*/SavedVariables/ForeverProgressionGuide.lua"))
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Importa observaciones del addon.")
-    parser.add_argument("files", nargs="*", help="archivos WoWForeverGuide.lua de SavedVariables")
+    parser.add_argument("files", nargs="*", help="archivos ForeverProgressionGuide.lua de SavedVariables")
     parser.add_argument("--wow", help="carpeta del cliente (la que contiene WTF\\)")
     args = parser.parse_args(argv)
 

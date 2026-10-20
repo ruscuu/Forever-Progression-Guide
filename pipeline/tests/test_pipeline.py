@@ -12,7 +12,7 @@ from import_contributions import normalize  # noqa: E402
 from luatable import LuaParseError, parse_assignments, to_lua  # noqa: E402
 
 SAVED_VARIABLES = r'''
-WoWForeverGuideDB = {
+ForeverProgressionGuideDB = {
 	["schema"] = 1,
 	["settings"] = {
 		["language"] = "auto", -- comentario
@@ -43,15 +43,15 @@ WoWForeverGuideDB = {
 		["quests"] = { [155] = { ["level"] = 18, ["xp"] = 1200 } },
 	},
 }
-WoWForeverGuideCharDB = nil
+ForeverProgressionGuideCharDB = nil
 '''
 
 
 class LuaTableTest(unittest.TestCase):
     def test_parses_saved_variables(self):
         data = parse_assignments(SAVED_VARIABLES)
-        db = data["WoWForeverGuideDB"]
-        self.assertIsNone(data["WoWForeverGuideCharDB"])
+        db = data["ForeverProgressionGuideDB"]
+        self.assertIsNone(data["ForeverProgressionGuideCharDB"])
         self.assertTrue(db["settings"]["collect"])
         self.assertEqual(db["contributions"]["instances"][36]["entrance"]["x"], 0.42)
 
@@ -72,7 +72,7 @@ class LuaTableTest(unittest.TestCase):
 
 class ContributionsTest(unittest.TestCase):
     def merged(self):
-        db = parse_assignments(SAVED_VARIABLES)["WoWForeverGuideDB"]
+        db = parse_assignments(SAVED_VARIABLES)["ForeverProgressionGuideDB"]
         contrib = normalize(db["contributions"])
         records = build_data.load_seed()
         notes = []

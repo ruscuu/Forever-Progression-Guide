@@ -28,4 +28,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: lunarmodules/luacheck@v1
         with:
-          args: WoWForeverGuide
+          args: ForeverProgressionGuide

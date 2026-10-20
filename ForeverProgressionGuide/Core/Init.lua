@@ -93,12 +93,12 @@ end
 
 ns.On("ADDON_LOADED", function(name)
   if name ~= ADDON then return end
-  WoWForeverGuideDB = WoWForeverGuideDB or {}
-  WoWForeverGuideCharDB = WoWForeverGuideCharDB or {}
-  migrate(WoWForeverGuideDB)
-  migrate(WoWForeverGuideCharDB)
-  ns.db = fillDefaults(WoWForeverGuideDB, DEFAULT_DB)
-  ns.char = fillDefaults(WoWForeverGuideCharDB, DEFAULT_CHAR)
+  ForeverProgressionGuideDB = ForeverProgressionGuideDB or {}
+  ForeverProgressionGuideCharDB = ForeverProgressionGuideCharDB or {}
+  migrate(ForeverProgressionGuideDB)
+  migrate(ForeverProgressionGuideCharDB)
+  ns.db = fillDefaults(ForeverProgressionGuideDB, DEFAULT_DB)
+  ns.char = fillDefaults(ForeverProgressionGuideCharDB, DEFAULT_CHAR)
   ns.SetLanguage(ns.db.settings.language)
   ns.Fire("DB_READY")
 end)

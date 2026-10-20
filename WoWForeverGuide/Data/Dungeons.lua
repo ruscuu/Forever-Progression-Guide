@@ -1,0 +1,1383 @@
+-- Generado por pipeline/build_data.py a partir de data-sources/. No editar a mano.
+local _, ns = ...
+ns.Data = ns.Data or {}
+ns.Data.Dungeons = {
+  [33] = {
+    bosses = {
+      {
+        name = { en = "Rethilgore" },
+      },
+      {
+        name = { en = "Razorclaw the Butcher" },
+      },
+      {
+        name = { en = "Baron Silverlaine" },
+      },
+      {
+        name = { en = "Commander Springvale" },
+      },
+      {
+        name = { en = "Odo the Blindwatcher" },
+      },
+      {
+        name = { en = "Fenrus the Devourer" },
+      },
+      {
+        name = { en = "Wolf Master Nandos" },
+      },
+      {
+        name = { en = "Archmage Arugal" },
+      },
+    },
+    faction = "both",
+    id = "shadowfang_keep",
+    instanceID = 33,
+    levels = { max = 30, min = 22 },
+    name = { en = "Shadowfang Keep", es = "Castillo de Colmillo Oscuro" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Silverpine Forest", es = "Bosque de Argénteos" },
+  },
+  [34] = {
+    bosses = {
+      {
+        name = { en = "Targorr the Dread" },
+      },
+      {
+        name = { en = "Kam Deepfury" },
+      },
+      {
+        name = { en = "Hamhock" },
+      },
+      {
+        name = { en = "Bazil Thredd" },
+      },
+      {
+        name = { en = "Dextren Ward" },
+      },
+      {
+        name = { en = "Bruegal Ironknuckle" },
+      },
+    },
+    faction = "alliance",
+    id = "stockade",
+    instanceID = 34,
+    levels = { max = 32, min = 24 },
+    name = { en = "The Stockade", es = "Las Mazmorras" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Stormwind City", es = "Ciudad de Ventormenta" },
+  },
+  [36] = {
+    bosses = {
+      {
+        name = { en = "Rhahk'Zor" },
+      },
+      {
+        name = { en = "Sneed" },
+      },
+      {
+        name = { en = "Gilnid" },
+      },
+      {
+        name = { en = "Mr. Smite" },
+      },
+      {
+        name = { en = "Captain Greenskin" },
+      },
+      {
+        name = { en = "Edwin VanCleef" },
+      },
+      {
+        name = { en = "Cookie" },
+      },
+    },
+    faction = "both",
+    id = "deadmines",
+    instanceID = 36,
+    levels = { max = 26, min = 17 },
+    name = { en = "The Deadmines", es = "Las Minas de la Muerte" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Westfall", es = "Páramos de Poniente" },
+  },
+  [43] = {
+    bosses = {
+      {
+        name = { en = "Lady Anacondra" },
+      },
+      {
+        name = { en = "Lord Cobrahn" },
+      },
+      {
+        name = { en = "Kresh" },
+      },
+      {
+        name = { en = "Lord Pythas" },
+      },
+      {
+        name = { en = "Skum" },
+      },
+      {
+        name = { en = "Lord Serpentis" },
+      },
+      {
+        name = { en = "Verdan the Everliving" },
+      },
+      {
+        name = { en = "Mutanus the Devourer" },
+      },
+    },
+    faction = "both",
+    id = "wailing_caverns",
+    instanceID = 43,
+    levels = { max = 24, min = 17 },
+    name = { en = "Wailing Caverns", es = "Cuevas de los Lamentos" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "The Barrens", es = "Los Baldíos" },
+  },
+  [47] = {
+    bosses = {
+      {
+        name = { en = "Aggem Thorncurse" },
+      },
+      {
+        name = { en = "Death Speaker Jargba" },
+      },
+      {
+        name = { en = "Overlord Ramtusk" },
+      },
+      {
+        name = { en = "Agathelos the Raging" },
+      },
+      {
+        name = { en = "Charlga Razorflank" },
+      },
+    },
+    faction = "both",
+    id = "razorfen_kraul",
+    instanceID = 47,
+    levels = { max = 38, min = 29 },
+    name = { en = "Razorfen Kraul", es = "Horado Rajacieno" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "The Barrens", es = "Los Baldíos" },
+  },
+  [48] = {
+    bosses = {
+      {
+        name = { en = "Ghamoo-ra" },
+      },
+      {
+        name = { en = "Lady Sarevess" },
+      },
+      {
+        name = { en = "Gelihast" },
+      },
+      {
+        name = { en = "Lorgus Jett" },
+      },
+      {
+        name = { en = "Baron Aquanis" },
+      },
+      {
+        name = { en = "Twilight Lord Kelris" },
+      },
+      {
+        name = { en = "Old Serra'kis" },
+      },
+      {
+        name = { en = "Aku'mai" },
+      },
+    },
+    faction = "both",
+    id = "blackfathom_deeps",
+    instanceID = 48,
+    levels = { max = 32, min = 24 },
+    name = { en = "Blackfathom Deeps", es = "Cavernas de Brazanegra" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Ashenvale", es = "Vallefresno" },
+  },
+  [70] = {
+    bosses = {
+      {
+        name = { en = "Revelosh" },
+      },
+      {
+        name = { en = "Ironaya" },
+      },
+      {
+        name = { en = "Obsidian Sentinel" },
+      },
+      {
+        name = { en = "Ancient Stone Keeper" },
+      },
+      {
+        name = { en = "Galgann Firehammer" },
+      },
+      {
+        name = { en = "Grimlok" },
+      },
+      {
+        name = { en = "Archaedas" },
+      },
+    },
+    faction = "both",
+    id = "uldaman",
+    instanceID = 70,
+    levels = { max = 51, min = 41 },
+    name = { en = "Uldaman", es = "Uldaman" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Badlands", es = "Tierras Inhóspitas" },
+  },
+  [90] = {
+    bosses = {
+      {
+        name = { en = "Grubbis" },
+      },
+      {
+        name = { en = "Viscous Fallout" },
+      },
+      {
+        name = { en = "Electrocutioner 6000" },
+      },
+      {
+        name = { en = "Crowd Pummeler 9-60" },
+      },
+      {
+        name = { en = "Dark Iron Ambassador" },
+      },
+      {
+        name = { en = "Mekgineer Thermaplugg" },
+      },
+    },
+    faction = "both",
+    id = "gnomeregan",
+    instanceID = 90,
+    levels = { max = 38, min = 29 },
+    name = { en = "Gnomeregan", es = "Gnomeregan" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Dun Morogh", es = "Dun Morogh" },
+  },
+  [109] = {
+    bosses = {
+      {
+        name = { en = "Atal'alarion" },
+      },
+      {
+        name = { en = "Jammal'an the Prophet" },
+      },
+      {
+        name = { en = "Ogom the Wretched" },
+      },
+      {
+        name = { en = "Dreamscythe" },
+      },
+      {
+        name = { en = "Weaver" },
+      },
+      {
+        name = { en = "Morphaz" },
+      },
+      {
+        name = { en = "Hazzas" },
+      },
+      {
+        name = { en = "Shade of Eranikus" },
+      },
+      {
+        name = { en = "Avatar of Hakkar" },
+      },
+    },
+    faction = "both",
+    id = "sunken_temple",
+    instanceID = 109,
+    levels = { max = 56, min = 50 },
+    name = { en = "The Temple of Atal'Hakkar", es = "El Templo de Atal'Hakkar" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Swamp of Sorrows", es = "Pantano de las Penas" },
+  },
+  [129] = {
+    bosses = {
+      {
+        name = { en = "Tuten'kash" },
+      },
+      {
+        name = { en = "Mordresh Fire Eye" },
+      },
+      {
+        name = { en = "Glutton" },
+      },
+      {
+        name = { en = "Amnennar the Coldbringer" },
+      },
+    },
+    faction = "both",
+    id = "razorfen_downs",
+    instanceID = 129,
+    levels = { max = 46, min = 37 },
+    name = { en = "Razorfen Downs", es = "Zahúrda Rajacieno" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "The Barrens", es = "Los Baldíos" },
+  },
+  [189] = {
+    bosses = {
+      {
+        name = { en = "Interrogator Vishas" },
+        wing = "graveyard",
+      },
+      {
+        name = { en = "Bloodmage Thalnos" },
+        wing = "graveyard",
+      },
+      {
+        name = { en = "Houndmaster Loksey" },
+        wing = "library",
+      },
+      {
+        name = { en = "Arcanist Doan" },
+        wing = "library",
+      },
+      {
+        name = { en = "Herod" },
+        wing = "armory",
+      },
+      {
+        name = { en = "High Inquisitor Fairbanks" },
+        wing = "cathedral",
+      },
+      {
+        name = { en = "Scarlet Commander Mograine" },
+        wing = "cathedral",
+      },
+      {
+        name = { en = "High Inquisitor Whitemane" },
+        wing = "cathedral",
+      },
+    },
+    faction = "both",
+    id = "scarlet_monastery",
+    instanceID = 189,
+    levels = { max = 45, min = 26 },
+    name = { en = "Scarlet Monastery", es = "Monasterio Escarlata" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      wings = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    wings = {
+      {
+        id = "graveyard",
+        levels = { max = 36, min = 26 },
+        name = { en = "Graveyard", es = "Cementerio" },
+      },
+      {
+        id = "library",
+        levels = { max = 39, min = 29 },
+        name = { en = "Library", es = "Biblioteca" },
+      },
+      {
+        id = "armory",
+        levels = { max = 42, min = 32 },
+        name = { en = "Armory", es = "Armería" },
+      },
+      {
+        id = "cathedral",
+        levels = { max = 45, min = 35 },
+        name = { en = "Cathedral", es = "Catedral" },
+      },
+    },
+    zone = { en = "Tirisfal Glades", es = "Claros de Tirisfal" },
+  },
+  [209] = {
+    bosses = {
+      {
+        name = { en = "Antu'sul" },
+      },
+      {
+        name = { en = "Theka the Martyr" },
+      },
+      {
+        name = { en = "Witch Doctor Zum'rah" },
+      },
+      {
+        name = { en = "Nekrum Gutchewer" },
+      },
+      {
+        name = { en = "Shadowpriest Sezz'ziz" },
+      },
+      {
+        name = { en = "Sergeant Bly" },
+      },
+      {
+        name = { en = "Hydromancer Velratha" },
+      },
+      {
+        name = { en = "Gahz'rilla" },
+      },
+      {
+        name = { en = "Chief Ukorz Sandscalp" },
+      },
+    },
+    faction = "both",
+    id = "zulfarrak",
+    instanceID = 209,
+    levels = { max = 54, min = 44 },
+    name = { en = "Zul'Farrak", es = "Zul'Farrak" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Tanaris", es = "Tanaris" },
+  },
+  [229] = {
+    bosses = {
+      {
+        name = { en = "Highlord Omokk" },
+        wing = "lower",
+      },
+      {
+        name = { en = "Shadow Hunter Vosh'gajin" },
+        wing = "lower",
+      },
+      {
+        name = { en = "War Master Voone" },
+        wing = "lower",
+      },
+      {
+        name = { en = "Mother Smolderweb" },
+        wing = "lower",
+      },
+      {
+        name = { en = "Urok Doomhowl" },
+        wing = "lower",
+      },
+      {
+        name = { en = "Quartermaster Zigris" },
+        wing = "lower",
+      },
+      {
+        name = { en = "Halycon" },
+        wing = "lower",
+      },
+      {
+        name = { en = "Gizrul the Slavener" },
+        wing = "lower",
+      },
+      {
+        name = { en = "Overlord Wyrmthalak" },
+        wing = "lower",
+      },
+      {
+        name = { en = "Pyroguard Emberseer" },
+        wing = "upper",
+      },
+      {
+        name = { en = "Solakar Flamewreath" },
+        wing = "upper",
+      },
+      {
+        name = { en = "Warchief Rend Blackhand" },
+        wing = "upper",
+      },
+      {
+        name = { en = "The Beast" },
+        wing = "upper",
+      },
+      {
+        name = { en = "General Drakkisath" },
+        wing = "upper",
+      },
+    },
+    faction = "both",
+    id = "blackrock_spire",
+    instanceID = 229,
+    levels = { max = 60, min = 55 },
+    name = { en = "Blackrock Spire", es = "Cumbre de Roca Negra" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      wings = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    wings = {
+      {
+        id = "lower",
+        levels = { max = 60, min = 55 },
+        name = { en = "Lower Blackrock Spire", es = "Cumbre de Roca Negra inferior" },
+        size = 5,
+      },
+      {
+        id = "upper",
+        levels = { max = 60, min = 58 },
+        name = { en = "Upper Blackrock Spire", es = "Cumbre de Roca Negra superior" },
+        size = 10,
+      },
+    },
+    zone = { en = "Blackrock Mountain", es = "Montaña Roca Negra" },
+  },
+  [230] = {
+    bosses = {
+      {
+        name = { en = "Lord Roccor" },
+      },
+      {
+        name = { en = "High Interrogator Gerstahn" },
+      },
+      {
+        name = { en = "Houndmaster Grebmar" },
+      },
+      {
+        name = { en = "Bael'Gar" },
+      },
+      {
+        name = { en = "Lord Incendius" },
+      },
+      {
+        name = { en = "Fineous Darkvire" },
+      },
+      {
+        name = { en = "Warder Stilgiss" },
+      },
+      {
+        name = { en = "Pyromancer Loregrain" },
+      },
+      {
+        name = { en = "General Angerforge" },
+      },
+      {
+        name = { en = "Golem Lord Argelmach" },
+      },
+      {
+        name = { en = "Hurley Blackbreath" },
+      },
+      {
+        name = { en = "Phalanx" },
+      },
+      {
+        name = { en = "Ribbly Screwspigot" },
+      },
+      {
+        name = { en = "Plugger Spazzring" },
+      },
+      {
+        name = { en = "Ambassador Flamelash" },
+      },
+      {
+        name = { en = "The Seven" },
+      },
+      {
+        name = { en = "Magmus" },
+      },
+      {
+        name = { en = "Emperor Dagran Thaurissan" },
+      },
+    },
+    faction = "both",
+    id = "blackrock_depths",
+    instanceID = 230,
+    levels = { max = 60, min = 52 },
+    name = { en = "Blackrock Depths", es = "Profundidades de Roca Negra" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Blackrock Mountain", es = "Montaña Roca Negra" },
+  },
+  [249] = {
+    bosses = {
+      {
+        name = { en = "Onyxia" },
+      },
+    },
+    faction = "both",
+    id = "onyxias_lair",
+    instanceID = 249,
+    levels = { max = 60, min = 60 },
+    name = { en = "Onyxia's Lair", es = "Guarida de Onyxia" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 40,
+    status = "classic_inherited",
+    type = "raid",
+    zone = { en = "Dustwallow Marsh", es = "Marjal Revolcafango" },
+  },
+  [289] = {
+    bosses = {
+      {
+        name = { en = "Kirtonos the Herald" },
+      },
+      {
+        name = { en = "Jandice Barov" },
+      },
+      {
+        name = { en = "Rattlegore" },
+      },
+      {
+        name = { en = "Marduk Blackpool" },
+      },
+      {
+        name = { en = "Vectus" },
+      },
+      {
+        name = { en = "Ras Frostwhisper" },
+      },
+      {
+        name = { en = "Instructor Malicia" },
+      },
+      {
+        name = { en = "Doctor Theolen Krastinov" },
+      },
+      {
+        name = { en = "Lorekeeper Polkelt" },
+      },
+      {
+        name = { en = "The Ravenian" },
+      },
+      {
+        name = { en = "Lord Alexei Barov" },
+      },
+      {
+        name = { en = "Lady Illucia Barov" },
+      },
+      {
+        name = { en = "Darkmaster Gandling" },
+      },
+    },
+    faction = "both",
+    id = "scholomance",
+    instanceID = 289,
+    levels = { max = 60, min = 58 },
+    name = { en = "Scholomance", es = "Scholomance" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Western Plaguelands", es = "Tierras de la Peste del Oeste" },
+  },
+  [309] = {
+    bosses = {
+      {
+        name = { en = "High Priestess Jeklik" },
+      },
+      {
+        name = { en = "High Priest Venoxis" },
+      },
+      {
+        name = { en = "High Priestess Mar'li" },
+      },
+      {
+        name = { en = "Bloodlord Mandokir" },
+      },
+      {
+        name = { en = "Edge of Madness" },
+      },
+      {
+        name = { en = "High Priest Thekal" },
+      },
+      {
+        name = { en = "Gahz'ranka" },
+      },
+      {
+        name = { en = "High Priestess Arlokk" },
+      },
+      {
+        name = { en = "Jin'do the Hexxer" },
+      },
+      {
+        name = { en = "Hakkar" },
+      },
+    },
+    faction = "both",
+    id = "zulgurub",
+    instanceID = 309,
+    levels = { max = 60, min = 60 },
+    name = { en = "Zul'Gurub", es = "Zul'Gurub" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 20,
+    status = "classic_inherited",
+    type = "raid",
+    zone = { en = "Stranglethorn Vale", es = "Vega de Tuercespina" },
+  },
+  [329] = {
+    bosses = {
+      {
+        name = { en = "The Unforgiven" },
+        wing = "main_gate",
+      },
+      {
+        name = { en = "Timmy the Cruel" },
+        wing = "main_gate",
+      },
+      {
+        name = { en = "Malor the Zealous" },
+        wing = "main_gate",
+      },
+      {
+        name = { en = "Cannon Master Willey" },
+        wing = "main_gate",
+      },
+      {
+        name = { en = "Archivist Galford" },
+        wing = "main_gate",
+      },
+      {
+        name = { en = "Balnazzar" },
+        wing = "main_gate",
+      },
+      {
+        name = { en = "Magistrate Barthilas" },
+        wing = "service_entrance",
+      },
+      {
+        name = { en = "Nerub'enkan" },
+        wing = "service_entrance",
+      },
+      {
+        name = { en = "Baroness Anastari" },
+        wing = "service_entrance",
+      },
+      {
+        name = { en = "Maleki the Pallid" },
+        wing = "service_entrance",
+      },
+      {
+        name = { en = "Ramstein the Gorger" },
+        wing = "service_entrance",
+      },
+      {
+        name = { en = "Baron Rivendare" },
+        wing = "service_entrance",
+      },
+    },
+    faction = "both",
+    id = "stratholme",
+    instanceID = 329,
+    levels = { max = 60, min = 58 },
+    name = { en = "Stratholme", es = "Stratholme" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      wings = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    wings = {
+      {
+        id = "main_gate",
+        levels = { max = 60, min = 58 },
+        name = { en = "Main Gate", es = "Puerta principal" },
+      },
+      {
+        id = "service_entrance",
+        levels = { max = 60, min = 58 },
+        name = { en = "Service Entrance", es = "Entrada de servicio" },
+      },
+    },
+    zone = { en = "Eastern Plaguelands", es = "Tierras de la Peste del Este" },
+  },
+  [349] = {
+    bosses = {
+      {
+        name = { en = "Noxxion" },
+      },
+      {
+        name = { en = "Razorlash" },
+      },
+      {
+        name = { en = "Lord Vyletongue" },
+      },
+      {
+        name = { en = "Celebras the Cursed" },
+      },
+      {
+        name = { en = "Landslide" },
+      },
+      {
+        name = { en = "Tinkerer Gizlock" },
+      },
+      {
+        name = { en = "Rotgrip" },
+      },
+      {
+        name = { en = "Princess Theradras" },
+      },
+    },
+    faction = "both",
+    id = "maraudon",
+    instanceID = 349,
+    levels = { max = 55, min = 46 },
+    name = { en = "Maraudon", es = "Maraudon" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Desolace", es = "Desolace" },
+  },
+  [389] = {
+    bosses = {
+      {
+        name = { en = "Oggleflint" },
+      },
+      {
+        name = { en = "Taragaman the Hungerer" },
+      },
+      {
+        name = { en = "Jergosh the Invoker" },
+      },
+      {
+        name = { en = "Bazzalan" },
+      },
+    },
+    faction = "horde",
+    id = "ragefire_chasm",
+    instanceID = 389,
+    levels = { max = 18, min = 13 },
+    name = { en = "Ragefire Chasm", es = "Sima Ígnea" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    zone = { en = "Orgrimmar", es = "Orgrimmar" },
+  },
+  [409] = {
+    bosses = {
+      {
+        name = { en = "Lucifron" },
+      },
+      {
+        name = { en = "Magmadar" },
+      },
+      {
+        name = { en = "Gehennas" },
+      },
+      {
+        name = { en = "Garr" },
+      },
+      {
+        name = { en = "Shazzrah" },
+      },
+      {
+        name = { en = "Baron Geddon" },
+      },
+      {
+        name = { en = "Sulfuron Harbinger" },
+      },
+      {
+        name = { en = "Golemagg the Incinerator" },
+      },
+      {
+        name = { en = "Majordomo Executus" },
+      },
+      {
+        name = { en = "Ragnaros" },
+      },
+    },
+    faction = "both",
+    id = "molten_core",
+    instanceID = 409,
+    levels = { max = 60, min = 60 },
+    name = { en = "Molten Core", es = "Núcleo de Magma" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 40,
+    status = "classic_inherited",
+    type = "raid",
+    zone = { en = "Blackrock Mountain", es = "Montaña Roca Negra" },
+  },
+  [429] = {
+    bosses = {
+      {
+        name = { en = "Pusillin" },
+        wing = "east",
+      },
+      {
+        name = { en = "Zevrim Thornhoof" },
+        wing = "east",
+      },
+      {
+        name = { en = "Hydrospawn" },
+        wing = "east",
+      },
+      {
+        name = { en = "Lethtendris" },
+        wing = "east",
+      },
+      {
+        name = { en = "Alzzin the Wildshaper" },
+        wing = "east",
+      },
+      {
+        name = { en = "Tendris Warpwood" },
+        wing = "west",
+      },
+      {
+        name = { en = "Illyanna Ravenoak" },
+        wing = "west",
+      },
+      {
+        name = { en = "Magister Kalendris" },
+        wing = "west",
+      },
+      {
+        name = { en = "Immol'thar" },
+        wing = "west",
+      },
+      {
+        name = { en = "Prince Tortheldrin" },
+        wing = "west",
+      },
+      {
+        name = { en = "Guard Mol'dar" },
+        wing = "north",
+      },
+      {
+        name = { en = "Stomper Kreeg" },
+        wing = "north",
+      },
+      {
+        name = { en = "Guard Fengus" },
+        wing = "north",
+      },
+      {
+        name = { en = "Guard Slip'kik" },
+        wing = "north",
+      },
+      {
+        name = { en = "Captain Kromcrush" },
+        wing = "north",
+      },
+      {
+        name = { en = "King Gordok" },
+        wing = "north",
+      },
+    },
+    faction = "both",
+    id = "dire_maul",
+    instanceID = 429,
+    levels = { max = 60, min = 55 },
+    name = { en = "Dire Maul", es = "La Masacre" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      wings = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 5,
+    status = "classic_inherited",
+    type = "dungeon",
+    wings = {
+      {
+        id = "east",
+        levels = { max = 60, min = 55 },
+        name = { en = "Dire Maul East", es = "La Masacre: Este" },
+      },
+      {
+        id = "west",
+        levels = { max = 60, min = 57 },
+        name = { en = "Dire Maul West", es = "La Masacre: Oeste" },
+      },
+      {
+        id = "north",
+        levels = { max = 60, min = 57 },
+        name = { en = "Dire Maul North", es = "La Masacre: Norte" },
+      },
+    },
+    zone = { en = "Feralas", es = "Feralas" },
+  },
+  [469] = {
+    bosses = {
+      {
+        name = { en = "Razorgore the Untamed" },
+      },
+      {
+        name = { en = "Vaelastrasz the Corrupt" },
+      },
+      {
+        name = { en = "Broodlord Lashlayer" },
+      },
+      {
+        name = { en = "Firemaw" },
+      },
+      {
+        name = { en = "Ebonroc" },
+      },
+      {
+        name = { en = "Flamegor" },
+      },
+      {
+        name = { en = "Chromaggus" },
+      },
+      {
+        name = { en = "Nefarian" },
+      },
+    },
+    faction = "both",
+    id = "blackwing_lair",
+    instanceID = 469,
+    levels = { max = 60, min = 60 },
+    name = { en = "Blackwing Lair", es = "Guarida Alanegra" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 40,
+    status = "classic_inherited",
+    type = "raid",
+    zone = { en = "Blackrock Mountain", es = "Montaña Roca Negra" },
+  },
+  [509] = {
+    bosses = {
+      {
+        name = { en = "Kurinnaxx" },
+      },
+      {
+        name = { en = "General Rajaxx" },
+      },
+      {
+        name = { en = "Moam" },
+      },
+      {
+        name = { en = "Buru the Gorger" },
+      },
+      {
+        name = { en = "Ayamiss the Hunter" },
+      },
+      {
+        name = { en = "Ossirian the Unscarred" },
+      },
+    },
+    faction = "both",
+    id = "ruins_of_ahnqiraj",
+    instanceID = 509,
+    levels = { max = 60, min = 60 },
+    name = { en = "Ruins of Ahn'Qiraj", es = "Ruinas de Ahn'Qiraj" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 20,
+    status = "classic_inherited",
+    type = "raid",
+    zone = { en = "Silithus", es = "Silithus" },
+  },
+  [531] = {
+    bosses = {
+      {
+        name = { en = "The Prophet Skeram" },
+      },
+      {
+        name = { en = "Silithid Royalty" },
+      },
+      {
+        name = { en = "Battleguard Sartura" },
+      },
+      {
+        name = { en = "Fankriss the Unyielding" },
+      },
+      {
+        name = { en = "Viscidus" },
+      },
+      {
+        name = { en = "Princess Huhuran" },
+      },
+      {
+        name = { en = "Twin Emperors" },
+      },
+      {
+        name = { en = "Ouro" },
+      },
+      {
+        name = { en = "C'Thun" },
+      },
+    },
+    faction = "both",
+    id = "temple_of_ahnqiraj",
+    instanceID = 531,
+    levels = { max = 60, min = 60 },
+    name = { en = "Temple of Ahn'Qiraj", es = "Templo de Ahn'Qiraj" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 40,
+    status = "classic_inherited",
+    type = "raid",
+    zone = { en = "Silithus", es = "Silithus" },
+  },
+  [533] = {
+    bosses = {
+      {
+        name = { en = "Anub'Rekhan" },
+      },
+      {
+        name = { en = "Grand Widow Faerlina" },
+      },
+      {
+        name = { en = "Maexxna" },
+      },
+      {
+        name = { en = "Noth the Plaguebringer" },
+      },
+      {
+        name = { en = "Heigan the Unclean" },
+      },
+      {
+        name = { en = "Loatheb" },
+      },
+      {
+        name = { en = "Instructor Razuvious" },
+      },
+      {
+        name = { en = "Gothik the Harvester" },
+      },
+      {
+        name = { en = "The Four Horsemen" },
+      },
+      {
+        name = { en = "Patchwerk" },
+      },
+      {
+        name = { en = "Grobbulus" },
+      },
+      {
+        name = { en = "Gluth" },
+      },
+      {
+        name = { en = "Thaddius" },
+      },
+      {
+        name = { en = "Sapphiron" },
+      },
+      {
+        name = { en = "Kel'Thuzad" },
+      },
+    },
+    faction = "both",
+    id = "naxxramas",
+    instanceID = 533,
+    levels = { max = 60, min = 60 },
+    name = { en = "Naxxramas", es = "Naxxramas" },
+    provenance = {
+      bosses = "classic_inherited",
+      faction = "classic_inherited",
+      levels = "classic_inherited",
+      name = "classic_inherited",
+      size = "classic_inherited",
+      type = "classic_inherited",
+      zone = "classic_inherited",
+    },
+    size = 40,
+    status = "classic_inherited",
+    type = "raid",
+    zone = { en = "Eastern Plaguelands", es = "Tierras de la Peste del Este" },
+  },
+}

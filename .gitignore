@@ -3,3 +3,7 @@ data-sources/raw/
 __pycache__/
 *.pyc
 wow-dev.config.local.json
+# Informes que se regeneran en cada ejecución
+validation/coverage-*
+validation/changes-latest.md
+release/

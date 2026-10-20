@@ -13,6 +13,13 @@ su documentación técnica. Cada afirmación lleva su nivel de confianza:
 - **Indirecto**: visto en resultados de búsqueda o en descripciones de terceros.
 - **Sin confirmar**: lo afirma el plan, pero no se ha podido comprobar.
 
+> **Actualización (v0.1):** el desarrollo arrancó sin esperar a cerrar esta fase,
+> siguiendo el hallazgo H4: el addon toma del propio cliente todo lo que puede
+> (diario, mapas, jefes, botín y entradas) y solo incluye en el paquete los
+> rangos de nivel heredados de Classic, marcados como tales. Las fuentes de
+> este documento se incorporarán por `data-sources/sources.json` en cuanto
+> autoricen la redistribución. Ver [ACTUALIZACION.md](ACTUALIZACION.md).
+
 Para cerrar la fase hay que completar la [lista de acciones](#7-acciones-para-cerrar-la-fase-01)
 desde tu PC con la herramienta `pipeline/probe_sources.py`.
 

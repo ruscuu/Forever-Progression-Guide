@@ -1,0 +1,61 @@
+# Publica una versión: al subir una etiqueta v*, a mano o tras una actualización de datos.
+# Siempre crea un GitHub Release con el .zip (WowUp puede instalar y actualizar desde ahí).
+# Si existen el secreto CF_API_KEY y las variables CF_PROJECT_ID y CF_GAME_VERSION_IDS,
+# también lo sube a CurseForge, y la app de CurseForge lo actualiza sola.
+name: Publicar
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versión (sin la v inicial)"
+        required: true
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ inputs.version || github.ref_name }}
+      # A nivel de trabajo para que la condición del paso de CurseForge pueda leerlo.
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'push' && github.ref || 'main' }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Empaquetar
+        run: |
+          VERSION="${VERSION#v}"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          python pipeline/package.py "$VERSION"
+
+      - name: GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NOTES="validation/changes-latest.md"
+          [ -f "$NOTES" ] || echo "Versión $VERSION" > "$NOTES"
+          gh release create "v$VERSION" "release/WoWForeverGuide-$VERSION.zip" \
+            --title "WoW Forever Progression Guide $VERSION" --notes-file "$NOTES" --target "$(git rev-parse HEAD)"
+
+      - name: CurseForge
+        if: env.CF_API_KEY != '' && vars.CF_PROJECT_ID != '' && vars.CF_GAME_VERSION_IDS != ''
+        run: |
+          METADATA=$(printf '{"changelog":"Versión %s","changelogType":"markdown","displayName":"%s","gameVersions":[%s],"releaseType":"release"}' \
+            "$VERSION" "$VERSION" "${{ vars.CF_GAME_VERSION_IDS }}")
+          curl --fail-with-body -sS -H "X-Api-Token: $CF_API_KEY" \
+            -F "metadata=$METADATA" -F "file=@release/WoWForeverGuide-$VERSION.zip" \
+            "https://wow.curseforge.com/api/projects/${{ vars.CF_PROJECT_ID }}/upload-file"

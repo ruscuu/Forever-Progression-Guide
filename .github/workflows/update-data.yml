@@ -1,0 +1,87 @@
+# Mantiene los datos al día sin intervención:
+#   1. cada 6 horas (y al añadir observaciones) descarga las fuentes configuradas,
+#   2. regenera los datos del addon y ejecuta las pruebas,
+#   3. si algo cambió, abre un pull request con el informe de cambios,
+#   4. si la variable AUTO_MERGE_DATA es "true" y no se elimina nada, lo fusiona
+#      y publica una versión nueva, que los gestores de addons instalan solos.
+name: Actualizar datos
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "data-sources/contributions/**"
+      - "data-sources/seed/**"
+      - "data-sources/sources.json"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    outputs:
+      merged: ${{ steps.merge.outputs.merged }}
+      version: ${{ steps.build.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install lupa==2.8
+
+      - name: Descargar fuentes configuradas
+        env:
+          FOREVERDB_API_KEY: ${{ secrets.FOREVERDB_API_KEY }}
+        run: python pipeline/probe_sources.py
+
+      - name: Regenerar datos
+        id: build
+        run: python pipeline/build_data.py
+
+      - name: Pruebas
+        if: steps.build.outputs.changed == 'true'
+        run: |
+          python -m unittest discover -s pipeline/tests
+          python -m unittest discover -s tests
+
+      - name: Abrir pull request
+        id: pr
+        if: steps.build.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          # Con un token personal (secreto DATA_BOT_TOKEN) el PR también lanza CI;
+          # con el token por defecto, GitHub no ejecuta flujos sobre él.
+          token: ${{ secrets.DATA_BOT_TOKEN || github.token }}
+          branch: automatic/data-update
+          title: "Datos: actualización automática ${{ steps.build.outputs.version }}"
+          body-path: validation/changes-latest.md
+          commit-message: "Actualizar datos generados (${{ steps.build.outputs.version }})"
+          add-paths: |
+            WoWForeverGuide/Data
+            data-sources/generated
+
+      - name: Fusionar automáticamente
+        id: merge
+        if: steps.pr.outputs.pull-request-number && vars.AUTO_MERGE_DATA == 'true' && steps.build.outputs.removals != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.DATA_BOT_TOKEN || github.token }}
+        run: |
+          gh pr merge "${{ steps.pr.outputs.pull-request-number }}" --squash --delete-branch
+          echo "merged=true" >> "$GITHUB_OUTPUT"
+
+  release:
+    needs: update
+    if: needs.update.outputs.merged == 'true'
+    uses: ./.github/workflows/release.yml
+    with:
+      version: ${{ needs.update.outputs.version }}
+    secrets: inherit

@@ -1,5 +1,5 @@
 {
-  "_comment": "Inventario de fuentes. Rellena 'endpoints' con las rutas EXACTAS que aparezcan en la documentación de cada fuente; no inventes rutas. Las claves nunca se escriben aquí: se leen de la variable de entorno indicada en 'api_key_env'.",
+  "_comment": "Inventario de fuentes. Rellena 'endpoints' con las rutas EXACTAS de la documentación de cada fuente; no inventes rutas. Las claves nunca se escriben aquí: se leen de la variable de entorno indicada en 'api_key_env'. 'imports' indica cómo convertir cada descarga en datos del addon; solo se aplica si 'redistribution_allowed' es true, es decir, cuando la fuente haya autorizado por escrito incluir sus datos en un addon distribuido.",
   "sources": [
     {
       "id": "forevercompanion",
@@ -12,7 +12,9 @@
       "api_key_header": null,
       "role": "principal (pendiente de confirmar)",
       "notes": "La web se presenta como planificador de subida de nivel que cruza datos de otros sitios independientes. Confirmar que es fuente primaria y que permite redistribución.",
-      "endpoints": {}
+      "endpoints": {},
+      "redistribution_allowed": false,
+      "imports": []
     },
     {
       "id": "foreverdb",
@@ -25,7 +27,19 @@
       "api_key_header": "X-API-Key",
       "role": "secundaria; candidata a principal para profesiones",
       "notes": "API anunciada el 18-10-2026: items, spells, quests, vendors, dungeons, classes, item sets. Acceso bajo solicitud. Confirmar el nombre real de la cabecera de la clave.",
-      "endpoints": {}
+      "endpoints": {},
+      "redistribution_allowed": false,
+      "imports": []
     }
-  ]
+  ],
+  "_example_import": {
+    "endpoint": "dungeons",
+    "status": "datamined",
+    "fields": {
+      "instanceID": "mapId",
+      "levels.min": "minLevel",
+      "levels.max": "maxLevel",
+      "name.en": "name"
+    }
+  }
 }

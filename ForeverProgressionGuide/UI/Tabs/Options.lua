@@ -66,6 +66,12 @@ function UI.BuildOptions(panel)
   o.info:SetPoint("TOPLEFT", 4, -228)
   o.info:SetPoint("RIGHT", panel, "RIGHT", -8, 0)
 
+  o.creditsTitle = heading(panel)
+  o.creditsTitle:SetPoint("TOPLEFT", 4, -268)
+  o.credits = UI.Label(panel, "GameFontHighlightSmall")
+  o.credits:SetPoint("TOPLEFT", 4, -288)
+  o.credits:SetPoint("RIGHT", panel, "RIGHT", -8, 0)
+
   return function()
     o.languageTitle:SetText(L.OPTIONS_LANGUAGE)
     o.languages.auto:SetText(L.OPTIONS_LANGUAGE_AUTO)
@@ -88,6 +94,12 @@ function UI.BuildOptions(panel)
     o.infoTitle:SetText(L.OPTIONS_INFO)
     o.info:SetText(string.format(L.INFO, C.AddOnVersion(), meta.version or "?", meta.generated or "?",
       C.ClientBuild(), instances, quests, ns.Journal.Available() and L.YES or L.NO))
+
+    -- Forever Companion pide que se cite su web; sus datos vienen a su vez de otras fuentes.
+    local credits = meta.credits
+    o.creditsTitle:SetText(L.OPTIONS_CREDITS)
+    o.credits:SetText(credits and string.format(L.CREDITS_TEXT, credits.name, credits.url,
+      table.concat(credits.sources or {}, ", "), credits.updatedAt or "?") or "")
   end
 end
 

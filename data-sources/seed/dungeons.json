@@ -1,261 +1,396 @@
 {
-  "_comment": "Semilla de mazmorras y bandas. Todo procede de WoW Classic y está marcado como classic_inherited: los rangos de nivel y los jefes pueden haber cambiado en Forever. Las observaciones en el juego (data-sources/contributions/) y las fuentes autorizadas lo sustituyen campo a campo. Los nombres de jefes solo están en inglés; sin traducción confirmada se muestran en el idioma original.",
+  "_comment": "Lo que Forever Companion no aporta: el ID de instancia del juego (para enlazar con el cliente y con lo observado al jugar), los nombres en español y las bandas. Los IDs de instancia y los nombres vienen de Classic (classic_inherited); las mazmorras nuevas de Forever no los tienen hasta que alguien entra en ellas con el addon.",
   "status": "classic_inherited",
   "dungeons": [
     {
-      "id": "ragefire_chasm", "instanceID": 389, "type": "dungeon", "size": 5, "faction": "horde",
-      "name": {"en": "Ragefire Chasm", "es": "Sima Ígnea"},
-      "zone": {"en": "Orgrimmar", "es": "Orgrimmar"},
-      "levels": {"min": 13, "max": 18},
-      "bosses": ["Oggleflint", "Taragaman the Hungerer", "Jergosh the Invoker", "Bazzalan"]
+      "id": "ragefire-chasm",
+      "instanceID": 389,
+      "name": {
+        "es": "Sima Ígnea"
+      }
     },
     {
-      "id": "wailing_caverns", "instanceID": 43, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Wailing Caverns", "es": "Cuevas de los Lamentos"},
-      "zone": {"en": "The Barrens", "es": "Los Baldíos"},
-      "levels": {"min": 17, "max": 24},
-      "bosses": ["Lady Anacondra", "Lord Cobrahn", "Kresh", "Lord Pythas", "Skum", "Lord Serpentis", "Verdan the Everliving", "Mutanus the Devourer"]
+      "id": "wailing-caverns",
+      "instanceID": 43,
+      "name": {
+        "es": "Cuevas de los Lamentos"
+      }
     },
     {
-      "id": "deadmines", "instanceID": 36, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "The Deadmines", "es": "Las Minas de la Muerte"},
-      "zone": {"en": "Westfall", "es": "Páramos de Poniente"},
-      "levels": {"min": 17, "max": 26},
-      "bosses": ["Rhahk'Zor", "Sneed", "Gilnid", "Mr. Smite", "Captain Greenskin", "Edwin VanCleef", "Cookie"]
+      "id": "the-deadmines",
+      "instanceID": 36,
+      "name": {
+        "es": "Las Minas de la Muerte"
+      }
     },
     {
-      "id": "shadowfang_keep", "instanceID": 33, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Shadowfang Keep", "es": "Castillo de Colmillo Oscuro"},
-      "zone": {"en": "Silverpine Forest", "es": "Bosque de Argénteos"},
-      "levels": {"min": 22, "max": 30},
-      "bosses": ["Rethilgore", "Razorclaw the Butcher", "Baron Silverlaine", "Commander Springvale", "Odo the Blindwatcher", "Fenrus the Devourer", "Wolf Master Nandos", "Archmage Arugal"]
+      "id": "shadowfang-keep",
+      "instanceID": 33,
+      "name": {
+        "es": "Castillo de Colmillo Oscuro"
+      }
     },
     {
-      "id": "blackfathom_deeps", "instanceID": 48, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Blackfathom Deeps", "es": "Cavernas de Brazanegra"},
-      "zone": {"en": "Ashenvale", "es": "Vallefresno"},
-      "levels": {"min": 24, "max": 32},
-      "bosses": ["Ghamoo-ra", "Lady Sarevess", "Gelihast", "Lorgus Jett", "Baron Aquanis", "Twilight Lord Kelris", "Old Serra'kis", "Aku'mai"]
+      "id": "blackfathom-deeps",
+      "instanceID": 48,
+      "name": {
+        "es": "Cavernas de Brazanegra"
+      }
     },
     {
-      "id": "stockade", "instanceID": 34, "type": "dungeon", "size": 5, "faction": "alliance",
-      "name": {"en": "The Stockade", "es": "Las Mazmorras"},
-      "zone": {"en": "Stormwind City", "es": "Ciudad de Ventormenta"},
-      "levels": {"min": 24, "max": 32},
-      "bosses": ["Targorr the Dread", "Kam Deepfury", "Hamhock", "Bazil Thredd", "Dextren Ward", "Bruegal Ironknuckle"]
+      "id": "the-stockade",
+      "instanceID": 34,
+      "name": {
+        "es": "Las Mazmorras"
+      }
     },
     {
-      "id": "gnomeregan", "instanceID": 90, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Gnomeregan", "es": "Gnomeregan"},
-      "zone": {"en": "Dun Morogh", "es": "Dun Morogh"},
-      "levels": {"min": 29, "max": 38},
-      "bosses": ["Grubbis", "Viscous Fallout", "Electrocutioner 6000", "Crowd Pummeler 9-60", "Dark Iron Ambassador", "Mekgineer Thermaplugg"]
+      "id": "sm-graveyard",
+      "instanceID": 189,
+      "name": {
+        "es": "Monasterio Escarlata: Cementerio"
+      }
     },
     {
-      "id": "razorfen_kraul", "instanceID": 47, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Razorfen Kraul", "es": "Horado Rajacieno"},
-      "zone": {"en": "The Barrens", "es": "Los Baldíos"},
-      "levels": {"min": 29, "max": 38},
-      "bosses": ["Aggem Thorncurse", "Death Speaker Jargba", "Overlord Ramtusk", "Agathelos the Raging", "Charlga Razorflank"]
+      "id": "sm-library",
+      "instanceID": 189,
+      "name": {
+        "es": "Monasterio Escarlata: Biblioteca"
+      }
     },
     {
-      "id": "scarlet_monastery", "instanceID": 189, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Scarlet Monastery", "es": "Monasterio Escarlata"},
-      "zone": {"en": "Tirisfal Glades", "es": "Claros de Tirisfal"},
-      "levels": {"min": 26, "max": 45},
-      "wings": [
-        {"id": "graveyard", "name": {"en": "Graveyard", "es": "Cementerio"}, "levels": {"min": 26, "max": 36}},
-        {"id": "library", "name": {"en": "Library", "es": "Biblioteca"}, "levels": {"min": 29, "max": 39}},
-        {"id": "armory", "name": {"en": "Armory", "es": "Armería"}, "levels": {"min": 32, "max": 42}},
-        {"id": "cathedral", "name": {"en": "Cathedral", "es": "Catedral"}, "levels": {"min": 35, "max": 45}}
-      ],
+      "id": "sm-armory",
+      "instanceID": 189,
+      "name": {
+        "es": "Monasterio Escarlata: Armería"
+      }
+    },
+    {
+      "id": "sm-cathedral",
+      "instanceID": 189,
+      "name": {
+        "es": "Monasterio Escarlata: Catedral"
+      }
+    },
+    {
+      "id": "gnomeregan",
+      "instanceID": 90,
+      "name": {
+        "es": "Gnomeregan"
+      }
+    },
+    {
+      "id": "razorfen-kraul",
+      "instanceID": 47,
+      "name": {
+        "es": "Horado Rajacieno"
+      }
+    },
+    {
+      "id": "razorfen-downs",
+      "instanceID": 129,
+      "name": {
+        "es": "Zahúrda Rajacieno"
+      }
+    },
+    {
+      "id": "uldaman",
+      "instanceID": 70,
+      "name": {
+        "es": "Uldaman"
+      }
+    },
+    {
+      "id": "zulfarrak",
+      "instanceID": 209,
+      "name": {
+        "es": "Zul'Farrak"
+      }
+    },
+    {
+      "id": "maraudon",
+      "instanceID": 349,
+      "name": {
+        "es": "Maraudon"
+      }
+    },
+    {
+      "id": "sunken-temple",
+      "instanceID": 109,
+      "name": {
+        "es": "El Templo de Atal'Hakkar"
+      }
+    },
+    {
+      "id": "blackrock-depths",
+      "instanceID": 230,
+      "name": {
+        "es": "Profundidades de Roca Negra"
+      }
+    },
+    {
+      "id": "lower-blackrock-spire",
+      "instanceID": 229,
+      "name": {
+        "es": "Cumbre de Roca Negra inferior"
+      }
+    },
+    {
+      "id": "upper-blackrock-spire",
+      "instanceID": 229,
+      "name": {
+        "es": "Cumbre de Roca Negra superior"
+      }
+    },
+    {
+      "id": "dire-maul-east",
+      "instanceID": 429,
+      "name": {
+        "es": "La Masacre: Este"
+      }
+    },
+    {
+      "id": "dire-maul-west",
+      "instanceID": 429,
+      "name": {
+        "es": "La Masacre: Oeste"
+      }
+    },
+    {
+      "id": "dire-maul-north",
+      "instanceID": 429,
+      "name": {
+        "es": "La Masacre: Norte"
+      }
+    },
+    {
+      "id": "scholomance",
+      "instanceID": 289,
+      "name": {
+        "es": "Scholomance"
+      }
+    },
+    {
+      "id": "stratholme-live",
+      "instanceID": 329,
+      "name": {
+        "es": "Stratholme: Puerta principal"
+      }
+    },
+    {
+      "id": "stratholme-undead",
+      "instanceID": 329,
+      "name": {
+        "es": "Stratholme: Entrada de servicio"
+      }
+    }
+  ],
+  "raids": [
+    {
+      "id": "molten-core",
+      "instanceID": 409,
+      "type": "raid",
+      "size": 40,
+      "faction": "both",
+      "name": {
+        "en": "Molten Core",
+        "es": "Núcleo de Magma"
+      },
+      "zone": {
+        "en": "Blackrock Mountain",
+        "es": "Montaña Roca Negra"
+      },
+      "levels": {
+        "min": 60,
+        "max": 60
+      },
       "bosses": [
-        {"name": "Interrogator Vishas", "wing": "graveyard"},
-        {"name": "Bloodmage Thalnos", "wing": "graveyard"},
-        {"name": "Houndmaster Loksey", "wing": "library"},
-        {"name": "Arcanist Doan", "wing": "library"},
-        {"name": "Herod", "wing": "armory"},
-        {"name": "High Inquisitor Fairbanks", "wing": "cathedral"},
-        {"name": "Scarlet Commander Mograine", "wing": "cathedral"},
-        {"name": "High Inquisitor Whitemane", "wing": "cathedral"}
+        "Lucifron",
+        "Magmadar",
+        "Gehennas",
+        "Garr",
+        "Shazzrah",
+        "Baron Geddon",
+        "Sulfuron Harbinger",
+        "Golemagg the Incinerator",
+        "Majordomo Executus",
+        "Ragnaros"
       ]
     },
     {
-      "id": "razorfen_downs", "instanceID": 129, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Razorfen Downs", "es": "Zahúrda Rajacieno"},
-      "zone": {"en": "The Barrens", "es": "Los Baldíos"},
-      "levels": {"min": 37, "max": 46},
-      "bosses": ["Tuten'kash", "Mordresh Fire Eye", "Glutton", "Amnennar the Coldbringer"]
-    },
-    {
-      "id": "uldaman", "instanceID": 70, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Uldaman", "es": "Uldaman"},
-      "zone": {"en": "Badlands", "es": "Tierras Inhóspitas"},
-      "levels": {"min": 41, "max": 51},
-      "bosses": ["Revelosh", "Ironaya", "Obsidian Sentinel", "Ancient Stone Keeper", "Galgann Firehammer", "Grimlok", "Archaedas"]
-    },
-    {
-      "id": "zulfarrak", "instanceID": 209, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Zul'Farrak", "es": "Zul'Farrak"},
-      "zone": {"en": "Tanaris", "es": "Tanaris"},
-      "levels": {"min": 44, "max": 54},
-      "bosses": ["Antu'sul", "Theka the Martyr", "Witch Doctor Zum'rah", "Nekrum Gutchewer", "Shadowpriest Sezz'ziz", "Sergeant Bly", "Hydromancer Velratha", "Gahz'rilla", "Chief Ukorz Sandscalp"]
-    },
-    {
-      "id": "maraudon", "instanceID": 349, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Maraudon", "es": "Maraudon"},
-      "zone": {"en": "Desolace", "es": "Desolace"},
-      "levels": {"min": 46, "max": 55},
-      "bosses": ["Noxxion", "Razorlash", "Lord Vyletongue", "Celebras the Cursed", "Landslide", "Tinkerer Gizlock", "Rotgrip", "Princess Theradras"]
-    },
-    {
-      "id": "sunken_temple", "instanceID": 109, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "The Temple of Atal'Hakkar", "es": "El Templo de Atal'Hakkar"},
-      "zone": {"en": "Swamp of Sorrows", "es": "Pantano de las Penas"},
-      "levels": {"min": 50, "max": 56},
-      "bosses": ["Atal'alarion", "Jammal'an the Prophet", "Ogom the Wretched", "Dreamscythe", "Weaver", "Morphaz", "Hazzas", "Shade of Eranikus", "Avatar of Hakkar"]
-    },
-    {
-      "id": "blackrock_depths", "instanceID": 230, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Blackrock Depths", "es": "Profundidades de Roca Negra"},
-      "zone": {"en": "Blackrock Mountain", "es": "Montaña Roca Negra"},
-      "levels": {"min": 52, "max": 60},
-      "bosses": ["Lord Roccor", "High Interrogator Gerstahn", "Houndmaster Grebmar", "Bael'Gar", "Lord Incendius", "Fineous Darkvire", "Warder Stilgiss", "Pyromancer Loregrain", "General Angerforge", "Golem Lord Argelmach", "Hurley Blackbreath", "Phalanx", "Ribbly Screwspigot", "Plugger Spazzring", "Ambassador Flamelash", "The Seven", "Magmus", "Emperor Dagran Thaurissan"]
-    },
-    {
-      "id": "blackrock_spire", "instanceID": 229, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Blackrock Spire", "es": "Cumbre de Roca Negra"},
-      "zone": {"en": "Blackrock Mountain", "es": "Montaña Roca Negra"},
-      "levels": {"min": 55, "max": 60},
-      "wings": [
-        {"id": "lower", "name": {"en": "Lower Blackrock Spire", "es": "Cumbre de Roca Negra inferior"}, "levels": {"min": 55, "max": 60}, "size": 5},
-        {"id": "upper", "name": {"en": "Upper Blackrock Spire", "es": "Cumbre de Roca Negra superior"}, "levels": {"min": 58, "max": 60}, "size": 10}
-      ],
+      "id": "onyxias-lair",
+      "instanceID": 249,
+      "type": "raid",
+      "size": 40,
+      "faction": "both",
+      "name": {
+        "en": "Onyxia's Lair",
+        "es": "Guarida de Onyxia"
+      },
+      "zone": {
+        "en": "Dustwallow Marsh",
+        "es": "Marjal Revolcafango"
+      },
+      "levels": {
+        "min": 60,
+        "max": 60
+      },
       "bosses": [
-        {"name": "Highlord Omokk", "wing": "lower"},
-        {"name": "Shadow Hunter Vosh'gajin", "wing": "lower"},
-        {"name": "War Master Voone", "wing": "lower"},
-        {"name": "Mother Smolderweb", "wing": "lower"},
-        {"name": "Urok Doomhowl", "wing": "lower"},
-        {"name": "Quartermaster Zigris", "wing": "lower"},
-        {"name": "Halycon", "wing": "lower"},
-        {"name": "Gizrul the Slavener", "wing": "lower"},
-        {"name": "Overlord Wyrmthalak", "wing": "lower"},
-        {"name": "Pyroguard Emberseer", "wing": "upper"},
-        {"name": "Solakar Flamewreath", "wing": "upper"},
-        {"name": "Warchief Rend Blackhand", "wing": "upper"},
-        {"name": "The Beast", "wing": "upper"},
-        {"name": "General Drakkisath", "wing": "upper"}
+        "Onyxia"
       ]
     },
     {
-      "id": "dire_maul", "instanceID": 429, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Dire Maul", "es": "La Masacre"},
-      "zone": {"en": "Feralas", "es": "Feralas"},
-      "levels": {"min": 55, "max": 60},
-      "wings": [
-        {"id": "east", "name": {"en": "Dire Maul East", "es": "La Masacre: Este"}, "levels": {"min": 55, "max": 60}},
-        {"id": "west", "name": {"en": "Dire Maul West", "es": "La Masacre: Oeste"}, "levels": {"min": 57, "max": 60}},
-        {"id": "north", "name": {"en": "Dire Maul North", "es": "La Masacre: Norte"}, "levels": {"min": 57, "max": 60}}
-      ],
+      "id": "blackwing-lair",
+      "instanceID": 469,
+      "type": "raid",
+      "size": 40,
+      "faction": "both",
+      "name": {
+        "en": "Blackwing Lair",
+        "es": "Guarida Alanegra"
+      },
+      "zone": {
+        "en": "Blackrock Mountain",
+        "es": "Montaña Roca Negra"
+      },
+      "levels": {
+        "min": 60,
+        "max": 60
+      },
       "bosses": [
-        {"name": "Pusillin", "wing": "east"},
-        {"name": "Zevrim Thornhoof", "wing": "east"},
-        {"name": "Hydrospawn", "wing": "east"},
-        {"name": "Lethtendris", "wing": "east"},
-        {"name": "Alzzin the Wildshaper", "wing": "east"},
-        {"name": "Tendris Warpwood", "wing": "west"},
-        {"name": "Illyanna Ravenoak", "wing": "west"},
-        {"name": "Magister Kalendris", "wing": "west"},
-        {"name": "Immol'thar", "wing": "west"},
-        {"name": "Prince Tortheldrin", "wing": "west"},
-        {"name": "Guard Mol'dar", "wing": "north"},
-        {"name": "Stomper Kreeg", "wing": "north"},
-        {"name": "Guard Fengus", "wing": "north"},
-        {"name": "Guard Slip'kik", "wing": "north"},
-        {"name": "Captain Kromcrush", "wing": "north"},
-        {"name": "King Gordok", "wing": "north"}
+        "Razorgore the Untamed",
+        "Vaelastrasz the Corrupt",
+        "Broodlord Lashlayer",
+        "Firemaw",
+        "Ebonroc",
+        "Flamegor",
+        "Chromaggus",
+        "Nefarian"
       ]
     },
     {
-      "id": "scholomance", "instanceID": 289, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Scholomance", "es": "Scholomance"},
-      "zone": {"en": "Western Plaguelands", "es": "Tierras de la Peste del Oeste"},
-      "levels": {"min": 58, "max": 60},
-      "bosses": ["Kirtonos the Herald", "Jandice Barov", "Rattlegore", "Marduk Blackpool", "Vectus", "Ras Frostwhisper", "Instructor Malicia", "Doctor Theolen Krastinov", "Lorekeeper Polkelt", "The Ravenian", "Lord Alexei Barov", "Lady Illucia Barov", "Darkmaster Gandling"]
-    },
-    {
-      "id": "stratholme", "instanceID": 329, "type": "dungeon", "size": 5, "faction": "both",
-      "name": {"en": "Stratholme", "es": "Stratholme"},
-      "zone": {"en": "Eastern Plaguelands", "es": "Tierras de la Peste del Este"},
-      "levels": {"min": 58, "max": 60},
-      "wings": [
-        {"id": "main_gate", "name": {"en": "Main Gate", "es": "Puerta principal"}, "levels": {"min": 58, "max": 60}},
-        {"id": "service_entrance", "name": {"en": "Service Entrance", "es": "Entrada de servicio"}, "levels": {"min": 58, "max": 60}}
-      ],
+      "id": "zulgurub",
+      "instanceID": 309,
+      "type": "raid",
+      "size": 20,
+      "faction": "both",
+      "name": {
+        "en": "Zul'Gurub",
+        "es": "Zul'Gurub"
+      },
+      "zone": {
+        "en": "Stranglethorn Vale",
+        "es": "Vega de Tuercespina"
+      },
+      "levels": {
+        "min": 60,
+        "max": 60
+      },
       "bosses": [
-        {"name": "The Unforgiven", "wing": "main_gate"},
-        {"name": "Timmy the Cruel", "wing": "main_gate"},
-        {"name": "Malor the Zealous", "wing": "main_gate"},
-        {"name": "Cannon Master Willey", "wing": "main_gate"},
-        {"name": "Archivist Galford", "wing": "main_gate"},
-        {"name": "Balnazzar", "wing": "main_gate"},
-        {"name": "Magistrate Barthilas", "wing": "service_entrance"},
-        {"name": "Nerub'enkan", "wing": "service_entrance"},
-        {"name": "Baroness Anastari", "wing": "service_entrance"},
-        {"name": "Maleki the Pallid", "wing": "service_entrance"},
-        {"name": "Ramstein the Gorger", "wing": "service_entrance"},
-        {"name": "Baron Rivendare", "wing": "service_entrance"}
+        "High Priestess Jeklik",
+        "High Priest Venoxis",
+        "High Priestess Mar'li",
+        "Bloodlord Mandokir",
+        "Edge of Madness",
+        "High Priest Thekal",
+        "Gahz'ranka",
+        "High Priestess Arlokk",
+        "Jin'do the Hexxer",
+        "Hakkar"
       ]
     },
     {
-      "id": "molten_core", "instanceID": 409, "type": "raid", "size": 40, "faction": "both",
-      "name": {"en": "Molten Core", "es": "Núcleo de Magma"},
-      "zone": {"en": "Blackrock Mountain", "es": "Montaña Roca Negra"},
-      "levels": {"min": 60, "max": 60},
-      "bosses": ["Lucifron", "Magmadar", "Gehennas", "Garr", "Shazzrah", "Baron Geddon", "Sulfuron Harbinger", "Golemagg the Incinerator", "Majordomo Executus", "Ragnaros"]
+      "id": "ruins-of-ahnqiraj",
+      "instanceID": 509,
+      "type": "raid",
+      "size": 20,
+      "faction": "both",
+      "name": {
+        "en": "Ruins of Ahn'Qiraj",
+        "es": "Ruinas de Ahn'Qiraj"
+      },
+      "zone": {
+        "en": "Silithus",
+        "es": "Silithus"
+      },
+      "levels": {
+        "min": 60,
+        "max": 60
+      },
+      "bosses": [
+        "Kurinnaxx",
+        "General Rajaxx",
+        "Moam",
+        "Buru the Gorger",
+        "Ayamiss the Hunter",
+        "Ossirian the Unscarred"
+      ]
     },
     {
-      "id": "onyxias_lair", "instanceID": 249, "type": "raid", "size": 40, "faction": "both",
-      "name": {"en": "Onyxia's Lair", "es": "Guarida de Onyxia"},
-      "zone": {"en": "Dustwallow Marsh", "es": "Marjal Revolcafango"},
-      "levels": {"min": 60, "max": 60},
-      "bosses": ["Onyxia"]
+      "id": "temple-of-ahnqiraj",
+      "instanceID": 531,
+      "type": "raid",
+      "size": 40,
+      "faction": "both",
+      "name": {
+        "en": "Temple of Ahn'Qiraj",
+        "es": "Templo de Ahn'Qiraj"
+      },
+      "zone": {
+        "en": "Silithus",
+        "es": "Silithus"
+      },
+      "levels": {
+        "min": 60,
+        "max": 60
+      },
+      "bosses": [
+        "The Prophet Skeram",
+        "Silithid Royalty",
+        "Battleguard Sartura",
+        "Fankriss the Unyielding",
+        "Viscidus",
+        "Princess Huhuran",
+        "Twin Emperors",
+        "Ouro",
+        "C'Thun"
+      ]
     },
     {
-      "id": "blackwing_lair", "instanceID": 469, "type": "raid", "size": 40, "faction": "both",
-      "name": {"en": "Blackwing Lair", "es": "Guarida Alanegra"},
-      "zone": {"en": "Blackrock Mountain", "es": "Montaña Roca Negra"},
-      "levels": {"min": 60, "max": 60},
-      "bosses": ["Razorgore the Untamed", "Vaelastrasz the Corrupt", "Broodlord Lashlayer", "Firemaw", "Ebonroc", "Flamegor", "Chromaggus", "Nefarian"]
-    },
-    {
-      "id": "zulgurub", "instanceID": 309, "type": "raid", "size": 20, "faction": "both",
-      "name": {"en": "Zul'Gurub", "es": "Zul'Gurub"},
-      "zone": {"en": "Stranglethorn Vale", "es": "Vega de Tuercespina"},
-      "levels": {"min": 60, "max": 60},
-      "bosses": ["High Priestess Jeklik", "High Priest Venoxis", "High Priestess Mar'li", "Bloodlord Mandokir", "Edge of Madness", "High Priest Thekal", "Gahz'ranka", "High Priestess Arlokk", "Jin'do the Hexxer", "Hakkar"]
-    },
-    {
-      "id": "ruins_of_ahnqiraj", "instanceID": 509, "type": "raid", "size": 20, "faction": "both",
-      "name": {"en": "Ruins of Ahn'Qiraj", "es": "Ruinas de Ahn'Qiraj"},
-      "zone": {"en": "Silithus", "es": "Silithus"},
-      "levels": {"min": 60, "max": 60},
-      "bosses": ["Kurinnaxx", "General Rajaxx", "Moam", "Buru the Gorger", "Ayamiss the Hunter", "Ossirian the Unscarred"]
-    },
-    {
-      "id": "temple_of_ahnqiraj", "instanceID": 531, "type": "raid", "size": 40, "faction": "both",
-      "name": {"en": "Temple of Ahn'Qiraj", "es": "Templo de Ahn'Qiraj"},
-      "zone": {"en": "Silithus", "es": "Silithus"},
-      "levels": {"min": 60, "max": 60},
-      "bosses": ["The Prophet Skeram", "Silithid Royalty", "Battleguard Sartura", "Fankriss the Unyielding", "Viscidus", "Princess Huhuran", "Twin Emperors", "Ouro", "C'Thun"]
-    },
-    {
-      "id": "naxxramas", "instanceID": 533, "type": "raid", "size": 40, "faction": "both",
-      "name": {"en": "Naxxramas", "es": "Naxxramas"},
-      "zone": {"en": "Eastern Plaguelands", "es": "Tierras de la Peste del Este"},
-      "levels": {"min": 60, "max": 60},
-      "bosses": ["Anub'Rekhan", "Grand Widow Faerlina", "Maexxna", "Noth the Plaguebringer", "Heigan the Unclean", "Loatheb", "Instructor Razuvious", "Gothik the Harvester", "The Four Horsemen", "Patchwerk", "Grobbulus", "Gluth", "Thaddius", "Sapphiron", "Kel'Thuzad"]
+      "id": "naxxramas",
+      "instanceID": 533,
+      "type": "raid",
+      "size": 40,
+      "faction": "both",
+      "name": {
+        "en": "Naxxramas",
+        "es": "Naxxramas"
+      },
+      "zone": {
+        "en": "Eastern Plaguelands",
+        "es": "Tierras de la Peste del Este"
+      },
+      "levels": {
+        "min": 60,
+        "max": 60
+      },
+      "bosses": [
+        "Anub'Rekhan",
+        "Grand Widow Faerlina",
+        "Maexxna",
+        "Noth the Plaguebringer",
+        "Heigan the Unclean",
+        "Loatheb",
+        "Instructor Razuvious",
+        "Gothik the Harvester",
+        "The Four Horsemen",
+        "Patchwerk",
+        "Grobbulus",
+        "Gluth",
+        "Thaddius",
+        "Sapphiron",
+        "Kel'Thuzad"
+      ]
     }
   ]
 }

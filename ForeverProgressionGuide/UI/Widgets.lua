@@ -4,7 +4,7 @@ local _, ns = ...
 local UI = {}
 ns.UI = UI
 
-UI.CATEGORY_COLORS = { recommended = "40ff40", reward = "66bbff", optional = "9d9d9d", too_early = "ff5050", unverified = "ffd100" }
+UI.CATEGORY_COLORS = { recommended = "40ff40", reward = "66bbff", optional = "9d9d9d", too_early = "ff5050", unverified = "ffd100", unavailable = "6e6e6e" }
 UI.CONFIDENCE_COLORS = { high = "40ff40", medium = "ffd100", low = "ff9933", none = "9d9d9d" }
 
 function UI.Color(hex, text)
@@ -52,6 +52,21 @@ local function defaultRow(content, list)
   row:SetScript("OnClick", function(self) if list.onClick then list.onClick(self.item, self) end end)
   row:SetScript("OnEnter", function(self) if list.onEnter then list.onEnter(self.item, self) end end)
   row:SetScript("OnLeave", hideTooltip)
+  return row
+end
+
+-- Fila con icono a la izquierda (objetos, misiones).
+function UI.IconRow(content, list)
+  local row = defaultRow(content, list)
+  row.icon = row:CreateTexture(nil, "ARTWORK")
+  row.icon:SetSize(list.rowHeight - 4, list.rowHeight - 4)
+  row.icon:SetPoint("LEFT", 4, 0)
+  row.left:ClearAllPoints()
+  row.left:SetPoint("LEFT", row.icon, "RIGHT", 6, 0)
+  row.left:SetPoint("RIGHT", -110, 0)
+  row.stripe = row:CreateTexture(nil, "BACKGROUND")
+  row.stripe:SetAllPoints()
+  row.stripe:SetColorTexture(1, 1, 1, 0.04)
   return row
 end
 

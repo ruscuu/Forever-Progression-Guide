@@ -70,40 +70,61 @@ class LuaTableTest(unittest.TestCase):
         self.assertEqual(parse_assignments("X = " + text)["X"], value)
 
 
+def all_records():
+    """Mazmorras como las genera el pipeline: Forever Companion más la semilla."""
+    records = build_data.fc_dungeons(build_data.load_fc(), build_data.load_zone_translations())
+    return build_data.load_seed(records)
+
+
 class ContributionsTest(unittest.TestCase):
     def merged(self):
         db = parse_assignments(SAVED_VARIABLES)["ForeverProgressionGuideDB"]
         contrib = normalize(db["contributions"])
-        records = build_data.load_seed()
+        records = all_records()
         notes = []
         quests, builds = build_data.apply_contributions(records, [("a.json", contrib)], notes)
         return records, quests, builds, notes
 
     def test_known_dungeon_gets_observations(self):
         records, quests, builds, _ = self.merged()
-        dm = records["deadmines"]
+        dm = records["the-deadmines"]
         self.assertEqual(dm["observed"]["uiMapIDs"], [291, 292])
         self.assertEqual(dm["observed"]["levelsSeen"], {"min": 18, "max": 21})
         self.assertEqual(dm["observed"]["encounters"], [{"id": 1234, "name": "Edwin VanCleef"}])
         self.assertEqual(quests[155]["xp"], 1200)
         self.assertEqual(builds, ["1.60.1.12345"])
 
-    def test_unknown_instance_becomes_new_record(self):
+    def test_new_forever_dungeon_learns_its_instance_id_by_name(self):
         records, _, _, notes = self.merged()
-        new = records["instance_9999"]
-        self.assertEqual(new["name"], {"en": "Ruins of Lordaeron"})
-        self.assertEqual(new["type"], "dungeon")
+        ruins = records["ruins-of-lordaeron"]
+        self.assertEqual(ruins["instanceID"], 9999)
+        self.assertEqual(ruins["provenance"]["instanceID"]["status"], "verified_ingame")
+        self.assertTrue(any("9999" in n for n in notes))
+        self.assertNotIn("instance-9999", records)
+        self.assertNotIn("instance-1", records, "las zonas exteriores se ignoran")
+
+    def test_truly_unknown_instance_becomes_new_record(self):
+        records, notes = all_records(), []
+        build_data.apply_contributions(records, [("x.json", {"instances": {"777": {
+            "name": "Mazmorra Secreta", "locale": "esES", "type": "party", "maxPlayers": 5}}})], notes)
+        new = records["instance-777"]
+        self.assertEqual((new["name"], new["type"]), ({"es": "Mazmorra Secreta"}, "dungeon"))
         self.assertNotIn("levels", new, "no se inventa un rango de niveles")
-        self.assertTrue(any("Ruins of Lordaeron" in n for n in notes))
-        self.assertNotIn("instance_1", records, "las zonas exteriores se ignoran")
+
+    def test_shared_instance_keeps_wing_names(self):
+        records, notes = all_records(), []
+        build_data.apply_contributions(records, [("x.json", {"instances": {"189": {
+            "name": "Monasterio Escarlata", "locale": "esES", "type": "party"}}})], notes)
+        self.assertEqual(records["sm-library"]["name"]["es"], "Monasterio Escarlata: Biblioteca")
+        self.assertEqual(records["sm-library"]["provenance"]["exists"]["status"], "verified_ingame")
 
     def test_result_validates_and_renders(self):
         records, quests, builds, _ = self.merged()
         build_data.validate(records)
-        files = build_data.render_outputs(records, quests, builds, None)
+        files = build_data.render_outputs(records, {}, quests, builds, None)
         meta_lua = files[build_data.ADDON_DATA_DIR / "Meta.lua"]
         self.assertIn('latestBuildSeen = "1.60.1.12345"', meta_lua)
-        self.assertIn("verified_ingame = 2", meta_lua)
+        self.assertIn("verified_ingame = 2", meta_lua, "las Minas y las Ruinas de Lordaeron, vistas en el juego")
 
 
 class FieldPriorityTest(unittest.TestCase):
@@ -120,21 +141,62 @@ class FieldPriorityTest(unittest.TestCase):
 
 class ValidationTest(unittest.TestCase):
     def test_detects_broken_records(self):
-        records = build_data.load_seed()
-        bad = copy.deepcopy(records["deadmines"])
+        records = all_records()
+        bad = copy.deepcopy(records["the-deadmines"])
         bad["id"] = "copy"
         bad["levels"] = {"min": 30, "max": 20}
-        bad["bosses"].append({"name": {"en": "X"}, "wing": "nope"})
+        bad["faction"] = "pirates"
+        bad["quests"] = [999999999]
         records["copy"] = bad
+        quests = build_data.fc_quests(build_data.load_fc())
         with self.assertRaises(build_data.ValidationError) as ctx:
-            build_data.validate(records)
+            build_data.validate(records, quests)
         message = str(ctx.exception)
-        self.assertIn("duplicado", message)
         self.assertIn("rango de niveles", message)
-        self.assertIn("ala inexistente", message)
+        self.assertIn("faction", message)
+        self.assertIn("misiones inexistentes", message)
 
-    def test_seed_is_valid(self):
-        build_data.validate(build_data.load_seed())
+    def test_all_sources_are_valid(self):
+        fc = build_data.load_fc()
+        build_data.validate(all_records(), build_data.fc_quests(fc), build_data.fc_items(fc), [])
+
+
+class ForeverCompanionTest(unittest.TestCase):
+    def setUp(self):
+        self.fc = build_data.load_fc()
+        self.assertIsNotNone(self.fc, "falta data-sources/imported/forevercompanion.json")
+
+    def test_dungeons_get_spanish_names_and_instance_ids_from_seed(self):
+        records = all_records()
+        dm = records["the-deadmines"]
+        self.assertEqual(dm["name"], {"en": "The Deadmines", "es": "Las Minas de la Muerte"})
+        self.assertEqual(dm["instanceID"], 36)
+        self.assertEqual(dm["zone"]["es"], "Páramos de Poniente")
+        self.assertEqual(dm["provenance"]["levels"]["status"], "datamined")
+        self.assertTrue(dm["loot"] and dm["quests"])
+        self.assertIn("molten-core", records, "las bandas salen de la semilla")
+        self.assertNotIn("instanceID", records["hall-of-thanes"], "las nuevas no tienen ID hasta verlas en el juego")
+
+    def test_announced_dungeons_are_unavailable(self):
+        records = all_records()
+        self.assertFalse(records["the-drowned-city"]["available"])
+        self.assertEqual(records["the-drowned-city"]["provenance"]["levels"]["status"], "announced")
+        self.assertTrue(records["the-deadmines"]["available"])
+
+    def test_quest_status_and_prerequisites(self):
+        quests = build_data.fc_quests(self.fc)
+        q = quests[166]
+        self.assertEqual(q["dungeon"], "the-deadmines")
+        self.assertEqual(q["prereqs"], [[155]])
+        statuses = {x["status"] for x in quests.values()}
+        self.assertTrue(statuses <= set(build_data.STATUS_RANK))
+
+    def test_items_are_compact(self):
+        items = build_data.fc_items(self.fc)
+        self.assertGreater(len(items), 1000)
+        item = next(iter(items.values()))
+        self.assertTrue({"id", "name", "status"} <= set(item))
+        self.assertNotIn(None, item.values())
 
 
 class ChangeReportTest(unittest.TestCase):
@@ -166,7 +228,7 @@ class ImportTest(unittest.TestCase):
             old = build_data.RAW_DIR, build_data.SOURCES_FILE
             build_data.RAW_DIR, build_data.SOURCES_FILE = tmp / "raw", tmp / "sources.json"
             try:
-                records, notes = build_data.load_seed(), []
+                records, notes = all_records(), []
                 build_data.apply_imports(records, notes)
             finally:
                 build_data.RAW_DIR, build_data.SOURCES_FILE = old
@@ -174,7 +236,7 @@ class ImportTest(unittest.TestCase):
 
     def test_authorized_source_overrides_classic_levels(self):
         records, notes = self.run_import(True)
-        dm = records["deadmines"]
+        dm = records["the-deadmines"]
         self.assertEqual(dm["levels"], {"min": 15, "max": 21})
         self.assertEqual(dm["provenance"]["levels.min"]["status"], "datamined")
         self.assertEqual(build_data.collapse_provenance(dm["provenance"])["levels"], "datamined")
@@ -189,7 +251,7 @@ class ImportTest(unittest.TestCase):
 
     def test_unauthorized_source_is_skipped(self):
         records, notes = self.run_import(False)
-        self.assertEqual(records["deadmines"]["levels"], {"min": 17, "max": 26})
+        self.assertEqual(records["the-deadmines"]["levels"], {"min": 17, "max": 26})
         self.assertIn("redistribution_allowed", notes[0])
 
 

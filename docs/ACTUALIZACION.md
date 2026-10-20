@@ -49,6 +49,15 @@ tiene Forever rellenas (ver [lista de pruebas](#lista-de-pruebas-en-el-juego)).
 
 ## 2. Paquete de datos: actualización automática
 
+**Fuente principal: [Forever Companion](https://forevercompanion.io)** (API
+pública, sin clave, se cita en el addon como piden). `pipeline/fetch_forevercompanion.py`
+descarga mazmorras con sus misiones y botín, misiones, objetos, zonas,
+misiones de clase y raros, y guarda una copia normalizada en
+`data-sources/imported/forevercompanion.json`. Su caché ignora los parámetros
+de los listados, así que el importador pide las mazmorras y los objetos por ID
+y reutiliza la copia anterior: cada ejecución solo pide los objetos nuevos y
+renueva 150 de los ya guardados.
+
 Lo que el cliente no ofrece (rangos de nivel recomendados, procedencia y
 confianza de cada dato) viaja en `ForeverProgressionGuide/Data/`, generado por
 `pipeline/build_data.py`. El flujo `.github/workflows/update-data.yml`:

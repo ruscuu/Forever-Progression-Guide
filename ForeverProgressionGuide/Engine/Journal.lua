@@ -49,7 +49,7 @@ function J.Undocumented()
   if not instances then scanInstances() end
   local out = {}
   for instanceID, info in pairs(instances) do
-    if not (ns.Data.Dungeons and ns.Data.Dungeons[instanceID]) then out[#out + 1] = info end
+    if not ns.Dungeons.HasInstance(instanceID) then out[#out + 1] = info end
   end
   table.sort(out, function(a, b) return a.instanceID < b.instanceID end)
   return out
@@ -99,7 +99,7 @@ end
 -- Mapa de la instancia: diario del cliente, el observado al jugar o, si no,
 -- el mapa de mazmorra del cliente con el mismo nombre (en cualquier idioma).
 function J.MapFor(d)
-  local info = J.ForInstance(d.instanceID)
+  local info = d.instanceID and J.ForInstance(d.instanceID)
   if info and info.uiMapID then return info.uiMapID, "journal" end
   local observed = d.observed and d.observed.uiMapIDs
   if observed and observed[1] then return observed[1], "observed" end
@@ -186,7 +186,7 @@ end
 
 -- Entrada en el mapa del mundo: la del cliente o la anotada al entrar jugando.
 function J.Entrance(d)
-  local info = J.ForInstance(d.instanceID)
+  local info = d.instanceID and J.ForInstance(d.instanceID)
   if info then
     if not entrances then scanEntrances() end
     if entrances[info.journalID] then return entrances[info.journalID], "journal" end

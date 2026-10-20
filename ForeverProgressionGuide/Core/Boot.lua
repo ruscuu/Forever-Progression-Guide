@@ -54,7 +54,7 @@ COMMANDS.minimapa = COMMANDS.minimap
 COMMANDS.diag = function()
   local C, J = ns.Compat, ns.Journal
   local function yesNo(v) return v and L.YES or L.NO end
-  local deadmines = ns.Data.Dungeons and ns.Data.Dungeons[36]
+  local deadmines = ns.Dungeons.Get("the-deadmines")
   local mapID, origin
   if deadmines then mapID, origin = J.MapFor(deadmines) end
   local player = C.Player()

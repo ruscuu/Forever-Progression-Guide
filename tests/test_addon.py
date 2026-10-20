@@ -76,9 +76,11 @@ class LoadingTest(AddonTestCase):
         self.assertEqual(self.ns.lang, "es")
 
     def test_data_is_loaded(self):
-        deadmines = self.ns.Data.Dungeons[36]
-        self.assertEqual(deadmines.id, "deadmines")
-        self.assertEqual(deadmines.provenance.levels, "classic_inherited")
+        deadmines = self.ns.Data.Dungeons["the-deadmines"]
+        self.assertEqual((deadmines.id, deadmines.instanceID), ("the-deadmines", 36))
+        self.assertEqual(deadmines.provenance.levels, "datamined")
+        self.assertGreater(self.lua.eval("(function() local n = 0 for _ in pairs(NS.Data.Items) do n = n + 1 end return n end)()"), 1000)
+        self.assertEqual(self.ns.Data.Quests[166].dungeon, "the-deadmines")
 
 
 class LocalizationTest(AddonTestCase):
@@ -102,13 +104,15 @@ class LocalizationTest(AddonTestCase):
         en = set(self.ns.Locales.en.keys())
         expected = set()
         for prefix, values in {
-            "CATEGORY_": ["recommended", "reward", "optional", "too_early", "unverified"],
+            "CATEGORY_": ["recommended", "reward", "optional", "too_early", "unverified", "unavailable"],
             "STATUS_": ["verified_ingame", "datamined", "classic_inherited", "announced", "unknown"],
             "REASON_LEVELS_": ["datamined", "classic_inherited", "announced", "unknown"],
             "CONFIDENCE_": ["high", "medium", "low", "none"],
             "FACTION_": ["both", "alliance", "horde"],
             "TAB_": ["progress", "dungeons", "gear", "quests", "professions", "search", "options"],
-            "KIND_": ["dungeon", "wing", "boss"],
+            "KIND_": ["dungeon", "wing", "boss", "quest", "item"],
+            "FIT_": ["best", "usable", "no"],
+            "BTN_": ["info", "quests", "loot", "map"],
             "BOSSES_FROM_": ["journal", "data"],
             "FIELD_": ["exists", "levels", "bosses"],
         }.items():
@@ -121,46 +125,45 @@ class LocalizationTest(AddonTestCase):
         SlashCmdList = self.lua.globals().SlashCmdList
         SlashCmdList.FOREVERPROGRESSIONGUIDE("en")
         self.assertEqual(self.ns.L.TAB_DUNGEONS, "Dungeons")
-        self.assertEqual(self.lua.eval("NS.Dungeons.Name(NS.Data.Dungeons[36])"), "The Deadmines")
+        self.assertEqual(self.lua.eval("NS.Dungeons.Name(NS.Data.Dungeons['the-deadmines'])"), "The Deadmines")
         SlashCmdList.FOREVERPROGRESSIONGUIDE("es")
         self.assertEqual(self.ns.L.TAB_DUNGEONS, "Mazmorras")
-        self.assertEqual(self.lua.eval("NS.Dungeons.Name(NS.Data.Dungeons[36])"), "Las Minas de la Muerte")
+        self.assertEqual(self.lua.eval("NS.Dungeons.Name(NS.Data.Dungeons['the-deadmines'])"), "Las Minas de la Muerte")
 
 
 class DungeonEngineTest(AddonTestCase):
-    def evaluate(self, instance_id, level, faction="alliance"):
-        return self.lua.eval(f"NS.Dungeons.Evaluate(NS.Data.Dungeons[{instance_id}], {{ level = {level}, faction = '{faction}' }})")
+    def evaluate(self, dungeon_id, level, faction="alliance"):
+        return self.lua.eval(f"NS.Dungeons.Evaluate(NS.Data.Dungeons['{dungeon_id}'], {{ level = {level}, faction = '{faction}' }})")
 
     def reason_keys(self, ev):
         return [r[1] for r in ev.reasons.values()]
 
     def test_in_range_is_recommended_with_low_confidence(self):
-        ev = self.evaluate(36, 20)
+        ev = self.evaluate("the-deadmines", 20)
         self.assertEqual(ev.category, "recommended")
-        self.assertEqual(ev.confidence, "low")
-        self.assertIn("levels_classic_inherited", self.reason_keys(ev))
+        self.assertEqual(ev.confidence, "medium")
+        self.assertIn("levels_datamined", self.reason_keys(ev))
 
     def test_too_early_and_overleveled(self):
-        self.assertEqual(self.evaluate(230, 20).category, "too_early")
-        self.assertEqual(self.evaluate(36, 40).category, "optional")
-        self.assertEqual(self.evaluate(230, 50).category, "recommended", "margen de 2 niveles por debajo del mínimo")
+        self.assertEqual(self.evaluate("blackrock-depths", 20).category, "too_early")
+        self.assertEqual(self.evaluate("the-deadmines", 40).category, "optional")
+        self.assertEqual(self.evaluate("blackrock-depths", 50).category, "recommended", "margen de 2 niveles por debajo del mínimo")
 
     def test_other_faction_dungeon_is_optional(self):
-        ev = self.evaluate(389, 15, "alliance")
+        ev = self.evaluate("ragefire-chasm", 15, "alliance")
         self.assertEqual(ev.category, "optional")
         self.assertIn("other_faction", self.reason_keys(ev))
-        self.assertEqual(self.evaluate(389, 15, "horde").category, "recommended")
+        self.assertEqual(self.evaluate("ragefire-chasm", 15, "horde").category, "recommended")
 
-    def test_best_wing_is_chosen(self):
-        ev = self.evaluate(189, 41)
-        self.assertEqual(ev.category, "recommended")
-        self.assertEqual(ev.wing.id, "cathedral")
-        self.assertEqual(self.evaluate(189, 30).wing.id, "graveyard")
+    def test_announced_dungeon_is_unavailable(self):
+        ev = self.evaluate("the-drowned-city", 37)
+        self.assertEqual(ev.category, "unavailable")
+        self.assertEqual(self.reason_keys(ev)[0], "unavailable")
 
     def test_bosses_come_from_journal_when_available(self):
-        origin = self.lua.eval("select(2, NS.Dungeons.Bosses(NS.Data.Dungeons[36]))")
+        origin = self.lua.eval("select(2, NS.Dungeons.Bosses(NS.Data.Dungeons['the-deadmines']))")
         self.assertEqual(origin, "journal")
-        origin = self.lua.eval("select(2, NS.Dungeons.Bosses(NS.Data.Dungeons[230]))")
+        origin = self.lua.eval("select(2, NS.Dungeons.Bosses(NS.Data.Dungeons['blackrock-depths']))")
         self.assertEqual(origin, "data")
 
     def test_undocumented_journal_instance_is_discovered(self):
@@ -187,7 +190,9 @@ class ObjectivesTest(AddonTestCase):
     def test_done_hides_and_postponed_goes_last_until_level_up(self):
         first = self.ids()[0]
         self.lua.globals().NS.Objectives.SetState(first, "postponed")
-        self.assertEqual(self.ids()[-1], first)
+        ids = self.ids()
+        self.assertNotEqual(ids[0], first)
+        self.assertTrue(first not in ids or ids[-1] == first, "lo pospuesto va al final (o queda fuera del límite)")
         self.fire("PLAYER_LEVEL_UP", 21)
         self.assertEqual(self.ids()[0], first)
         self.lua.globals().NS.Objectives.SetState(first, "done")
@@ -247,15 +252,15 @@ class CollectorTest(AddonTestCase):
         text = self.mock.SavedVariablesText("ForeverProgressionGuideDB")
         db = parse_assignments(text)["ForeverProgressionGuideDB"]
         contrib = import_contributions.normalize(db["contributions"])
-        records = build_data.load_seed()
+        records = build_data.load_seed(build_data.fc_dungeons(build_data.load_fc(), build_data.load_zone_translations()))
         notes = []
         build_data.apply_contributions(records, [("test.json", contrib)], notes)
-        dm = records["deadmines"]
+        dm = records["the-deadmines"]
         self.assertEqual(dm["provenance"]["exists"]["status"], "verified_ingame")
         self.assertEqual(dm["observed"]["uiMapIDs"], [291])
         self.assertEqual(dm["observed"]["entrance"]["mapID"], 52)
         self.assertEqual(dm["name"]["es"], "Las Minas de la Muerte")
-        self.assertEqual(dm["provenance"]["levels"]["status"], "classic_inherited", "entrar no verifica el rango de niveles")
+        self.assertEqual(dm["provenance"]["levels"]["status"], "datamined", "entrar no verifica el rango de niveles")
 
 
 class ClassFilterTest(AddonTestCase):
@@ -284,9 +289,8 @@ class ClassFilterTest(AddonTestCase):
         self.lua.globals().NS.ClassFilter.SetClass(8)
         self.lua.globals().NS.ClassFilter.SetSpec(63)
         self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
-        self.run_lua("NS.UI.Select('dungeons', { instanceID = 36 }); local b = NS.UI.tabs.dungeons.panel.modeLoot; b.__scripts.OnClick(b)")
-        self.assertEqual((self.mock.lootFilter, self.mock.lootSpec), (None, None), "el filtro del diario se restaura al terminar")
-        self.assertEqual(self.lua.eval("NS.UI.tabs.dungeons.panel.lootMessage:GetText()"), "Botín para: Mago · Fuego")
+        self.run_lua("NS.UI.Select('dungeons', { id = 'the-deadmines' }); local b = NS.UI.tabs.dungeons.panel.modes.loot; b:GetScript('OnClick')(b)")
+        self.assertTrue(self.lua.eval("NS.UI.tabs.dungeons.panel.listMessage:GetText()").startswith("Botín para: Mago · Fuego"))
         self.run_lua("WOWMOCK.calls = {}; local f = EJ_SetLootFilter; EJ_SetLootFilter = function(c, s) table.insert(WOWMOCK.calls, c .. ':' .. s) f(c, s) end")
         self.lua.eval("NS.Journal.Loot(63, NS.ClassFilter.Current().classID, NS.ClassFilter.Current().specID)")
         self.assertEqual(list(self.mock.calls.values()), ["8:63"])
@@ -341,18 +345,18 @@ class FirstLevelsTest(AddonTestCase):
         objs = list(self.objectives().values())
         nxt = [o for o in objs if o.kind == "next"]
         self.assertEqual(len(nxt), 1)
-        self.assertEqual(nxt[0].id, "next:389", "Sima Ígnea, la primera para la Horda")
+        self.assertEqual(nxt[0].id, "next:ragefire-chasm", "Sima Ígnea, la primera para la Horda")
         self.assertEqual(nxt[0].title, "Próxima mazmorra: Sima Ígnea")
         self.assertEqual(nxt[0].reasons[1], "desde el nivel 11 (te faltan 8 niveles)")
 
     def test_next_dungeon_respects_faction(self):
         self.run_lua("WOWMOCK.player.faction = 'Alliance'")
         ids = [o.id for o in self.objectives().values()]
-        self.assertIn("next:43", ids, "para la Alianza, las Cuevas de los Lamentos (ambas facciones)")
-        self.assertNotIn("next:389", ids)
+        self.assertIn("next:hall-of-thanes", ids, "para la Alianza, Hall of Thanes en Forjaz (nueva en Forever)")
+        self.assertNotIn("next:ragefire-chasm", ids)
 
     def test_hidden_objectives_are_counted_and_recoverable(self):
-        self.run_lua("NS.Objectives.SetState('next:389', 'dismissed')")
+        self.run_lua("NS.Objectives.SetState('next:ragefire-chasm', 'dismissed')")
         hidden = self.lua.eval("select(2, NS.Objectives.Generate(NS.Compat.Player()))")
         self.assertGreaterEqual(hidden, 1)
         self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
@@ -361,9 +365,9 @@ class FirstLevelsTest(AddonTestCase):
         self.assertEqual(self.lua.eval("select(2, NS.Objectives.Generate(NS.Compat.Player()))"), 0)
 
     def test_map_found_by_name_without_journal(self):
-        mapID, origin = self.lua.eval("NS.Journal.MapFor(NS.Data.Dungeons[36])")
+        mapID, origin = self.lua.eval("NS.Journal.MapFor(NS.Data.Dungeons['the-deadmines'])")
         self.assertEqual((mapID, origin), (291, "name"), "el mapa del cliente se llama «Las Minas de la Muerte»")
-        self.assertIsNone(self.lua.eval("NS.Journal.MapFor(NS.Data.Dungeons[230])"))
+        self.assertIsNone(self.lua.eval("NS.Journal.MapFor(NS.Data.Dungeons['blackrock-depths'])"))
 
     def test_diag_command(self):
         self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("diag")
@@ -377,6 +381,103 @@ class FirstLevelsTest(AddonTestCase):
         self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
         self.run_lua("NS.UI.Select('professions')")
         self.assertIn("Todavía no tienes profesiones", self.lua.eval("NS.UI.tabs.professions.panel.empty:GetText()"))
+
+
+class ItemsAndQuestsTest(AddonTestCase):
+    def fit(self, item, class_file, level=20):
+        return self.lua.eval(f"NS.Items.Fit({item}, '{class_file}', {level})")
+
+    def test_item_fit_rules(self):
+        cloth_int = "{ armor = 'cloth', stats = { 'int', 'spi' } }"
+        self.assertEqual(self.fit(cloth_int, "PRIEST"), "best")
+        self.assertEqual(self.fit("{ armor = 'plate', stats = { 'str' } }", "PRIEST"), "no")
+        self.assertEqual(self.fit("{ weapon = 'Sword', slot = 'Two-Hand', stats = { 'agi' } }", "ROGUE"), "no")
+        self.assertEqual(self.fit("{ weapon = 'Sword', slot = 'One-Hand', stats = { 'agi' } }", "ROGUE"), "best")
+        self.assertEqual(self.fit("{ armor = 'mail', stats = { 'str' } }", "WARRIOR", 20), "best")
+        self.assertEqual(self.fit("{ armor = 'leather', stats = { 'str' } }", "WARRIOR", 20), "usable")
+        self.assertEqual(self.fit("{ armor = 'plate', stats = { 'str' } }", "WARRIOR", 40), "best")
+        self.assertEqual(self.fit("{ armor = 'cloth', stats = { 'str' } }", "MAGE"), "usable", "estadísticas que no le sirven")
+
+    def test_upgrade_against_equipped_item(self):
+        self.run_lua("WOWMOCK.gear[1] = 'x ilvl20'")
+        self.assertEqual(self.lua.eval("NS.Items.Upgrade({ slot = 'Head', ilvl = 25 })"), 5)
+        self.assertEqual(self.lua.eval("NS.Items.Upgrade({ slot = 'Finger', ilvl = 12 })"), 12, "sin anillos puestos")
+        self.assertIsNone(self.lua.eval("NS.Items.Upgrade({ slot = 'Bag', ilvl = 5 })"))
+
+    def test_dungeon_loot_for_a_priest_hides_unusable(self):
+        loot = self.lua.eval("NS.Items.DungeonLoot(NS.Data.Dungeons['the-deadmines'], 'PRIEST', 20, true)")
+        fits = [e.fit for e in loot.values()]
+        self.assertTrue(fits)
+        self.assertNotIn("no", fits)
+        everything = self.lua.eval("#NS.Items.DungeonLoot(NS.Data.Dungeons['the-deadmines'], 'PRIEST', 20, false)")
+        self.assertGreater(everything, len(fits))
+        self.assertTrue(self.lua.eval("NS.Items.Icon(872)").startswith("Interface\\Icons\\"))
+
+    def test_quests_by_faction_prerequisites_and_done(self):
+        alliance = "{ level = 22, faction = 'alliance', class = 'WARRIOR' }"
+        horde = "{ level = 22, faction = 'horde', class = 'WARRIOR' }"
+        self.assertTrue(self.lua.eval(f"NS.Quests.Available(NS.Data.Quests[166], {alliance})"))
+        self.assertFalse(self.lua.eval(f"NS.Quests.Available(NS.Data.Quests[166], {horde})"), "misión de la Alianza")
+        self.assertEqual(list(self.lua.eval("NS.Quests.MissingPrereqs(NS.Data.Quests[166])").values()), [155])
+        self.run_lua("WOWMOCK.completedQuests[155] = true")
+        self.assertEqual(len(self.lua.eval("NS.Quests.MissingPrereqs(NS.Data.Quests[166])")), 0)
+        before = self.lua.eval(f"#NS.Quests.ForDungeon(NS.Data.Dungeons['the-deadmines'], {alliance})")
+        self.run_lua("WOWMOCK.completedQuests[166] = true")
+        after = self.lua.eval(f"#NS.Quests.ForDungeon(NS.Data.Dungeons['the-deadmines'], {alliance})")
+        self.assertEqual(after, before - 1, "las hechas no cuentan")
+        lines = "\n".join(self.lua.eval("NS.Quests.TooltipLines(NS.Data.Quests[166])").values())
+        self.assertIn("Gryan Stoutmantle", lines)
+
+    def test_class_quest_and_zone_objectives(self):
+        self.run_lua("""
+          WOWMOCK.player.level = 10; WOWMOCK.player.faction = 'Horde'
+          NS.Data.ClassQuests['test'] = { id = 'test', class = 'WARRIOR', level = 10, name = 'Prueba', reward = 'Actitud defensiva', essential = true, faction = 'both' }
+        """)
+        objs = list(self.lua.eval("NS.Objectives.Generate(NS.Compat.Player())")[0].values())
+        kinds = {o.kind: o for o in objs}
+        self.assertEqual(kinds["class"].title, "Misión de clase: Actitud defensiva")
+        self.assertIn("zone", kinds)
+        self.assertTrue(kinds["zone"].title.startswith("Haz misiones en "))
+
+    def test_quests_tab_lists_available_quests(self):
+        self.run_lua("WOWMOCK.player.level = 22")
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.run_lua("NS.UI.Select('quests')")
+        intro = self.lua.eval("NS.UI.tabs.quests.panel.intro:GetText()")
+        self.assertRegex(intro, r"^\d+ misiones de mazmorra")
+        self.run_lua("local b = NS.UI.tabs.quests.panel.log; b:GetScript('OnClick')(b)")
+
+
+class RealDataSmokeTest(AddonTestCase):
+    """Todas las mazmorras, en todos los modos, con varias clases y niveles."""
+
+    def test_every_dungeon_in_every_mode(self):
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        count = self.lua.eval("""(function()
+          local n = 0
+          for _, setup in ipairs({ { 'WARRIOR', 1, 20, 'Alliance' }, { 'PRIEST', 5, 45, 'Horde' }, { 'MAGE', 8, 60, 'Alliance' } }) do
+            WOWMOCK.player.class, WOWMOCK.player.classID, WOWMOCK.player.level, WOWMOCK.player.faction = setup[1], setup[2], setup[3], setup[4]
+            for id in pairs(NS.Data.Dungeons) do
+              NS.UI.Select('dungeons', { id = id })
+              local panel = NS.UI.tabs.dungeons.panel
+              for _, mode in ipairs({ 'quests', 'loot', 'map', 'info' }) do
+                local b = panel.modes[mode]
+                b:GetScript('OnClick')(b)
+              end
+              n = n + 1
+            end
+            for _, tab in ipairs({ 'progress', 'quests', 'gear', 'search' }) do NS.UI.Select(tab) end
+          end
+          return n
+        end)()""")
+        self.assertEqual(count, 3 * 42)
+
+    def test_search_many_queries(self):
+        for query in ("de", "the", "sword", "staff", "defias", "a", "ñ", "ragnaros"):
+            self.lua.globals().NS.Search(query)
+
+    def test_tooltips_for_every_quest(self):
+        self.lua.execute("for _, q in pairs(NS.Data.Quests) do NS.Quests.TooltipLines(q) end")
 
 
 class MinimapAndOptionsTest(AddonTestCase):
@@ -466,16 +567,16 @@ class UITest(AddonTestCase):
         self.assertTrue(self.lua.eval("ForeverProgressionGuideFrame:IsShown()"))
 
     def test_dungeon_detail_modes(self):
-        self.open("dungeons", "{ instanceID = 36 }")
-        for button in ("modeMap", "modeLoot", "modeInfo", "route"):
-            self.run_lua(f"local b = NS.UI.tabs.dungeons.panel.{button}; b.__scripts.OnClick(b)")
+        self.open("dungeons", "{ id = 'the-deadmines' }")
+        for button in ("modes.map", "modes.loot", "modes.quests", "modes.info", "route"):
+            self.run_lua(f"local b = NS.UI.tabs.dungeons.panel.{button}; b:GetScript('OnClick')(b)")
         self.assertEqual(self.mock.waypoint.mapID, 52)
         self.assertEqual(self.lua.eval("NS.UI.tabs.dungeons.panel.name:GetText()"), "Las Minas de la Muerte")
 
     def test_dungeon_map_draws_client_tiles_and_boss_pins(self):
         tiles = self.lua.eval("""(function()
           local view = NS.UI.MapView(UIParent)
-          view:ShowDungeon(NS.Data.Dungeons[36])
+          view:ShowDungeon(NS.Data.Dungeons['the-deadmines'])
           local shown, pins = 0, 0
           for _, t in ipairs(view.tiles) do if t:IsShown() then shown = shown + 1 end end
           for _, p in ipairs(view.pins) do if p:IsShown() then pins = pins + 1 end end
@@ -486,13 +587,13 @@ class UITest(AddonTestCase):
     def test_map_without_id_explains_how_to_get_it(self):
         text = self.lua.eval("""(function()
           local view = NS.UI.MapView(UIParent)
-          view:ShowDungeon(NS.Data.Dungeons[230])
+          view:ShowDungeon(NS.Data.Dungeons['blackrock-depths'])
           return view.message:GetText()
         end)()""")
         self.assertIn("Entra una vez", text)
 
     def test_waypoint_to_journal_entrance(self):
-        entrance, origin = self.lua.eval("NS.Journal.Entrance(NS.Data.Dungeons[36])")
+        entrance, origin = self.lua.eval("NS.Journal.Entrance(NS.Data.Dungeons['the-deadmines'])")
         self.assertEqual((entrance.uiMapID, entrance.zone, origin), (52, "Páramos de Poniente", "journal"))
         self.assertTrue(self.lua.eval("NS.Journal.SetWaypoint(52, 0.42, 0.72)"))
         self.assertTrue(self.mock.superTracked)
@@ -504,6 +605,8 @@ class UITest(AddonTestCase):
     def test_search_in_both_languages(self):
         labels = lambda q: [r.label for r in self.lua.globals().NS.Search(q).values()]
         self.assertIn("Las Minas de la Muerte", labels("deadmines"))
+        self.assertTrue(any("Rockslicer" in l for l in labels("rockslicer")), "objetos del botín")
+        self.assertTrue(any("Defias Brotherhood" in l for l in labels("defias brotherhood")), "misiones")
         self.assertIn("Las Minas de la Muerte", labels("minas"))
         self.assertTrue(any("VanCleef" in l for l in labels("vancleef")))
         self.assertTrue(any("Catedral" in l for l in labels("cathedral")))

@@ -160,7 +160,8 @@ function UI.Select(key, arg)
   current, currentArg = key, arg
   refreshHeader()
   local meta = ns.Data.Meta or {}
-  frame.footer:SetText(string.format(L.FOOTER, ns.Compat.AddOnVersion(), meta.version or "?", ns.Compat.ClientBuild()))
+  local credits = meta.credits and (" · " .. string.format(L.FOOTER_CREDITS, meta.credits.name)) or ""
+  frame.footer:SetText(string.format(L.FOOTER, ns.Compat.AddOnVersion(), meta.version or "?", ns.Compat.ClientBuild()) .. credits)
   if tabs[key].Refresh then ns.Safe("Refresh:" .. key, tabs[key].Refresh, tabs[key].panel, arg) end
 end
 

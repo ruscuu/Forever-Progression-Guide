@@ -38,6 +38,9 @@ jobs:
           python-version: "3.12"
       - run: pip install lupa==2.8
 
+      - name: Descargar Forever Companion
+        run: python pipeline/fetch_forevercompanion.py
+
       - name: Descargar fuentes configuradas
         env:
           FOREVERDB_API_KEY: ${{ secrets.FOREVERDB_API_KEY }}
@@ -68,6 +71,7 @@ jobs:
           add-paths: |
             ForeverProgressionGuide/Data
             data-sources/generated
+            data-sources/imported
 
       - name: Fusionar automáticamente
         id: merge

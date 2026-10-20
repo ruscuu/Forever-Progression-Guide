@@ -45,6 +45,11 @@ function methods.GetPoint() return "CENTER", nil, "CENTER", 0, 0 end
 function methods.GetFrameLevel() return 1 end
 function methods.SetTexture(self, t) self.__texture = t end
 function methods.CreateFontString() return new("FontString") end
+function methods.SetChecked(self, v) self.__checked = not not v end
+function methods.GetChecked(self) return self.__checked end
+function methods.SetPoint(self, ...) self.__point = { ... } end
+function methods.GetCenter() return 100, 100 end
+function methods.GetEffectiveScale() return 1 end
 function methods.CreateTexture() return new("Texture") end
 
 function CreateFrame(kind, name, parent, template)
@@ -62,6 +67,22 @@ function M.Fire(event, ...)
 end
 
 UIParent = new("Frame")
+Minimap = new("Frame")
+Minimap.__w, Minimap.__h = 140, 140
+M.cursor = { 100, 200 }
+function GetCursorPosition() return M.cursor[1], M.cursor[2] end
+
+-- API de opciones del juego (motor moderno).
+M.settings = {}
+Settings = {
+  RegisterCanvasLayoutCategory = function(frame, name)
+    local category = { frame = frame, name = name, GetID = function() return 42 end }
+    M.settings.category = category
+    return category
+  end,
+  RegisterAddOnCategory = function(category) M.settings.registered = category end,
+  OpenToCategory = function(id) M.settings.opened = id end,
+}
 GameTooltip = new("GameTooltip")
 UISpecialFrames = {}
 SlashCmdList = {}

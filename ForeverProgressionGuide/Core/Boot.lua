@@ -39,6 +39,17 @@ COMMANDS.errors = function()
   for _, e in ipairs(ns.errors) do print("  " .. e) end
 end
 
+COMMANDS.options = function()
+  -- La ventana del juego si existe; si no, la pestaña de opciones de la guía.
+  if not ns.UI.OpenGameOptions() then ns.UI.Show("options") end
+end
+COMMANDS.opciones = COMMANDS.options
+
+COMMANDS.minimap = function()
+  ns.UI.Minimap.SetShown(ns.db.settings.minimap.hide)
+end
+COMMANDS.minimapa = COMMANDS.minimap
+
 COMMANDS.help = function() say(L.SLASH_HELP) end
 
 SLASH_FOREVERPROGRESSIONGUIDE1 = "/wfg"
@@ -50,6 +61,6 @@ SlashCmdList.FOREVERPROGRESSIONGUIDE = function(input)
   fn(arg)
 end
 
-function ForeverProgressionGuide_OnAddonCompartmentClick()
-  ns.UI.Toggle()
+function ForeverProgressionGuide_OnAddonCompartmentClick(_, mouseButton)
+  if mouseButton == "RightButton" then ns.UI.Show("options") else ns.UI.Toggle() end
 end

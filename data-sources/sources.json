@@ -1,0 +1,31 @@
+{
+  "_comment": "Inventario de fuentes. Rellena 'endpoints' con las rutas EXACTAS que aparezcan en la documentación de cada fuente; no inventes rutas. Las claves nunca se escriben aquí: se leen de la variable de entorno indicada en 'api_key_env'.",
+  "sources": [
+    {
+      "id": "forevercompanion",
+      "name": "Forever Companion",
+      "docs_url": "https://forevercompanion.io/developers",
+      "terms_url": null,
+      "base_url": "https://forevercompanion.io",
+      "auth": "none",
+      "api_key_env": null,
+      "api_key_header": null,
+      "role": "principal (pendiente de confirmar)",
+      "notes": "La web se presenta como planificador de subida de nivel que cruza datos de otros sitios independientes. Confirmar que es fuente primaria y que permite redistribución.",
+      "endpoints": {}
+    },
+    {
+      "id": "foreverdb",
+      "name": "ForeverDB",
+      "docs_url": "https://foreverdb.net/developers",
+      "terms_url": null,
+      "base_url": "https://foreverdb.net",
+      "auth": "api_key",
+      "api_key_env": "FOREVERDB_API_KEY",
+      "api_key_header": "X-API-Key",
+      "role": "secundaria; candidata a principal para profesiones",
+      "notes": "API anunciada el 18-10-2026: items, spells, quests, vendors, dungeons, classes, item sets. Acceso bajo solicitud. Confirmar el nombre real de la cabecera de la clave.",
+      "endpoints": {}
+    }
+  ]
+}

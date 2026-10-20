@@ -1,0 +1,5 @@
+# Datos descargados: no se publican hasta confirmar sus condiciones de uso (docs/COBERTURA.md §5)
+data-sources/raw/
+__pycache__/
+*.pyc
+wow-dev.config.local.json

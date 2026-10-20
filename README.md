@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/logo/logo-512.png" alt="Logo de Forever Progression Guide" width="160"></p>
+
 # Forever Progression Guide
 
 Addon para WoW Forever que guía al jugador del nivel 1 al máximo: qué hacer a continuación, por qué y cómo. Interfaz en español e inglés, sin conexión durante la partida.

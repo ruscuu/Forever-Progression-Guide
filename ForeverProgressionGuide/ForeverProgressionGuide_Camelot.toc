@@ -7,7 +7,7 @@
 ## Version: @project-version@
 ## SavedVariables: ForeverProgressionGuideDB
 ## SavedVariablesPerCharacter: ForeverProgressionGuideCharDB
-## IconTexture: Interface\Icons\INV_Misc_Book_09
+## IconTexture: Interface\AddOns\ForeverProgressionGuide\Media\Logo
 ## AddonCompartmentFunc: ForeverProgressionGuide_OnAddonCompartmentClick
 ## X-Website: https://github.com/ruscuu/Forever-Progression-Guide
 

@@ -62,6 +62,14 @@ class LoadingTest(AddonTestCase):
         self.assertEqual(sorted(listed), on_disk)
         self.assertEqual(len(listed), len(set(listed)))
 
+    def test_icon_texture_exists_and_header_uses_it(self):
+        line = next(l for l in (ADDON / "ForeverProgressionGuide.toc").read_text(encoding="utf-8").splitlines() if l.startswith("## IconTexture:"))
+        path = line.split(":", 1)[1].strip().replace("\\", "/")
+        self.assertTrue(path.startswith("Interface/AddOns/ForeverProgressionGuide/"), path)
+        self.assertTrue((ADDON / (path.split("ForeverProgressionGuide/", 1)[1] + ".tga")).exists())
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideFrame.logo.__texture"), line.split(":", 1)[1].strip())
+
     def test_saved_variables_get_defaults(self):
         db = self.lua.globals().ForeverProgressionGuideDB
         self.assertEqual(db.settings.language, "auto")

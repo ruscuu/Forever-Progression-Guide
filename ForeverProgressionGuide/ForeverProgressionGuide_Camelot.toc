@@ -31,6 +31,7 @@ Engine\Quests.lua
 Engine\Gear.lua
 Engine\Objectives.lua
 Profile\Collector.lua
+Profile\Translations.lua
 UI\Widgets.lua
 UI\MapView.lua
 UI\MainFrame.lua
@@ -42,4 +43,5 @@ UI\Tabs\Quests.lua
 UI\Tabs\Professions.lua
 UI\Tabs\Search.lua
 UI\Tabs\Options.lua
+Core\SelfTest.lua
 Core\Boot.lua

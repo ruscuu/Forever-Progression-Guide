@@ -138,6 +138,25 @@ El resultado:
 - «Cómo llegar» usa la entrada anotada.
 - Las instancias que no estaban en ningún dato aparecen como nuevas.
 
+### Nombres en español para todos: `/wfg traducir`
+
+Forever Companion solo da los nombres en inglés. El cliente del juego los
+tiene en su idioma, pero los carga bajo demanda. El addon:
+
+- pide al cliente los nombres de lo que muestra y redibuja la ventana cuando
+  llegan, así que con el cliente en español los verás en español al momento;
+- con `/wfg traducir`, recorre por tandas todos los objetos y misiones de los
+  datos y guarda sus nombres en SavedVariables. Basta con hacerlo **una vez**
+  en un cliente en español; después, `import_contributions.py` y
+  `build_data.py` los añaden a los datos, y quien juegue con el cliente en
+  inglés y la guía en español también los verá traducidos.
+
+### Autoprueba: `/wfg test`
+
+Comprueba en tu cliente qué funciones existen, que los datos están cargados y
+que cada pestaña y cada mazmorra se dibujan sin errores en todos sus modos. Si
+algo falla, copia el informe y `/wfg errors`.
+
 Entrar en una mazmorra **no** verifica su rango de niveles: eso sigue
 necesitando una fuente o una comprobación manual.
 

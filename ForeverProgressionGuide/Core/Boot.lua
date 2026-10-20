@@ -69,6 +69,28 @@ COMMANDS.diag = function()
   print("  " .. string.format(L.DIAG_OBJECTIVES, #objectives, hidden, #ns.errors))
 end
 
+COMMANDS.test = function()
+  local r = ns.SelfTest.Run()
+  say(string.format(L.TEST_HEADER, ns.Compat.AddOnVersion(), ns.Compat.ClientBuild()))
+  print("  " .. string.format(L.TEST_DATA, r.data.dungeons, r.data.quests, r.data.items, r.data.zones, r.data.classQuests))
+  print("  " .. string.format(L.TEST_CLIENT, r.journal, r.dungeonMaps))
+  print("  " .. string.format(L.TEST_APIS, r.apis - #r.missing, r.apis))
+  for _, api in ipairs(r.missing) do print("    - " .. api) end
+  print("  " .. string.format(L.TEST_UI, r.dungeonsChecked, #r.failures))
+  for _, f in ipairs(r.failures) do print("    ! " .. f) end
+  say(#r.failures == 0 and L.TEST_OK or L.TEST_FAILED)
+end
+
+COMMANDS.traducir = function()
+  local started = ns.Translations.Start(function(stage, a, b)
+    if stage == "unsupported" then say(L.TRANSLATE_UNSUPPORTED)
+    elseif stage == "round" then say(string.format(L.TRANSLATE_ROUND, a, b))
+    elseif stage == "done" then say(string.format(L.TRANSLATE_DONE, a, b)) end
+  end)
+  if not started and ns.Translations.IsRunning() then say(L.TRANSLATE_RUNNING) end
+end
+COMMANDS.translate = COMMANDS.traducir
+
 COMMANDS.help = function() say(L.SLASH_HELP) end
 
 SLASH_FOREVERPROGRESSIONGUIDE1 = "/wfg"

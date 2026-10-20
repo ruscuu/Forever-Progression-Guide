@@ -24,7 +24,7 @@ Los mapas de las mazmorras se leen del propio cliente cuando los tiene. Los rang
 
 **Icono en el minimapa:** clic izquierdo abre la guía, clic derecho abre las opciones y se puede arrastrar alrededor del minimapa.
 
-Comandos: `/wfg` (o `/guia`) abre la guía; `/wfg opciones` abre las opciones; `/wfg minimapa` muestra u oculta el icono; `/wfg es|en|auto` cambia el idioma; `/wfg info` muestra versión y estado; `/wfg errors` lista errores; `/wfg collect off` desactiva las observaciones.
+Comandos: `/wfg` (o `/guia`) abre la guía; `/wfg opciones` abre las opciones; `/wfg minimapa` muestra u oculta el icono; `/wfg es|en|auto` cambia el idioma; `/wfg info` muestra versión y estado; `/wfg test` hace una autoprueba y muestra un informe; `/wfg traducir` recoge del juego los nombres de objetos y misiones en tu idioma; `/wfg errors` lista errores; `/wfg collect off` desactiva las observaciones.
 
 ## Instalación
 

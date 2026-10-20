@@ -283,8 +283,12 @@ UI.RegisterTab({
   end,
   Refresh = function(panel, arg)
     if arg and (arg.id or arg.instanceID) then
-      selected = D.Get(arg.id or arg.instanceID) or selected
-      mode = "info"
+      local target = D.Get(arg.id or arg.instanceID)
+      -- Solo una mazmorra distinta vuelve a «Información»; un redibujado conserva el modo.
+      if target and target ~= selected then
+        selected = target
+        mode = "info"
+      end
     end
     panel.placeholder:SetText(L.DUNGEONS_PICK)
     refreshList(panel)

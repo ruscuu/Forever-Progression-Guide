@@ -480,6 +480,66 @@ class RealDataSmokeTest(AddonTestCase):
         self.lua.execute("for _, q in pairs(NS.Data.Quests) do NS.Quests.TooltipLines(q) end")
 
 
+class ClientNamesTest(AddonTestCase):
+    def test_names_follow_guide_language(self):
+        self.run_lua("WOWMOCK.itemNames[872] = 'Rajarrocas'")
+        self.assertEqual(self.lua.eval("NS.Items.Name(872)"), "Rajarrocas", "cliente en español y guía en español")
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("en")
+        self.assertEqual(self.lua.eval("NS.Items.Name(872)"), "Rockslicer", "guía en inglés: el nombre de los datos")
+
+    def test_missing_names_are_requested_once_and_refresh_the_window(self):
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.run_lua("NS.UI.Select('dungeons', { id = 'the-deadmines' }); local b = NS.UI.tabs.dungeons.panel.modes.loot; b:GetScript('OnClick')(b)")
+        requested = list(self.mock.requested.values())
+        self.assertIn("item:872", requested)
+        self.run_lua("NS.Items.Name(872)")
+        self.assertEqual(list(self.mock.requested.values()).count("item:872"), 1, "no se repite la petición")
+        self.run_lua("WOWMOCK.itemNames[872] = 'Rajarrocas'")
+        self.fire("GET_ITEM_INFO_RECEIVED", 872, True)
+        self.assertIn("Rajarrocas", self.lua.eval("NS.UI.tabs.dungeons.panel.list.rows[1].left:GetText()")
+                      + "".join(self.lua.eval("NS.UI.tabs.dungeons.panel.list.rows[%d].left:GetText()" % i)
+                                for i in range(2, 8)))
+
+    def test_translate_command_collects_all_names(self):
+        self.run_lua("WOWMOCK.autoLoad = true")
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("traducir")
+        items, quests = self.lua.eval("NS.Translations.Counts()")
+        self.assertGreater(items, 1000)
+        self.assertGreater(quests, 200)
+        out = "\n".join(self.mock.printed.values())
+        self.assertIn("Nombres recogidos", out)
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideDB.translations.esES.items[872]"), "Objeto 872")
+
+    def test_translations_reach_the_pipeline(self):
+        import build_data
+        import import_contributions
+        from luatable import parse_assignments
+
+        self.run_lua("""ForeverProgressionGuideDB.translations = { esES = {
+          items = { [872] = 'Rajarrocas' }, quests = { [166] = 'La Hermandad Defias' } } }""")
+        db = parse_assignments(self.mock.SavedVariablesText("ForeverProgressionGuideDB"))["ForeverProgressionGuideDB"]
+        contrib = import_contributions.normalize(db["contributions"])
+        contrib["translations"] = import_contributions.normalize_translations(db["translations"])
+        fc = build_data.load_fc()
+        quests, items, notes = build_data.fc_quests(fc), build_data.fc_items(fc), []
+        build_data.apply_translations(quests, items, [("t.json", contrib)], notes)
+        self.assertEqual(items[872]["name"], {"en": "Rockslicer", "es": "Rajarrocas"})
+        self.assertEqual(quests[166]["name"]["es"], "La Hermandad Defias")
+
+    def test_self_test_command(self):
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("test")
+        out = "\n".join(self.mock.printed.values())
+        self.assertIn("Autoprueba superada.", out)
+        self.assertIn("42 mazmorras abiertas en todos sus modos, 0 con errores", out)
+        self.assertFalse(self.lua.eval("NS.UI.IsShown()"), "deja la ventana como estaba")
+
+    def test_self_test_reports_a_broken_dungeon(self):
+        self.run_lua("NS.Data.Dungeons['the-deadmines'].loot = true")
+        report = self.lua.eval("NS.SelfTest.Run()")
+        self.assertIn("dungeon:the-deadmines", list(report.failures.values()))
+        self.ns.errors = self.lua.table()  # el error es intencionado
+
+
 class MinimapAndOptionsTest(AddonTestCase):
     def button(self):
         return self.lua.globals().ForeverProgressionGuideMinimapButton

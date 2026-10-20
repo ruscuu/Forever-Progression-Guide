@@ -540,6 +540,72 @@ class ClientNamesTest(AddonTestCase):
         self.ns.errors = self.lua.table()  # el error es intencionado
 
 
+class CompareTest(AddonTestCase):
+    def setup_bags(self):
+        self.run_lua("""
+          WOWMOCK.gear[1] = 'casco ilvl20'
+          WOWMOCK.itemStats['casco ilvl20'] = { ITEM_MOD_STRENGTH_SHORT = 2 }
+          -- Casco de mallas mejor, tela con intelecto (no sirve al guerrero) y un anillo para nivel 30.
+          WOWMOCK.bags[0] = { 'yelmo', 'toga', 'anillo' }
+          WOWMOCK.itemInfo['yelmo'] = { id = 101, equipLoc = 'INVTYPE_HEAD', icon = 'i1', classID = 4, subclassID = 3 }
+          WOWMOCK.itemStats['yelmo'] = { ITEM_MOD_STRENGTH_SHORT = 6, ITEM_MOD_STAMINA_SHORT = 3 }
+          WOWMOCK.itemInfo['toga'] = { id = 102, equipLoc = 'INVTYPE_ROBE', icon = 'i2', classID = 4, subclassID = 1 }
+          WOWMOCK.itemStats['toga'] = { ITEM_MOD_INTELLECT_SHORT = 8 }
+          WOWMOCK.itemInfo['anillo'] = { id = 103, equipLoc = 'INVTYPE_FINGER', icon = 'i3', classID = 4, subclassID = 0 }
+          WOWMOCK.itemStats['anillo'] = { ITEM_MOD_STRENGTH_SHORT = 9 }
+          WOWMOCK.itemReq['anillo'] = 30
+        """)
+
+    def test_profiles_and_weights(self):
+        self.assertEqual(self.lua.eval("NS.Compare.Profile('PRIEST')"), "healer")
+        self.assertEqual(self.lua.eval("NS.Compare.Profile('WARRIOR', 'TANK')"), "tank")
+        self.assertEqual(self.lua.eval("NS.Compare.Profile('PRIEST', 'DAMAGER')"), "caster")
+        self.assertEqual(self.lua.eval("NS.Compare.Profile('ROGUE')"), "melee_agi")
+
+    def test_diff_text_rounds_and_colors(self):
+        text = self.lua.eval("""NS.Compare.DiffText(NS.Compare.Diff(
+          { ITEM_MOD_STRENGTH_SHORT = 5, ITEM_MOD_STAMINA_SHORT = 4 },
+          { ITEM_MOD_STRENGTH_SHORT = 8, ITEM_MOD_STAMINA_SHORT = 2 }, NS.Compare.Weights('WARRIOR')))""")
+        self.assertEqual(text, "|cff40ff40+3 Fuerza|r, |cffff5050-2 Aguante|r")
+
+    def test_bag_upgrades_for_a_warrior(self):
+        self.setup_bags()
+        ups = list(self.lua.eval("NS.Compare.BagUpgrades('WARRIOR', nil, 20)").values())
+        links = [u.link for u in ups]
+        self.assertEqual(links[0], "yelmo", "la mejora utilizable va primero")
+        self.assertEqual(ups[0].slot, 1)
+        self.assertNotIn("toga", links, "intelecto no puntúa para un guerrero")
+        self.assertEqual(links[-1], "anillo")
+        self.assertEqual(ups[-1].future, 30, "requiere nivel 30: mejora futura")
+
+    def test_bag_upgrades_respect_class_armor(self):
+        self.setup_bags()
+        links = [u.link for u in self.lua.eval("NS.Compare.BagUpgrades('PRIEST', nil, 20)").values()]
+        self.assertNotIn("yelmo", links, "un sacerdote no lleva mallas")
+        self.assertIn("toga", links)
+
+    def test_gear_tab_and_objective(self):
+        self.setup_bags()
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.run_lua("NS.UI.Select('gear')")
+        row = self.lua.eval("NS.UI.tabs.gear.panel.list.rows[1]")
+        self.assertIn("yelmo", row.left.GetText(row.left))
+        self.assertIn("+3 Aguante", row.left.GetText(row.left))
+        self.run_lua("local b = NS.UI.tabs.gear.panel.equipped; b:GetScript('OnClick')(b)")
+        objs = {o.kind: o for o in self.lua.eval("NS.Objectives.Generate(NS.Compat.Player())")[0].values()}
+        self.assertEqual(objs["bag"].title, "Equípate yelmo de tus bolsas")
+
+    def test_dungeon_loot_uses_stats_when_known(self):
+        self.run_lua("""
+          WOWMOCK.itemInfo['item:872'] = { id = 872, equipLoc = 'INVTYPE_2HWEAPON', classID = 2, subclassID = 1 }
+          WOWMOCK.itemStats['item:872'] = { ITEM_MOD_STRENGTH_SHORT = 10 }
+        """)
+        loot = list(self.lua.eval("NS.Items.DungeonLoot(NS.Data.Dungeons['the-deadmines'], 'WARRIOR', 20, true)").values())
+        first = loot[0]
+        self.assertEqual(first.id, 872, "con estadísticas conocidas va delante")
+        self.assertEqual(first.score, 10)
+
+
 class MinimapAndOptionsTest(AddonTestCase):
     def button(self):
         return self.lua.globals().ForeverProgressionGuideMinimapButton

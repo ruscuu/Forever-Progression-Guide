@@ -7,6 +7,40 @@ ns.UI = UI
 UI.CATEGORY_COLORS = { recommended = "40ff40", reward = "66bbff", optional = "9d9d9d", too_early = "ff5050", unverified = "ffd100", unavailable = "6e6e6e" }
 UI.CONFIDENCE_COLORS = { high = "40ff40", medium = "ffd100", low = "ff9933", none = "9d9d9d" }
 
+-- Paleta de la guía (RGBA): fondo azul noche y acentos dorados, como el logo.
+UI.THEME = {
+  background = { 0.05, 0.06, 0.09, 0.97 },
+  border = { 0.24, 0.27, 0.35, 1 },
+  header = { 0.09, 0.12, 0.19, 1 },
+  panel = { 0.08, 0.10, 0.15, 0.95 },
+  stripe = { 1, 1, 1, 0.035 },
+  accent = { 0.95, 0.76, 0.25, 1 },
+  button = { 0.13, 0.16, 0.23, 1 },
+  buttonHover = { 0.19, 0.23, 0.32, 1 },
+  buttonActive = { 0.26, 0.21, 0.08, 1 },
+  buttonDisabled = { 0.10, 0.11, 0.14, 1 },
+  text = { 0.92, 0.92, 0.92 },
+  textActive = { 1, 0.82, 0.2 },
+  textDisabled = { 0.45, 0.45, 0.45 },
+}
+
+-- Colorea una textura con un color de la paleta.
+function UI.Paint(texture, color)
+  texture:SetColorTexture(color[1], color[2], color[3], color[4] or 1)
+end
+
+-- Rectángulo de fondo con borde de 1 px.
+function UI.Box(frame, fill, border)
+  local edge = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
+  edge:SetAllPoints()
+  UI.Paint(edge, border or UI.THEME.border)
+  local bg = frame:CreateTexture(nil, "BACKGROUND", nil, -7)
+  bg:SetPoint("TOPLEFT", 1, -1)
+  bg:SetPoint("BOTTOMRIGHT", -1, 1)
+  UI.Paint(bg, fill or UI.THEME.panel)
+  return bg, edge
+end
+
 function UI.Color(hex, text)
   return "|cff" .. hex .. tostring(text) .. "|r"
 end
@@ -18,12 +52,59 @@ function UI.Label(parent, font, justify)
   return fs
 end
 
+local function paintButton(b)
+  local t = UI.THEME
+  local fill = (b.active and t.buttonActive) or (not b:IsEnabled() and t.buttonDisabled) or (b.hover and t.buttonHover) or t.button
+  UI.Paint(b.bg, fill)
+  b.accent:SetShown(b.active and true or false)
+  local color = (b.active and t.textActive) or (b:IsEnabled() and t.text) or t.textDisabled
+  b.label:SetTextColor(color[1], color[2], color[3])
+end
+
+-- Botón plano con el estilo de la guía. Además de SetEnabled (no disponible),
+-- admite SetActive para marcar la opción seleccionada (pestaña, modo, idioma).
 function UI.Button(parent, text, width, onClick)
-  local b = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+  local b = CreateFrame("Button", nil, parent)
   b:SetSize(width or 100, 22)
+  b.bg = UI.Box(b, UI.THEME.button)
+  b.accent = b:CreateTexture(nil, "ARTWORK")
+  b.accent:SetPoint("BOTTOMLEFT", 1, 1)
+  b.accent:SetPoint("BOTTOMRIGHT", -1, 1)
+  b.accent:SetHeight(2)
+  UI.Paint(b.accent, UI.THEME.accent)
+  b.label = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  b.label:SetPoint("LEFT", 6, 0)
+  b.label:SetPoint("RIGHT", -6, 0)
+  b.label:SetWordWrap(false)
+  b:SetFontString(b.label)
+
+  local setEnabled = b.SetEnabled
+  b.SetEnabled = function(self, enabled)
+    setEnabled(self, enabled)
+    paintButton(self)
+  end
+  function b:SetActive(active)
+    self.active = active and true or nil
+    paintButton(self)
+  end
+  b:SetScript("OnEnter", function(self) self.hover = true paintButton(self) end)
+  b:SetScript("OnLeave", function(self) self.hover = nil paintButton(self) GameTooltip:Hide() end)
   b:SetText(text or "")
   if onClick then b:SetScript("OnClick", onClick) end
+  paintButton(b)
   return b
+end
+
+-- Título de sección con una línea dorada debajo.
+function UI.Header(parent, width)
+  local fs = UI.Label(parent, "GameFontNormal")
+  local line = parent:CreateTexture(nil, "ARTWORK")
+  line:SetHeight(1)
+  line:SetPoint("TOPLEFT", fs, "BOTTOMLEFT", 0, -3)
+  line:SetWidth(width or 220)
+  UI.Paint(line, { 0.95, 0.76, 0.25, 0.5 })
+  fs.line = line
+  return fs
 end
 
 function UI.Tooltip(owner, lines, link)
@@ -52,6 +133,9 @@ local function defaultRow(content, list)
   row:SetScript("OnClick", function(self) if list.onClick then list.onClick(self.item, self) end end)
   row:SetScript("OnEnter", function(self) if list.onEnter then list.onEnter(self.item, self) end end)
   row:SetScript("OnLeave", hideTooltip)
+  row.stripe = row:CreateTexture(nil, "BACKGROUND")
+  row.stripe:SetAllPoints()
+  UI.Paint(row.stripe, UI.THEME.stripe)
   return row
 end
 
@@ -64,9 +148,6 @@ function UI.IconRow(content, list)
   row.left:ClearAllPoints()
   row.left:SetPoint("LEFT", row.icon, "RIGHT", 6, 0)
   row.left:SetPoint("RIGHT", -110, 0)
-  row.stripe = row:CreateTexture(nil, "BACKGROUND")
-  row.stripe:SetAllPoints()
-  row.stripe:SetColorTexture(1, 1, 1, 0.04)
   return row
 end
 
@@ -97,6 +178,7 @@ function UI.List(parent, rowHeight, buildRow)
         self.rows[i] = row
       end
       row.item = item
+      if type(row.stripe) == "table" then row.stripe:SetShown(i % 2 == 0) end
       render(row, item)
       row:Show()
     end
@@ -113,18 +195,10 @@ local ITEM_HEIGHT = 20
 
 function UI.Selector(parent, width)
   local button = UI.Button(parent, "", width)
-  local menu = CreateFrame("Frame", nil, button, "BackdropTemplate")
+  local menu = CreateFrame("Frame", nil, button)
   menu:SetFrameStrata("DIALOG")
   menu:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -2)
-  if menu.SetBackdrop then
-    menu:SetBackdrop({
-      bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-      edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-      tile = true, tileSize = 16, edgeSize = 12,
-      insets = { left = 3, right = 3, top = 3, bottom = 3 },
-    })
-    menu:SetBackdropColor(0.05, 0.08, 0.15, 0.97)
-  end
+  UI.Box(menu, UI.THEME.background, UI.THEME.accent)
   menu:Hide()
 
   local selector = { button = button, menu = menu, items = {}, options = {} }

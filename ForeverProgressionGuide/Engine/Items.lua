@@ -158,29 +158,37 @@ function I.Upgrade(item)
   return item.ilvl - (worst or 0)
 end
 
-function I.ShowTooltip(owner, id)
+-- Tooltip del juego para el objeto, más líneas propias al final (comparación, jefe).
+function I.ShowTooltip(owner, id, extraLines)
   GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
   if GameTooltip.SetItemByID then
     GameTooltip:SetItemByID(id)
   else
     GameTooltip:SetHyperlink("item:" .. id)
   end
+  for _, line in ipairs(extraLines or {}) do GameTooltip:AddLine(line, 1, 1, 1, true) end
   GameTooltip:Show()
 end
 
 -- Botín de una mazmorra preparado para mostrar, filtrado para una clase.
-function I.DungeonLoot(d, classFile, level, onlyUsable)
+-- Si el cliente tiene las estadísticas del objeto, se compara por ellas con el
+-- equipo (score); si no, por nivel de objeto (upgrade).
+function I.DungeonLoot(d, classFile, level, onlyUsable, role)
   local out = {}
   for _, drop in ipairs(d.loot or {}) do
     local item = I.Get(drop.itemId)
     local fit = I.Fit(item, classFile, level)
     if not onlyUsable or fit ~= "no" then
-      out[#out + 1] = { id = drop.itemId, source = drop.source, item = item, fit = fit, upgrade = I.Upgrade(item) }
+      local cmp = fit ~= "no" and ns.Compare.ForItemID(drop.itemId, classFile, role) or nil
+      out[#out + 1] = { id = drop.itemId, source = drop.source, item = item, fit = fit, upgrade = I.Upgrade(item),
+                        score = cmp and cmp.delta, diffs = cmp and cmp.diffs }
     end
   end
   local fitRank = { best = 1, usable = 2, no = 3 }
   table.sort(out, function(a, b)
     if fitRank[a.fit] ~= fitRank[b.fit] then return fitRank[a.fit] < fitRank[b.fit] end
+    if (a.score ~= nil) ~= (b.score ~= nil) then return a.score ~= nil end
+    if a.score and a.score ~= b.score then return a.score > b.score end
     return (a.upgrade or -999) > (b.upgrade or -999)
   end)
   return out

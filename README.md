@@ -10,7 +10,7 @@ Addon para WoW Forever que guía al jugador del nivel 1 al máximo: qué hacer a
 | --- | --- |
 | **Progresión** | Objetivos con su motivo y nivel de confianza: mazmorras para tu nivel (o la próxima), misiones que recoger antes de entrar, misiones de clase, zona recomendada y ranuras de equipo débiles. Se pueden marcar como hechos, posponer u ocultar. |
 | **Mazmorras** | 42 mazmorras y bandas, incluidas las nuevas de Forever, clasificadas para tu personaje. Cada ficha tiene **Información** (entrada, cambios en Forever, jefes), **Misiones** (requisitos, recompensas, experiencia y si ya las hiciste), **Botín** (iconos, calidad, filtrado por lo que tu clase puede usar y mejoras frente a tu equipo) y **Mapa**. |
-| **Equipo** | Equipo actual, nivel de objeto medio y ranuras débiles. |
+| **Equipo** | **Mejoras en tus bolsas**: compara por estadísticas cada objeto equipable de tus bolsas con lo que llevas, con pesos según tu clase y especialización, y muestra la diferencia («+5 Intelecto, −2 Aguante»). También el equipo actual con su nivel de objeto y ranuras débiles. |
 | **Misiones** | Misiones de mazmorra y de élite disponibles para tu nivel, y tu registro actual. |
 | **Profesiones** | Profesiones y nivel de habilidad. |
 | **Buscador** | Mazmorras, jefes, misiones y objetos, en los dos idiomas. |

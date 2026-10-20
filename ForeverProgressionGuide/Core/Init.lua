@@ -3,6 +3,7 @@ local ADDON, ns = ...
 
 ns.name = ADDON
 ns.errors = {}
+ns.errorCount = 0 -- total; la lista solo guarda los 50 primeros
 
 local SCHEMA = 1
 
@@ -41,6 +42,7 @@ local function migrate(db)
 end
 
 function ns.LogError(context, err)
+  ns.errorCount = ns.errorCount + 1
   local entry = tostring(context) .. ": " .. tostring(err)
   if #ns.errors < 50 then table.insert(ns.errors, entry) end
 end

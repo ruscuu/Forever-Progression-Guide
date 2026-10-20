@@ -28,6 +28,22 @@ function ns.SetLanguage(setting)
   end
 end
 
+-- Idioma del cliente ("es" o "en"): los nombres que da el juego vienen en él.
+function ns.ClientLanguage()
+  local locale = GetLocale()
+  return (locale == "esES" or locale == "esMX") and "es" or "en"
+end
+
+-- Nombre de algo que el cliente puede traducir (objeto, misión): si la guía
+-- está en el idioma del cliente, manda el cliente; si no, el de los datos.
+function ns.PickName(clientName, dataNames)
+  if clientName and ns.lang == ns.ClientLanguage() then return clientName end
+  if type(dataNames) == "table" and dataNames[ns.lang] then return dataNames[ns.lang] end
+  -- Un nombre suelto en los datos viene en inglés (Forever Companion).
+  if type(dataNames) == "string" and ns.lang == "en" then return dataNames end
+  return clientName or ns.Localized(dataNames)
+end
+
 -- Elige el nombre en el idioma activo; sin traducción, el original disponible.
 function ns.Localized(names)
   if type(names) ~= "table" then return names end

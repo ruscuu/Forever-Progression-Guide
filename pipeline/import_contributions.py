@@ -51,18 +51,30 @@ def normalize(contrib):
     return {"builds": keys_of(contrib.get("builds")), "instances": instances, "quests": quests}
 
 
+def normalize_translations(translations):
+    """Nombres recogidos con /wfg traducir: {locale: {items: {id: nombre}, quests: {...}}}."""
+    out = {}
+    for locale, data in (translations or {}).items():
+        out[locale] = {kind: {str(k): v for k, v in (data.get(kind) or {}).items()} for kind in ("items", "quests")}
+    return out
+
+
 def import_file(path):
     variables = parse_assignments(Path(path).read_text(encoding="utf-8", errors="replace"))
     db = variables.get(SAVED_VAR)
-    if not isinstance(db, dict) or not db.get("contributions"):
+    if not isinstance(db, dict) or not (db.get("contributions") or db.get("translations")):
         raise SystemExit(f"{path}: no contiene observaciones de {SAVED_VAR}. ¿Has jugado con el addon activado?")
-    data = normalize(db["contributions"])
+    data = normalize(db.get("contributions") or {})
+    translations = normalize_translations(db.get("translations"))
+    if translations:
+        data["translations"] = translations
     text = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
     # El nombre depende del contenido: importar dos veces lo mismo no duplica archivos.
     out = CONTRIB_DIR / f"{hashlib.sha256(text.encode()).hexdigest()[:12]}.json"
     CONTRIB_DIR.mkdir(parents=True, exist_ok=True)
     out.write_text(text, encoding="utf-8", newline="\n")
-    print(f"{out.relative_to(ROOT)}: {len(data['instances'])} instancias, {len(data['quests'])} misiones.")
+    names = sum(len(t["items"]) + len(t["quests"]) for t in data.get("translations", {}).values())
+    print(f"{out.relative_to(ROOT)}: {len(data['instances'])} instancias, {len(data['quests'])} misiones, {names} nombres traducidos.")
     return out
 
 

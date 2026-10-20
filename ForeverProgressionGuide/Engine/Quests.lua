@@ -11,8 +11,15 @@ Q.LEVEL_MARGIN = 4
 
 function Q.Get(id) return ns.Data.Quests and ns.Data.Quests[id] end
 
+local requested = {}
+
 function Q.Name(q)
-  return C.Call("C_QuestLog.GetTitleForQuestID", q.id) or ns.Localized(q.name) or ("#" .. q.id)
+  local title = C.Call("C_QuestLog.GetTitleForQuestID", q.id)
+  if not title and not requested[q.id] then
+    requested[q.id] = true
+    C.Call("C_QuestLog.RequestLoadQuestByID", q.id)
+  end
+  return ns.PickName(title, q.name) or ("#" .. q.id)
 end
 
 function Q.IsDone(id)

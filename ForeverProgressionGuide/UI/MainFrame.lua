@@ -183,7 +183,8 @@ local function refreshIfShown()
   if frame and frame:IsShown() then UI.Select(current, currentArg) end
 end
 
-for _, message in ipairs({ "FILTER_CHANGED", "LANGUAGE_CHANGED", "OBJECTIVES_CHANGED", "JOURNAL_LOOT_UPDATED", "INSTANCE_OBSERVED" }) do
+for _, message in ipairs({ "FILTER_CHANGED", "LANGUAGE_CHANGED", "OBJECTIVES_CHANGED", "JOURNAL_LOOT_UPDATED",
+                           "INSTANCE_OBSERVED", "CLIENT_DATA_RECEIVED" }) do
   ns.Listen(message, refreshIfShown)
 end
 ns.On("PLAYER_LEVEL_UP", refreshIfShown)

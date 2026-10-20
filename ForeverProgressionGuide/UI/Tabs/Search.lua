@@ -62,7 +62,7 @@ function ns.Search(query)
   end
   for id, item in pairs(ns.Data.Items or {}) do
     if #results >= MAX_RESULTS then break end
-    if matches(item.name, query) or matches(ns.Items.Name(id), query) then
+    if anyName(item.name, query) or matches(ns.Items.Name(id), query) then
       local d = dungeonDropping(id)
       results[#results + 1] = { kind = "item", label = ns.Items.ColoredName(id) .. (d and (" · " .. D.Name(d)) or ""), dungeon = d, itemId = id }
     end

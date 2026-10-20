@@ -381,6 +381,30 @@ def apply_contributions(records, contributions, notes):
     return quests, sorted(builds, key=build_key)
 
 
+def apply_translations(quests, items, contributions, notes):
+    """Nombres recogidos en el juego con /wfg traducir, en el idioma de cada cliente."""
+    applied = 0
+    for _, contrib in contributions:
+        for locale, data in (contrib.get("translations") or {}).items():
+            lang = lang_of(locale)
+            if lang == "en":
+                continue  # Forever Companion ya da los nombres en inglés
+            for key, name in data.get("quests", {}).items():
+                q = quests.get(int(key))
+                if q and name:
+                    q["name"][lang] = name
+                    applied += 1
+            for key, name in data.get("items", {}).items():
+                item = items.get(int(key))
+                if item and name:
+                    if isinstance(item["name"], str):
+                        item["name"] = {"en": item["name"]}
+                    item["name"][lang] = name
+                    applied += 1
+    if applied:
+        notes.append(f"{applied} nombres traducidos aplicados desde el juego.")
+
+
 # ---------------------------------------------------------------- validación
 
 def validate(records, quests=None, items=None, notes=None):
@@ -527,7 +551,10 @@ def build():
         notes.append("Sin datos de Forever Companion: ejecuta pipeline/fetch_forevercompanion.py.")
     load_seed(records)
     apply_imports(records, notes)
-    observed_quests, builds = apply_contributions(records, load_contributions(), notes)
+    contributions = load_contributions()
+    observed_quests, builds = apply_contributions(records, contributions, notes)
+    if fc:
+        apply_translations(quests, extra["Items"], contributions, notes)
     validate(records, quests if fc else None, extra.get("Items"), notes)
 
     old_path = SNAPSHOT_DIR / "dungeons.json"

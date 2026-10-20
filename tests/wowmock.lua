@@ -131,8 +131,16 @@ function GetSpecializationInfo(i) local s = (M.specs[M.player.classID] or {})[i]
 local function vector(x, y) return { GetXY = function() return x, y end } end
 
 C_Timer = { After = function(_, fn) fn() end }
+-- Nombres que el cliente «tiene en memoria». Con autoLoad, pedirlos los carga al momento.
+M.itemNames, M.questTitles, M.requested = {}, {}, {}
+M.autoLoad = false
 C_Item = {
   GetDetailedItemLevelInfo = function(link) return tonumber(string.match(link, "ilvl(%d+)")) end,
+  GetItemNameByID = function(id) return M.itemNames[id] end,
+  RequestLoadItemDataByID = function(id)
+    M.requested[#M.requested + 1] = "item:" .. id
+    if M.autoLoad then M.itemNames[id] = "Objeto " .. id end
+  end,
 }
 
 -- Mapa de las Minas de la Muerte: 4x3 mosaicos de 256 px y un jefe situado.
@@ -215,6 +223,11 @@ C_EncounterJournal = {
 M.completedQuests = {}
 C_QuestLog = {
   IsQuestFlaggedCompleted = function(id) return M.completedQuests[id] or false end,
+  GetTitleForQuestID = function(id) return M.questTitles[id] end,
+  RequestLoadQuestByID = function(id)
+    M.requested[#M.requested + 1] = "quest:" .. id
+    if M.autoLoad then M.questTitles[id] = "Misión " .. id end
+  end,
   GetLogIndexForQuestID = function() return 1 end,
   GetInfo = function() return { title = "La Hermandad Defias", level = 18, questID = 155, isHeader = false } end,
   GetNumQuestLogEntries = function() return 1 end,

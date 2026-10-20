@@ -65,12 +65,37 @@ local STATS = {
 
 function I.Get(id) return ns.Data.Items and ns.Data.Items[id] end
 
+local requested = {}
+
+-- Pide al cliente los datos de un objeto que aún no tiene en memoria; llegan
+-- con el evento GET_ITEM_INFO_RECEIVED y la ventana se redibuja sola.
+function I.Request(id)
+  if requested[id] then return end
+  requested[id] = true
+  C.Call("C_Item.RequestLoadItemDataByID", id)
+end
+
 function I.Name(id)
   local name = C.Call("C_Item.GetItemNameByID", id)
-  if name then return name end
+  if not name then I.Request(id) end
   local item = I.Get(id)
-  return item and item.name or ("#" .. tostring(id))
+  return ns.PickName(name, item and item.name) or ("#" .. tostring(id))
 end
+
+-- Varios avisos seguidos se agrupan en un solo redibujado.
+local refreshPending
+local function dataArrived()
+  if refreshPending then return end
+  refreshPending = true
+  local function fire()
+    refreshPending = false
+    ns.Fire("CLIENT_DATA_RECEIVED")
+  end
+  if C_Timer and C_Timer.After then C_Timer.After(0.3, fire) else fire() end
+end
+
+ns.On("GET_ITEM_INFO_RECEIVED", function(itemID) if requested[itemID] then dataArrived() end end)
+ns.On("QUEST_DATA_LOAD_RESULT", function() dataArrived() end)
 
 function I.Icon(id)
   local item = I.Get(id)

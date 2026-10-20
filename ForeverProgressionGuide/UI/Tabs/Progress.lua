@@ -44,13 +44,25 @@ UI.RegisterTab({
     panel.list:SetPoints(0, -34, 0, 0)
     panel.empty = UI.Label(panel, "GameFontNormal", "CENTER")
     panel.empty:SetPoint("CENTER")
+    panel.showHidden = UI.Button(panel, "", 220, O.ResetHidden)
+    panel.showHidden:SetPoint("TOP", panel.empty, "BOTTOM", 0, -12)
   end,
   Refresh = function(panel)
     local meta = ns.Data.Meta or {}
     local counts = meta.statusCounts or {}
     panel.intro:SetText(string.format(L.PROGRESS_INTRO, (meta.counts or {}).dungeons or 0, counts.verified_ingame or 0))
-    local objectives = O.Generate(ns.Compat.Player())
+    local objectives, hidden = O.Generate(ns.Compat.Player())
     panel.empty:SetText(#objectives == 0 and L.PROGRESS_EMPTY or "")
+    panel.showHidden:SetText(string.format(L.PROGRESS_SHOW_HIDDEN, hidden))
+    panel.showHidden:SetShown(hidden > 0)
+    if hidden > 0 and #objectives > 0 then
+      -- Con objetivos visibles, el botón va arriba a la derecha para no tapar la lista.
+      panel.showHidden:ClearAllPoints()
+      panel.showHidden:SetPoint("TOPRIGHT", panel, "TOPRIGHT", 0, -2)
+    else
+      panel.showHidden:ClearAllPoints()
+      panel.showHidden:SetPoint("TOP", panel.empty, "BOTTOM", 0, -12)
+    end
     panel.list:SetData(objectives, function(row, obj)
       local tag = UI.Color(UI.CONFIDENCE_COLORS[obj.confidence] or "9d9d9d", L["CONFIDENCE_" .. string.upper(obj.confidence)])
       row.title:SetText(obj.title .. (obj.postponed and (" " .. UI.Color("9d9d9d", L.POSTPONED)) or ""))

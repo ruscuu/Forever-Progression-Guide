@@ -50,6 +50,25 @@ COMMANDS.minimap = function()
 end
 COMMANDS.minimapa = COMMANDS.minimap
 
+-- Qué ofrece este cliente: sirve para saber qué funciona en Forever sin adivinar.
+COMMANDS.diag = function()
+  local C, J = ns.Compat, ns.Journal
+  local function yesNo(v) return v and L.YES or L.NO end
+  local deadmines = ns.Data.Dungeons and ns.Data.Dungeons[36]
+  local mapID, origin
+  if deadmines then mapID, origin = J.MapFor(deadmines) end
+  local player = C.Player()
+  local objectives, hidden = ns.Objectives.Generate(player)
+  local minimap = ns.UI.Minimap.Get()
+  say(L.DIAG_HEADER .. " " .. C.ClientBuild())
+  print("  " .. string.format(L.DIAG_JOURNAL, yesNo(J.Available()), J.InstanceCount()))
+  print("  " .. string.format(L.DIAG_MAPS, J.DungeonMapCount(), mapID and (mapID .. " (" .. origin .. ")") or L.NOT_FOUND))
+  print("  " .. string.format(L.DIAG_SPECS, yesNo(C.Has("GetSpecializationInfoForClassID")), #ns.ClassFilter.Specs(player.classID)))
+  print("  " .. string.format(L.DIAG_UI, yesNo(C.Has("Settings.RegisterCanvasLayoutCategory")),
+    minimap and (minimap:IsShown() and L.DIAG_SHOWN or L.DIAG_HIDDEN) or L.NOT_FOUND))
+  print("  " .. string.format(L.DIAG_OBJECTIVES, #objectives, hidden, #ns.errors))
+end
+
 COMMANDS.help = function() say(L.SLASH_HELP) end
 
 SLASH_FOREVERPROGRESSIONGUIDE1 = "/wfg"

@@ -47,10 +47,7 @@ function UI.BuildOptions(panel)
 
   o.resetTitle = heading(panel)
   o.resetTitle:SetPoint("TOPLEFT", 4, -148)
-  o.resetObjectives = UI.Button(panel, "", 230, function()
-    ns.char.objectives = {}
-    ns.Fire("OBJECTIVES_CHANGED")
-  end)
+  o.resetObjectives = UI.Button(panel, "", 230, function() ns.Objectives.ResetHidden() end)
   o.resetObjectives:SetPoint("TOPLEFT", 4, -168)
   o.resetWindow = UI.Button(panel, "", 230, function()
     ns.char.window = {}

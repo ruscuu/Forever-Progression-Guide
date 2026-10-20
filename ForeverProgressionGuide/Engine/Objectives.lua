@@ -27,6 +27,28 @@ local function dungeonObjectives(player, list)
       target = { tab = "dungeons", instanceID = d.instanceID },
     }
   end
+  if added > 0 then return end
+
+  -- Ninguna mazmorra para tu nivel todavía (típico en los primeros niveles):
+  -- la próxima que podrás hacer, para que la guía siempre indique un rumbo.
+  local nextEntry
+  for _, entry in ipairs(ns.Dungeons.Ranked(player)) do
+    local d, eval = entry.dungeon, entry.eval
+    local ownFaction = not d.faction or d.faction == "both" or d.faction == player.faction
+    if eval.category == ns.Dungeons.TOO_EARLY and ownFaction and eval.levels
+        and (not nextEntry or eval.levels.min < nextEntry.eval.levels.min) then
+      nextEntry = entry
+    end
+  end
+  if not nextEntry then return end
+  local d, eval = nextEntry.dungeon, nextEntry.eval
+  local from = eval.levels.min - ns.Dungeons.EARLY_MARGIN
+  list[#list + 1] = {
+    id = "next:" .. d.instanceID, kind = "next", priority = 15, confidence = eval.confidence,
+    title = L("OBJ_NEXT_DUNGEON", ns.Dungeons.Name(d)),
+    reasons = { L("OBJ_REASON_NEXT", from, from - player.level) },
+    target = { tab = "dungeons", instanceID = d.instanceID },
+  }
 end
 
 local function gearObjectives(list)
@@ -69,11 +91,13 @@ function O.Generate(player)
   exploreObjectives(all)
   dataObjectives(all)
 
-  local visible = {}
+  local visible, hidden = {}, 0
   for _, obj in ipairs(all) do
     local saved = ns.char.objectives[obj.id]
     local state = saved and saved.state
-    if state ~= O.DONE and state ~= O.DISMISSED then
+    if state == O.DONE or state == O.DISMISSED then
+      hidden = hidden + 1
+    else
       if state == O.POSTPONED then
         obj.postponed = true
         obj.priority = obj.priority + 100
@@ -83,7 +107,13 @@ function O.Generate(player)
   end
   table.sort(visible, function(a, b) return a.priority < b.priority end)
   while #visible > O.MAX do table.remove(visible) end
-  return visible
+  -- Segundo valor: objetivos marcados como hechos u ocultos, para poder recuperarlos.
+  return visible, hidden
+end
+
+function O.ResetHidden()
+  ns.char.objectives = {}
+  ns.Fire("OBJECTIVES_CHANGED")
 end
 
 function O.SetState(id, state)

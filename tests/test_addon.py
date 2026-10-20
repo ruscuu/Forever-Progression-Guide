@@ -323,6 +323,62 @@ class ClassFilterTest(AddonTestCase):
         self.assertEqual(self.lua.eval("NS.ClassFilter.Label()"), "Guerrero")
 
 
+class FirstLevelsTest(AddonTestCase):
+    """Personaje de nivel 3 en un cliente con el diario vacío, como en Forever."""
+
+    def setUp(self):
+        super().setUp()
+        self.run_lua("""
+          WOWMOCK.player.level = 3; WOWMOCK.player.faction = 'Horde'
+          WOWMOCK.journal.instances = {}
+          NS.Journal.Reset()
+        """)
+
+    def objectives(self):
+        return self.lua.eval("(function() local t = {} for _, o in ipairs(NS.Objectives.Generate(NS.Compat.Player())) do t[#t+1] = o end return t end)()")
+
+    def test_next_dungeon_is_suggested(self):
+        objs = list(self.objectives().values())
+        nxt = [o for o in objs if o.kind == "next"]
+        self.assertEqual(len(nxt), 1)
+        self.assertEqual(nxt[0].id, "next:389", "Sima Ígnea, la primera para la Horda")
+        self.assertEqual(nxt[0].title, "Próxima mazmorra: Sima Ígnea")
+        self.assertEqual(nxt[0].reasons[1], "desde el nivel 11 (te faltan 8 niveles)")
+
+    def test_next_dungeon_respects_faction(self):
+        self.run_lua("WOWMOCK.player.faction = 'Alliance'")
+        ids = [o.id for o in self.objectives().values()]
+        self.assertIn("next:43", ids, "para la Alianza, las Cuevas de los Lamentos (ambas facciones)")
+        self.assertNotIn("next:389", ids)
+
+    def test_hidden_objectives_are_counted_and_recoverable(self):
+        self.run_lua("NS.Objectives.SetState('next:389', 'dismissed')")
+        hidden = self.lua.eval("select(2, NS.Objectives.Generate(NS.Compat.Player()))")
+        self.assertGreaterEqual(hidden, 1)
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.assertTrue(self.lua.eval("NS.UI.tabs.progress.panel.showHidden:IsShown()"))
+        self.run_lua("local b = NS.UI.tabs.progress.panel.showHidden; b:GetScript('OnClick')(b)")
+        self.assertEqual(self.lua.eval("select(2, NS.Objectives.Generate(NS.Compat.Player()))"), 0)
+
+    def test_map_found_by_name_without_journal(self):
+        mapID, origin = self.lua.eval("NS.Journal.MapFor(NS.Data.Dungeons[36])")
+        self.assertEqual((mapID, origin), (291, "name"), "el mapa del cliente se llama «Las Minas de la Muerte»")
+        self.assertIsNone(self.lua.eval("NS.Journal.MapFor(NS.Data.Dungeons[230])"))
+
+    def test_diag_command(self):
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("diag")
+        out = "\n".join(self.mock.printed.values())
+        self.assertIn("Diario de mazmorras: funciones sí · instancias 0", out)
+        self.assertIn("Las Minas de la Muerte → 291 (name)", out)
+        self.assertIn("Especializaciones: API sí · 3 para tu clase", out)
+        self.assertIn("icono del minimapa: visible", out)
+
+    def test_professions_empty_state(self):
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.run_lua("NS.UI.Select('professions')")
+        self.assertIn("Todavía no tienes profesiones", self.lua.eval("NS.UI.tabs.professions.panel.empty:GetText()"))
+
+
 class MinimapAndOptionsTest(AddonTestCase):
     def button(self):
         return self.lua.globals().ForeverProgressionGuideMinimapButton

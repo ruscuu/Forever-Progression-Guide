@@ -140,7 +140,11 @@ Esto no se ha podido probar sin el cliente. Las pruebas automáticas usan Lua
 5.1 real con una API simulada, pero falta confirmar en Forever:
 
 - [x] El addon carga y `/wfg errors` no muestra errores (v0.1.1, build 1.60.1.70450).
-- [x] `/wfg info` indica «diario: sí»: Forever expone el diario de mazmorras.
+- [x] `/wfg info` indica «diario: sí»: Forever tiene las funciones del diario de mazmorras.
+- [ ] Pero, según las capturas de la v0.1.2, el diario parece **vacío**: los jefes
+      salen de los datos de la guía y «Cómo llegar» no tiene entrada. `/wfg diag`
+      lo confirma (número de instancias del diario). Por eso, desde la v0.1.3 el
+      mapa también se busca por nombre entre los mapas de mazmorra del cliente.
 - [ ] Mazmorras → Las Minas de la Muerte → **Mapa** dibuja el mapa y los jefes.
 - [ ] **Botín** muestra objetos (el diario tiene botín en Forever) y cambia al
       elegir otra clase o especialización en la cabecera.

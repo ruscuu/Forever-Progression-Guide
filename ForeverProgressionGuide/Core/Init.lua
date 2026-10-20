@@ -8,7 +8,7 @@ local SCHEMA = 1
 
 local DEFAULT_DB = {
   schema = SCHEMA,
-  settings = { language = "auto", collect = true },
+  settings = { language = "auto", collect = true, minimap = { angle = 225, hide = false } },
   contributions = { builds = {}, instances = {}, quests = {} },
 }
 

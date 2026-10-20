@@ -107,7 +107,7 @@ class LocalizationTest(AddonTestCase):
             "REASON_LEVELS_": ["datamined", "classic_inherited", "announced", "unknown"],
             "CONFIDENCE_": ["high", "medium", "low", "none"],
             "FACTION_": ["both", "alliance", "horde"],
-            "TAB_": ["progress", "dungeons", "gear", "quests", "professions", "search"],
+            "TAB_": ["progress", "dungeons", "gear", "quests", "professions", "search", "options"],
             "KIND_": ["dungeon", "wing", "boss"],
             "BOSSES_FROM_": ["journal", "data"],
             "FIELD_": ["exists", "levels", "bosses"],
@@ -256,6 +256,144 @@ class CollectorTest(AddonTestCase):
         self.assertEqual(dm["observed"]["entrance"]["mapID"], 52)
         self.assertEqual(dm["name"]["es"], "Las Minas de la Muerte")
         self.assertEqual(dm["provenance"]["levels"]["status"], "classic_inherited", "entrar no verifica el rango de niveles")
+
+
+class ClassFilterTest(AddonTestCase):
+    def current(self):
+        return self.lua.eval("NS.ClassFilter.Current()")
+
+    def test_defaults_to_player_class_and_current_spec(self):
+        c = self.current()
+        self.assertEqual((c.classID, c.specID, c.className, c.specName, c.isPlayer), (1, 71, "Guerrero", "Armas", True))
+        self.assertEqual(self.lua.eval("NS.ClassFilter.Label()"), "Guerrero · Armas")
+
+    def test_change_class_resets_spec_and_is_saved(self):
+        F = self.lua.globals().NS.ClassFilter
+        F.SetSpec(73)
+        self.assertEqual(self.current().role, "TANK")
+        F.SetClass(8)
+        c = self.current()
+        self.assertEqual((c.classID, c.specID, c.isPlayer), (8, 0, False))
+        F.SetSpec(64)
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideCharDB.filter.specID"), 64)
+        F.SetClass(1)
+        self.assertTrue(self.current().isPlayer, "volver a la clase propia restaura el personaje")
+        self.assertEqual(self.current().specID, 71)
+
+    def test_loot_uses_selected_class_and_spec(self):
+        self.lua.globals().NS.ClassFilter.SetClass(8)
+        self.lua.globals().NS.ClassFilter.SetSpec(63)
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.run_lua("NS.UI.Select('dungeons', { instanceID = 36 }); local b = NS.UI.tabs.dungeons.panel.modeLoot; b.__scripts.OnClick(b)")
+        self.assertEqual((self.mock.lootFilter, self.mock.lootSpec), (None, None), "el filtro del diario se restaura al terminar")
+        self.assertEqual(self.lua.eval("NS.UI.tabs.dungeons.panel.lootMessage:GetText()"), "Botín para: Mago · Fuego")
+        self.run_lua("WOWMOCK.calls = {}; local f = EJ_SetLootFilter; EJ_SetLootFilter = function(c, s) table.insert(WOWMOCK.calls, c .. ':' .. s) f(c, s) end")
+        self.lua.eval("NS.Journal.Loot(63, NS.ClassFilter.Current().classID, NS.ClassFilter.Current().specID)")
+        self.assertEqual(list(self.mock.calls.values()), ["8:63"])
+
+    def test_header_selectors(self):
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideFrame.classSelector.button:GetText()"), "Guerrero")
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideFrame.specSelector.button:GetText()"), "Armas")
+        # Abrir el desplegable de clase y elegir «Mago».
+        self.run_lua("ForeverProgressionGuideFrame.classSelector:Open()")
+        labels = list(self.lua.eval("""(function()
+          local t = {}
+          for _, item in ipairs(ForeverProgressionGuideFrame.classSelector.items) do t[#t + 1] = item.label:GetText() end
+          return t
+        end)()""").values())
+        self.assertEqual(labels[0], "|cffffd100Mi personaje|r", "la opción activa se resalta")
+        self.assertIn("Mago", labels)
+        self.run_lua("""
+          for _, item in ipairs(ForeverProgressionGuideFrame.classSelector.items) do
+            if item.label:GetText() == 'Mago' then item.__scripts.OnClick(item) end
+          end""")
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideFrame.classSelector.button:GetText()"), "Mago")
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideFrame.specSelector.button:GetText()"), "Todas las especializaciones")
+        # Una clase sin especializaciones oculta el segundo selector.
+        self.lua.globals().NS.ClassFilter.SetClass(5)
+        self.assertFalse(self.lua.eval("ForeverProgressionGuideFrame.specSelector.button:IsShown()"))
+        self.lua.globals().NS.ClassFilter.Reset()
+        self.assertTrue(self.lua.eval("ForeverProgressionGuideFrame.specSelector.button:IsShown()"))
+
+    def test_without_spec_api_falls_back_to_class(self):
+        self.run_lua("GetNumSpecializationsForClassID = nil; GetSpecialization = nil")
+        c = self.current()
+        self.assertEqual((c.classID, c.specID, c.specName), (1, 0, None))
+        self.assertEqual(self.lua.eval("NS.ClassFilter.Label()"), "Guerrero")
+
+
+class MinimapAndOptionsTest(AddonTestCase):
+    def button(self):
+        return self.lua.globals().ForeverProgressionGuideMinimapButton
+
+    def click(self, frame_expr, mouse="LeftButton"):
+        self.run_lua(f"local b = {frame_expr}; b.__scripts.OnClick(b, '{mouse}')")
+
+    def test_minimap_button_toggles_guide_and_opens_options(self):
+        self.assertTrue(self.lua.eval("ForeverProgressionGuideMinimapButton:IsShown()"))
+        self.click("ForeverProgressionGuideMinimapButton")
+        self.assertTrue(self.lua.eval("NS.UI.IsShown()"))
+        self.click("ForeverProgressionGuideMinimapButton")
+        self.assertFalse(self.lua.eval("NS.UI.IsShown()"))
+        self.click("ForeverProgressionGuideMinimapButton", "RightButton")
+        self.assertTrue(self.lua.eval("NS.UI.IsShown('options')"))
+
+    def test_minimap_button_is_placed_on_the_edge_and_drag_saves_angle(self):
+        point = self.lua.eval("ForeverProgressionGuideMinimapButton.__point")
+        x, y = point[4], point[5]
+        self.assertAlmostEqual((x * x + y * y) ** 0.5, 80, places=3, msg="radio del minimapa + 10")
+        # El cursor justo encima del centro del minimapa (100, 100) → 90 grados.
+        self.run_lua("""WOWMOCK.cursor = { 100, 200 }
+          local b = ForeverProgressionGuideMinimapButton
+          b.__scripts.OnDragStart(b); b.__scripts.OnUpdate(b); b.__scripts.OnDragStop(b)""")
+        self.assertAlmostEqual(self.lua.eval("ForeverProgressionGuideDB.settings.minimap.angle"), 90)
+        self.assertIsNone(self.lua.eval("ForeverProgressionGuideMinimapButton.__scripts.OnUpdate"))
+
+    def test_hide_minimap_from_options_and_slash(self):
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("opciones")
+        self.assertEqual(self.mock.settings.opened, 42, "abre la ventana de opciones del juego")
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("minimapa")
+        self.assertFalse(self.lua.eval("ForeverProgressionGuideMinimapButton:IsShown()"))
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("minimap")
+        self.assertTrue(self.lua.eval("ForeverProgressionGuideMinimapButton:IsShown()"))
+
+    def test_options_tab_controls(self):
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.run_lua("NS.UI.Select('options')")
+        self.run_lua("NS.Objectives.SetState('dungeon:36', 'dismissed')")
+        self.run_lua("""
+          local o = NS.UI.tabs.options.panel.controls
+          local function click(b, checked)
+            if checked ~= nil then b:SetChecked(checked) end
+            b:GetScript('OnClick')(b)
+          end
+          click(o.minimap, false)
+          click(o.collect, false)
+          click(o.resetObjectives)
+          click(o.languages.en)
+        """)
+        db = self.lua.globals().ForeverProgressionGuideDB
+        self.assertTrue(db.settings.minimap.hide)
+        self.assertFalse(self.lua.eval("ForeverProgressionGuideMinimapButton:IsShown()"))
+        self.assertFalse(db.settings.collect)
+        self.assertIsNone(self.lua.eval("ForeverProgressionGuideCharDB.objectives['dungeon:36']"))
+        self.assertEqual(db.settings.language, "en")
+        self.assertEqual(self.lua.eval("NS.UI.tabs.options.panel.controls.minimap.label:GetText()"), "Show minimap icon")
+
+    def test_game_options_panel_is_registered_and_renders(self):
+        self.assertEqual(self.mock.settings.registered.name, "Forever Progression Guide")
+        self.run_lua("local f = WOWMOCK.settings.category.frame; f:GetScript('OnShow')(f)")
+
+    def test_without_settings_api_options_open_in_the_guide(self):
+        self.lua.execute("Settings = nil")
+        self.lua.globals().NS.UI.OpenGameOptions = self.lua.eval("function() return false end")
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("options")
+        self.assertTrue(self.lua.eval("NS.UI.IsShown('options')"))
+
+    def test_addon_compartment_right_click_opens_options(self):
+        self.lua.globals().ForeverProgressionGuide_OnAddonCompartmentClick("ForeverProgressionGuide", "RightButton")
+        self.assertTrue(self.lua.eval("NS.UI.IsShown('options')"))
 
 
 class UITest(AddonTestCase):

@@ -92,6 +92,66 @@ function UI.List(parent, rowHeight, buildRow)
   return list
 end
 
+-- Desplegable sencillo. Se construye a mano porque el menú desplegable de
+-- Blizzard cambió en el motor 12.0 y no es seguro que exista en Forever.
+local ITEM_HEIGHT = 20
+
+function UI.Selector(parent, width)
+  local button = UI.Button(parent, "", width)
+  local menu = CreateFrame("Frame", nil, button, "BackdropTemplate")
+  menu:SetFrameStrata("DIALOG")
+  menu:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, -2)
+  if menu.SetBackdrop then
+    menu:SetBackdrop({
+      bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+      edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+      tile = true, tileSize = 16, edgeSize = 12,
+      insets = { left = 3, right = 3, top = 3, bottom = 3 },
+    })
+    menu:SetBackdropColor(0.05, 0.08, 0.15, 0.97)
+  end
+  menu:Hide()
+
+  local selector = { button = button, menu = menu, items = {}, options = {} }
+
+  function selector:SetOptions(options, onSelect)
+    self.options, self.onSelect = options, onSelect
+  end
+
+  function selector:SetText(text) button:SetText(text) end
+
+  function selector:Open()
+    for i, option in ipairs(self.options) do
+      local item = self.items[i]
+      if not item then
+        item = CreateFrame("Button", nil, menu)
+        item:SetHeight(ITEM_HEIGHT)
+        item:SetPoint("TOPLEFT", 6, -4 - (i - 1) * ITEM_HEIGHT)
+        item:SetPoint("RIGHT", menu, "RIGHT", -6, 0)
+        item:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")
+        item.label = UI.Label(item, "GameFontHighlightSmall")
+        item.label:SetPoint("LEFT", 4, 0)
+        item:SetScript("OnClick", function(clicked)
+          menu:Hide()
+          if selector.onSelect then selector.onSelect(clicked.value) end
+        end)
+        self.items[i] = item
+      end
+      item.value = option.value
+      item.label:SetText(option.selected and UI.Color("ffd100", option.text) or option.text)
+      item:Show()
+    end
+    for i = #self.options + 1, #self.items do self.items[i]:Hide() end
+    menu:SetSize(math.max(width, 180), #self.options * ITEM_HEIGHT + 8)
+    menu:Show()
+  end
+
+  button:SetScript("OnClick", function()
+    if menu:IsShown() then menu:Hide() else selector:Open() end
+  end)
+  return selector
+end
+
 -- Texto largo con desplazamiento.
 function UI.TextPanel(parent)
   local scroll = CreateFrame("ScrollFrame", nil, parent, "UIPanelScrollFrameTemplate")

@@ -16,7 +16,7 @@ globals = {
 -- API del cliente que se usa directamente (el resto pasa por ns.Compat.Call).
 read_globals = {
   "C_Map", "C_Timer", "CreateFrame", "Enum", "GameTooltip", "GetBuildInfo", "GetInstanceInfo",
-  "GetInventoryItemLink", "GetInventoryItemQuality", "GetLocale", "IsInInstance",
+  "GetCursorPosition", "GetInventoryItemLink", "Minimap", "GetInventoryItemQuality", "GetLocale", "IsInInstance",
   "LOCALIZED_CLASS_NAMES_MALE", "UIParent", "UISpecialFrames", "UiMapPoint", "UnitClass",
   "UnitFactionGroup", "UnitLevel", "UnitName", "time",
 }

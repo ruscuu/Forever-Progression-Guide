@@ -45,6 +45,11 @@ function methods.GetPoint() return "CENTER", nil, "CENTER", 0, 0 end
 function methods.GetFrameLevel() return 1 end
 function methods.SetTexture(self, t) self.__texture = t end
 function methods.CreateFontString() return new("FontString") end
+function methods.SetChecked(self, v) self.__checked = not not v end
+function methods.GetChecked(self) return self.__checked end
+function methods.SetPoint(self, ...) self.__point = { ... } end
+function methods.GetCenter() return 100, 100 end
+function methods.GetEffectiveScale() return 1 end
 function methods.CreateTexture() return new("Texture") end
 
 function CreateFrame(kind, name, parent, template)
@@ -62,6 +67,22 @@ function M.Fire(event, ...)
 end
 
 UIParent = new("Frame")
+Minimap = new("Frame")
+Minimap.__w, Minimap.__h = 140, 140
+M.cursor = { 100, 200 }
+function GetCursorPosition() return M.cursor[1], M.cursor[2] end
+
+-- API de opciones del juego (motor moderno).
+M.settings = {}
+Settings = {
+  RegisterCanvasLayoutCategory = function(frame, name)
+    local category = { frame = frame, name = name, GetID = function() return 42 end }
+    M.settings.category = category
+    return category
+  end,
+  RegisterAddOnCategory = function(category) M.settings.registered = category end,
+  OpenToCategory = function(id) M.settings.opened = id end,
+}
 GameTooltip = new("GameTooltip")
 UISpecialFrames = {}
 SlashCmdList = {}
@@ -89,6 +110,23 @@ end
 function time() return 1760900000 end
 function GetInventoryItemLink(_, slot) return M.gear[slot] end
 function GetInventoryItemQuality() return 2 end
+
+-- Clases y especializaciones del cliente; el sacerdote no tiene, para probar ese caso.
+M.classes = { { "Guerrero", "WARRIOR", 1 }, { "Mago", "MAGE", 8 }, { "Sacerdote", "PRIEST", 5 } }
+M.specs = {
+  [1] = { { 71, "Armas", "DAMAGER" }, { 72, "Furia", "DAMAGER" }, { 73, "Protección", "TANK" } },
+  [8] = { { 62, "Arcano", "DAMAGER" }, { 63, "Fuego", "DAMAGER" }, { 64, "Escarcha", "DAMAGER" } },
+}
+M.playerSpec = 1
+function GetNumClasses() return #M.classes end
+function GetClassInfo(i) local c = M.classes[i] if c then return c[1], c[2], c[3] end end
+function GetNumSpecializationsForClassID(classID) return #(M.specs[classID] or {}) end
+function GetSpecializationInfoForClassID(classID, i)
+  local s = (M.specs[classID] or {})[i]
+  if s then return s[1], s[2], "", 0, s[3] end
+end
+function GetSpecialization() return M.playerSpec end
+function GetSpecializationInfo(i) local s = M.specs[M.player.classID][i] if s then return s[1], s[2] end end
 
 local function vector(x, y) return { GetXY = function() return x, y end } end
 
@@ -158,8 +196,8 @@ function EJ_GetEncounterInfo(encounterID)
   end
 end
 function EJ_SelectInstance(id) M.selectedInstance = id end
-function EJ_ResetLootFilter() M.lootFilter = nil end
-function EJ_SetLootFilter(classID) M.lootFilter = classID end
+function EJ_ResetLootFilter() M.lootFilter, M.lootSpec = nil, nil end
+function EJ_SetLootFilter(classID, specID) M.lootFilter, M.lootSpec = classID, specID end
 function EJ_GetNumLoot() return M.selectedInstance == 63 and #M.journal.loot or 0 end
 
 C_EncounterJournal = {

@@ -9,15 +9,20 @@ Addon para WoW Forever que guía al jugador del nivel 1 al máximo: qué hacer a
 | Pestaña | Contenido |
 | --- | --- |
 | **Progresión** | Lista corta de objetivos (mazmorras para tu nivel, ranuras de equipo débiles, contenido nuevo por explorar) con su motivo y nivel de confianza. Se pueden marcar como hechos, posponer u ocultar. |
-| **Mazmorras** | Las 26 mazmorras y bandas clasificadas para tu personaje (*Recomendada*, *Demasiado pronto*, *Opcional*, *Pendiente de verificar*). Cada una tiene una ficha con alas, jefes y procedencia de los datos, un **mapa** de la instancia con los jefes situados, el **botín de tu clase** y **cómo llegar** con punto de ruta. |
+| **Mazmorras** | Las 26 mazmorras y bandas clasificadas para tu personaje (*Recomendada*, *Demasiado pronto*, *Opcional*, *Pendiente de verificar*). Cada una tiene una ficha con alas, jefes y procedencia de los datos, un **mapa** de la instancia con los jefes situados, el **botín** filtrado por clase y especialización, y **cómo llegar** con punto de ruta. |
 | **Equipo** | Equipo actual, nivel de objeto medio y ranuras débiles. |
 | **Misiones** | Registro de misiones actual. |
 | **Profesiones** | Profesiones y nivel de habilidad. |
 | **Buscador** | Mazmorras, alas y jefes, en los dos idiomas. |
+| **Opciones** | Idioma, icono del minimapa, registro de observaciones y restablecer objetivos o ventana. También están en *Opciones → AddOns* del juego. |
+
+En la cabecera se elige la **clase y especialización** que se consulta. Por defecto son las de tu personaje, y las listas salen del propio cliente, así que solo aparecen las de Forever.
 
 Los mapas, los jefes y el botín se leen del propio cliente, así que se mantienen al día con cada parche. Los rangos de nivel vienen de Classic y están marcados como «sin confirmar en Forever» hasta que una fuente autorizada o el juego los verifique. Ver [cómo se actualiza](docs/ACTUALIZACION.md).
 
-Comandos: `/wfg` (o `/guia`) abre la guía; `/wfg es|en|auto` cambia el idioma; `/wfg info` muestra versión y estado; `/wfg errors` lista errores; `/wfg collect off` desactiva las observaciones.
+**Icono en el minimapa:** clic izquierdo abre la guía, clic derecho abre las opciones y se puede arrastrar alrededor del minimapa.
+
+Comandos: `/wfg` (o `/guia`) abre la guía; `/wfg opciones` abre las opciones; `/wfg minimapa` muestra u oculta el icono; `/wfg es|en|auto` cambia el idioma; `/wfg info` muestra versión y estado; `/wfg errors` lista errores; `/wfg collect off` desactiva las observaciones.
 
 ## Instalación
 

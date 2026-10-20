@@ -90,6 +90,23 @@ function time() return 1760900000 end
 function GetInventoryItemLink(_, slot) return M.gear[slot] end
 function GetInventoryItemQuality() return 2 end
 
+-- Clases y especializaciones del cliente; el sacerdote no tiene, para probar ese caso.
+M.classes = { { "Guerrero", "WARRIOR", 1 }, { "Mago", "MAGE", 8 }, { "Sacerdote", "PRIEST", 5 } }
+M.specs = {
+  [1] = { { 71, "Armas", "DAMAGER" }, { 72, "Furia", "DAMAGER" }, { 73, "Protección", "TANK" } },
+  [8] = { { 62, "Arcano", "DAMAGER" }, { 63, "Fuego", "DAMAGER" }, { 64, "Escarcha", "DAMAGER" } },
+}
+M.playerSpec = 1
+function GetNumClasses() return #M.classes end
+function GetClassInfo(i) local c = M.classes[i] if c then return c[1], c[2], c[3] end end
+function GetNumSpecializationsForClassID(classID) return #(M.specs[classID] or {}) end
+function GetSpecializationInfoForClassID(classID, i)
+  local s = (M.specs[classID] or {})[i]
+  if s then return s[1], s[2], "", 0, s[3] end
+end
+function GetSpecialization() return M.playerSpec end
+function GetSpecializationInfo(i) local s = M.specs[M.player.classID][i] if s then return s[1], s[2] end end
+
 local function vector(x, y) return { GetXY = function() return x, y end } end
 
 C_Timer = { After = function(_, fn) fn() end }
@@ -158,8 +175,8 @@ function EJ_GetEncounterInfo(encounterID)
   end
 end
 function EJ_SelectInstance(id) M.selectedInstance = id end
-function EJ_ResetLootFilter() M.lootFilter = nil end
-function EJ_SetLootFilter(classID) M.lootFilter = classID end
+function EJ_ResetLootFilter() M.lootFilter, M.lootSpec = nil, nil end
+function EJ_SetLootFilter(classID, specID) M.lootFilter, M.lootSpec = classID, specID end
 function EJ_GetNumLoot() return M.selectedInstance == 63 and #M.journal.loot or 0 end
 
 C_EncounterJournal = {

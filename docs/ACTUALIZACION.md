@@ -139,11 +139,11 @@ Se puede desactivar con `/wfg collect off`.
 Esto no se ha podido probar sin el cliente. Las pruebas automáticas usan Lua
 5.1 real con una API simulada, pero falta confirmar en Forever:
 
-- [ ] El addon carga (`/wfg`) y `/wfg errors` no muestra errores.
-- [ ] `/wfg info` indica «diario: sí». Si dice «no», Forever no expone el
-      diario de mazmorras y la guía usa solo los datos incluidos.
+- [x] El addon carga y `/wfg errors` no muestra errores (v0.1.1, build 1.60.1.70450).
+- [x] `/wfg info` indica «diario: sí»: Forever expone el diario de mazmorras.
 - [ ] Mazmorras → Las Minas de la Muerte → **Mapa** dibuja el mapa y los jefes.
-- [ ] **Botín de clase** muestra objetos (el diario tiene botín en Forever).
+- [ ] **Botín** muestra objetos (el diario tiene botín en Forever) y cambia al
+      elegir otra clase o especialización en la cabecera.
 - [ ] **Cómo llegar** coloca un punto de ruta en el mapa del mundo.
 - [ ] Al entrar y salir de una mazmorra, `/wfg info` cuenta una instancia observada.
 - [ ] Cambiar de idioma con el botón de la cabecera y con `/wfg en`.

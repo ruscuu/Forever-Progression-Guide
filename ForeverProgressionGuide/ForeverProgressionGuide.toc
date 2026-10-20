@@ -20,6 +20,7 @@ Data\Meta.lua
 Data\Dungeons.lua
 Engine\Journal.lua
 Engine\Dungeons.lua
+Engine\ClassFilter.lua
 Engine\Gear.lua
 Engine\Objectives.lua
 Profile\Collector.lua

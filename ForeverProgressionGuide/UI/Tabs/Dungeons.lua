@@ -70,14 +70,15 @@ end
 
 local function lootRows(panel, d)
   local journal = J.ForInstance(d.instanceID)
-  local player = ns.Compat.Player()
-  local loot = journal and J.Loot(journal.journalID, player.classID)
+  local filter = ns.ClassFilter.Current()
+  local loot = journal and J.Loot(journal.journalID, filter.classID, filter.specID)
   if not loot then
     panel.lootMessage:SetText(L.LOOT_UNAVAILABLE)
     panel.loot:SetData({}, function() end)
     return
   end
-  panel.lootMessage:SetText(#loot == 0 and L.LOOT_EMPTY or "")
+  local label = string.format(L.LOOT_FOR, ns.ClassFilter.Label(filter))
+  panel.lootMessage:SetText(#loot == 0 and (label .. " · " .. L.LOOT_EMPTY) or label)
   panel.loot:SetData(loot, function(row, item)
     row.left:SetText(item.link or item.name or ("#" .. item.itemID))
     row.right:SetText(item.slot or "")

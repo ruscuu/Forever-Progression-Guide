@@ -23,6 +23,32 @@ local function languageLabel()
   return string.upper(setting)
 end
 
+local ROLE_KEYS = { TANK = "ROLE_TANK", HEALER = "ROLE_HEALER", DAMAGER = "ROLE_DAMAGER" }
+
+local function refreshFilter()
+  local F = ns.ClassFilter
+  local selection = F.Current()
+
+  local classOptions = { { text = L.FILTER_MY_CHARACTER, value = "reset", selected = selection.isPlayer } }
+  for _, c in ipairs(F.Classes()) do
+    classOptions[#classOptions + 1] = { text = c.name, value = c.classID, selected = not selection.isPlayer and c.classID == selection.classID }
+  end
+  frame.classSelector:SetOptions(classOptions, function(value)
+    if value == "reset" then F.Reset() else F.SetClass(value) end
+  end)
+  frame.classSelector:SetText(selection.className)
+
+  local specs = F.Specs(selection.classID)
+  frame.specSelector.button:SetShown(#specs > 0)
+  local specOptions = { { text = L.FILTER_ALL_SPECS, value = F.ALL_SPECS, selected = selection.specID == F.ALL_SPECS } }
+  for _, s in ipairs(specs) do
+    local role = ROLE_KEYS[s.role] and (" (" .. L[ROLE_KEYS[s.role]] .. ")") or ""
+    specOptions[#specOptions + 1] = { text = s.name .. role, value = s.specID, selected = s.specID == selection.specID }
+  end
+  frame.specSelector:SetOptions(specOptions, F.SetSpec)
+  frame.specSelector:SetText(selection.specName or L.FILTER_ALL_SPECS)
+end
+
 local function refreshHeader()
   local p = ns.Compat.Player()
   local className = p.class and (LOCALIZED_CLASS_NAMES_MALE and LOCALIZED_CLASS_NAMES_MALE[p.class]) or p.class or "?"
@@ -30,6 +56,7 @@ local function refreshHeader()
   frame.subtitle:SetText(string.format(L.HEADER_CHARACTER, p.name or "?", p.level, className))
   frame.language:SetText(languageLabel())
   for _, key in ipairs(order) do frame.nav[key]:SetText(L["TAB_" .. string.upper(key)]) end
+  refreshFilter()
 end
 
 local function savePosition()
@@ -94,6 +121,12 @@ local function create()
   end)
   frame.language:SetPoint("TOPRIGHT", -36, -12)
 
+  -- Clase y especialización con las que se filtra la guía (por defecto, las del personaje).
+  frame.specSelector = UI.Selector(frame, 140)
+  frame.specSelector.button:SetPoint("RIGHT", frame.language, "LEFT", -8, 0)
+  frame.classSelector = UI.Selector(frame, 120)
+  frame.classSelector.button:SetPoint("RIGHT", frame.specSelector.button, "LEFT", -4, 0)
+
   frame.nav = {}
   for i, key in ipairs(order) do
     local b = UI.Button(frame, "", 130, function() UI.Select(key) end)
@@ -149,7 +182,7 @@ local function refreshIfShown()
   if frame and frame:IsShown() then UI.Select(current, currentArg) end
 end
 
-for _, message in ipairs({ "LANGUAGE_CHANGED", "OBJECTIVES_CHANGED", "JOURNAL_LOOT_UPDATED", "INSTANCE_OBSERVED" }) do
+for _, message in ipairs({ "FILTER_CHANGED", "LANGUAGE_CHANGED", "OBJECTIVES_CHANGED", "JOURNAL_LOOT_UPDATED", "INSTANCE_OBSERVED" }) do
   ns.Listen(message, refreshIfShown)
 end
 ns.On("PLAYER_LEVEL_UP", refreshIfShown)

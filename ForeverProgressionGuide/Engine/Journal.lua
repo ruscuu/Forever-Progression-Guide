@@ -157,12 +157,12 @@ function J.SetWaypoint(uiMapID, x, y)
   return false
 end
 
--- Botín de la instancia filtrado por la clase del personaje.
-function J.Loot(journalID, classID)
+-- Botín de la instancia filtrado por clase y, si se indica, especialización.
+function J.Loot(journalID, classID, specID)
   if not journalID or not C.Has("EJ_SelectInstance") then return nil end
   C.Call("EJ_SelectInstance", journalID)
   C.Call("EJ_ResetLootFilter")
-  if classID then C.Call("EJ_SetLootFilter", classID, 0) end
+  if classID then C.Call("EJ_SetLootFilter", classID, specID or 0) end
   local out = {}
   local count = C.Call("EJ_GetNumLoot") or 0
   for i = 1, count do

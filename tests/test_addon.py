@@ -258,6 +258,71 @@ class CollectorTest(AddonTestCase):
         self.assertEqual(dm["provenance"]["levels"]["status"], "classic_inherited", "entrar no verifica el rango de niveles")
 
 
+class ClassFilterTest(AddonTestCase):
+    def current(self):
+        return self.lua.eval("NS.ClassFilter.Current()")
+
+    def test_defaults_to_player_class_and_current_spec(self):
+        c = self.current()
+        self.assertEqual((c.classID, c.specID, c.className, c.specName, c.isPlayer), (1, 71, "Guerrero", "Armas", True))
+        self.assertEqual(self.lua.eval("NS.ClassFilter.Label()"), "Guerrero · Armas")
+
+    def test_change_class_resets_spec_and_is_saved(self):
+        F = self.lua.globals().NS.ClassFilter
+        F.SetSpec(73)
+        self.assertEqual(self.current().role, "TANK")
+        F.SetClass(8)
+        c = self.current()
+        self.assertEqual((c.classID, c.specID, c.isPlayer), (8, 0, False))
+        F.SetSpec(64)
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideCharDB.filter.specID"), 64)
+        F.SetClass(1)
+        self.assertTrue(self.current().isPlayer, "volver a la clase propia restaura el personaje")
+        self.assertEqual(self.current().specID, 71)
+
+    def test_loot_uses_selected_class_and_spec(self):
+        self.lua.globals().NS.ClassFilter.SetClass(8)
+        self.lua.globals().NS.ClassFilter.SetSpec(63)
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.run_lua("NS.UI.Select('dungeons', { instanceID = 36 }); local b = NS.UI.tabs.dungeons.panel.modeLoot; b.__scripts.OnClick(b)")
+        self.assertEqual((self.mock.lootFilter, self.mock.lootSpec), (None, None), "el filtro del diario se restaura al terminar")
+        self.assertEqual(self.lua.eval("NS.UI.tabs.dungeons.panel.lootMessage:GetText()"), "Botín para: Mago · Fuego")
+        self.run_lua("WOWMOCK.calls = {}; local f = EJ_SetLootFilter; EJ_SetLootFilter = function(c, s) table.insert(WOWMOCK.calls, c .. ':' .. s) f(c, s) end")
+        self.lua.eval("NS.Journal.Loot(63, NS.ClassFilter.Current().classID, NS.ClassFilter.Current().specID)")
+        self.assertEqual(list(self.mock.calls.values()), ["8:63"])
+
+    def test_header_selectors(self):
+        self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideFrame.classSelector.button:GetText()"), "Guerrero")
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideFrame.specSelector.button:GetText()"), "Armas")
+        # Abrir el desplegable de clase y elegir «Mago».
+        self.run_lua("ForeverProgressionGuideFrame.classSelector:Open()")
+        labels = list(self.lua.eval("""(function()
+          local t = {}
+          for _, item in ipairs(ForeverProgressionGuideFrame.classSelector.items) do t[#t + 1] = item.label:GetText() end
+          return t
+        end)()""").values())
+        self.assertEqual(labels[0], "|cffffd100Mi personaje|r", "la opción activa se resalta")
+        self.assertIn("Mago", labels)
+        self.run_lua("""
+          for _, item in ipairs(ForeverProgressionGuideFrame.classSelector.items) do
+            if item.label:GetText() == 'Mago' then item.__scripts.OnClick(item) end
+          end""")
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideFrame.classSelector.button:GetText()"), "Mago")
+        self.assertEqual(self.lua.eval("ForeverProgressionGuideFrame.specSelector.button:GetText()"), "Todas las especializaciones")
+        # Una clase sin especializaciones oculta el segundo selector.
+        self.lua.globals().NS.ClassFilter.SetClass(5)
+        self.assertFalse(self.lua.eval("ForeverProgressionGuideFrame.specSelector.button:IsShown()"))
+        self.lua.globals().NS.ClassFilter.Reset()
+        self.assertTrue(self.lua.eval("ForeverProgressionGuideFrame.specSelector.button:IsShown()"))
+
+    def test_without_spec_api_falls_back_to_class(self):
+        self.run_lua("GetNumSpecializationsForClassID = nil; GetSpecialization = nil")
+        c = self.current()
+        self.assertEqual((c.classID, c.specID, c.specName), (1, 0, None))
+        self.assertEqual(self.lua.eval("NS.ClassFilter.Label()"), "Guerrero")
+
+
 class UITest(AddonTestCase):
     def open(self, tab=None, arg="nil"):
         self.lua.globals().SlashCmdList.FOREVERPROGRESSIONGUIDE("")

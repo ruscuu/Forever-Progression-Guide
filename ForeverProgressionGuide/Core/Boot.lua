@@ -41,15 +41,15 @@ end
 
 COMMANDS.help = function() say(L.SLASH_HELP) end
 
-SLASH_WOWFOREVERGUIDE1 = "/wfg"
-SLASH_WOWFOREVERGUIDE2 = "/guia"
-SlashCmdList.WOWFOREVERGUIDE = function(input)
+SLASH_FOREVERPROGRESSIONGUIDE1 = "/wfg"
+SLASH_FOREVERPROGRESSIONGUIDE2 = "/guia"
+SlashCmdList.FOREVERPROGRESSIONGUIDE = function(input)
   local cmd, arg = string.match(string.lower(input or ""), "^%s*(%S*)%s*(%S*)")
   if cmd == "" then return ns.UI.Toggle() end
   local fn = COMMANDS[cmd] or COMMANDS.help
   fn(arg)
 end
 
-function WoWForeverGuide_OnAddonCompartmentClick()
+function ForeverProgressionGuide_OnAddonCompartmentClick()
   ns.UI.Toggle()
 end

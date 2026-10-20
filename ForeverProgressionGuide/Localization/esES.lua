@@ -1,7 +1,7 @@
 local _, ns = ...
 
 ns.Locales.es = {
-  TITLE = "Guía de progresión de Forever",
+  TITLE = "Forever Progression Guide",
   HEADER_CHARACTER = "%s · nivel %d · %s",
   FOOTER = "Addon %s · datos %s · cliente %s",
   TAB_PROGRESS = "Progresión", TAB_DUNGEONS = "Mazmorras", TAB_GEAR = "Equipo",

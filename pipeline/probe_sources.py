@@ -25,7 +25,7 @@ SOURCES_FILE = ROOT / "data-sources" / "sources.json"
 RAW_DIR = ROOT / "data-sources" / "raw"
 REPORT_DIR = ROOT / "validation"
 
-USER_AGENT = "WoWForeverGuide-coverage-probe/0.1"
+USER_AGENT = "ForeverProgressionGuide-coverage-probe/0.1"
 ID_KEYS = ("id", "entry", "itemId", "questId", "spellId", "dungeonId")
 # Campos donde una fuente podría indicar si el dato está verificado en Forever,
 # heredado de Classic o solo anunciado.

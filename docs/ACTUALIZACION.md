@@ -50,7 +50,7 @@ tiene Forever rellenas (ver [lista de pruebas](#lista-de-pruebas-en-el-juego)).
 ## 2. Paquete de datos: actualización automática
 
 Lo que el cliente no ofrece (rangos de nivel recomendados, procedencia y
-confianza de cada dato) viaja en `WoWForeverGuide/Data/`, generado por
+confianza de cada dato) viaja en `ForeverProgressionGuide/Data/`, generado por
 `pipeline/build_data.py`. El flujo `.github/workflows/update-data.yml`:
 
 1. Se ejecuta **cada 6 horas**, a mano desde la pestaña *Actions*, o cuando se
@@ -117,7 +117,7 @@ Para incorporarlas a la guía:
 ```powershell
 python pipeline\import_contributions.py --wow "C:\Program Files (x86)\World of Warcraft\_classic_beta_"
 python pipeline\build_data.py
-git add data-sources\contributions WoWForeverGuide\Data data-sources\generated
+git add data-sources\contributions ForeverProgressionGuide\Data data-sources\generated
 git commit -m "Observaciones en juego"
 git push
 ```

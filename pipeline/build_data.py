@@ -32,7 +32,7 @@ CONTRIB_DIR = ROOT / "data-sources" / "contributions"
 RAW_DIR = ROOT / "data-sources" / "raw"
 SOURCES_FILE = ROOT / "data-sources" / "sources.json"
 SNAPSHOT_DIR = ROOT / "data-sources" / "generated"
-ADDON_DATA_DIR = ROOT / "WoWForeverGuide" / "Data"
+ADDON_DATA_DIR = ROOT / "ForeverProgressionGuide" / "Data"
 REPORT_FILE = ROOT / "validation" / "changes-latest.md"
 
 STATUS_RANK = {"unknown": 0, "announced": 1, "classic_inherited": 2, "datamined": 3, "verified_ingame": 4}

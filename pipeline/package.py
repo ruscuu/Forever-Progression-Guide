@@ -2,7 +2,7 @@
 
 Uso:
     python pipeline/package.py 2026.10.20-1c2f9a
-Resultado: release/WoWForeverGuide-<versión>.zip con la carpeta WoWForeverGuide/.
+Resultado: release/ForeverProgressionGuide-<versión>.zip con la carpeta ForeverProgressionGuide/.
 """
 
 import argparse
@@ -10,18 +10,18 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ADDON = ROOT / "WoWForeverGuide"
+ADDON = ROOT / "ForeverProgressionGuide"
 RELEASE_DIR = ROOT / "release"
 
 
 def package(version):
     RELEASE_DIR.mkdir(exist_ok=True)
-    out = RELEASE_DIR / f"WoWForeverGuide-{version}.zip"
+    out = RELEASE_DIR / f"ForeverProgressionGuide-{version}.zip"
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as zf:
         for path in sorted(ADDON.rglob("*")):
             if path.is_dir():
                 continue
-            arcname = Path("WoWForeverGuide") / path.relative_to(ADDON)
+            arcname = Path("ForeverProgressionGuide") / path.relative_to(ADDON)
             data = path.read_bytes()
             if path.suffix == ".toc":
                 data = data.replace(b"@project-version@", version.encode())

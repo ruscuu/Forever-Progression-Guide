@@ -48,8 +48,8 @@ jobs:
         run: |
           NOTES="validation/changes-latest.md"
           [ -f "$NOTES" ] || echo "Versión $VERSION" > "$NOTES"
-          gh release create "v$VERSION" "release/WoWForeverGuide-$VERSION.zip" \
-            --title "WoW Forever Progression Guide $VERSION" --notes-file "$NOTES" --target "$(git rev-parse HEAD)"
+          gh release create "v$VERSION" "release/ForeverProgressionGuide-$VERSION.zip" \
+            --title "Forever Progression Guide $VERSION" --notes-file "$NOTES" --target "$(git rev-parse HEAD)"
 
       - name: CurseForge
         if: env.CF_API_KEY != '' && vars.CF_PROJECT_ID != '' && vars.CF_GAME_VERSION_IDS != ''
@@ -57,5 +57,5 @@ jobs:
           METADATA=$(printf '{"changelog":"Versión %s","changelogType":"markdown","displayName":"%s","gameVersions":[%s],"releaseType":"release"}' \
             "$VERSION" "$VERSION" "${{ vars.CF_GAME_VERSION_IDS }}")
           curl --fail-with-body -sS -H "X-Api-Token: $CF_API_KEY" \
-            -F "metadata=$METADATA" -F "file=@release/WoWForeverGuide-$VERSION.zip" \
+            -F "metadata=$METADATA" -F "file=@release/ForeverProgressionGuide-$VERSION.zip" \
             "https://wow.curseforge.com/api/projects/${{ vars.CF_PROJECT_ID }}/upload-file"

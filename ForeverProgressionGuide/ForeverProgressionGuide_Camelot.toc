@@ -27,6 +27,7 @@ Engine\Journal.lua
 Engine\Dungeons.lua
 Engine\ClassFilter.lua
 Engine\Items.lua
+Engine\Compare.lua
 Engine\Quests.lua
 Engine\Gear.lua
 Engine\Objectives.lua

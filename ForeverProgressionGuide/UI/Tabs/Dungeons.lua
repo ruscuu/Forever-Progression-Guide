@@ -104,7 +104,7 @@ end
 local function renderLoot(panel, d)
   local filter = ns.ClassFilter.Current()
   local player = ns.Compat.Player()
-  local loot = I.DungeonLoot(d, filter.classFile or player.class, player.level, onlyUsableLoot)
+  local loot = I.DungeonLoot(d, filter.classFile or player.class, player.level, onlyUsableLoot, filter.role)
   local label = string.format(L.LOOT_FOR, ns.ClassFilter.Label(filter))
   panel.listMessage:SetText(#loot == 0 and (label .. " · " .. L.LOOT_EMPTY) or (label .. " · " .. L.LOOT_HINT))
   panel.list:SetData(loot, function(row, entry)
@@ -113,12 +113,23 @@ local function renderLoot(panel, d)
     local fitMark = entry.fit == "best" and "" or UI.Color("9d9d9d", "  (" .. L["FIT_" .. string.upper(entry.fit)] .. ")")
     row.left:SetText(I.ColoredName(entry.id) .. fitMark)
     local right = {}
-    if entry.upgrade and entry.upgrade > 0 and entry.fit ~= "no" then right[#right + 1] = UI.Color("40ff40", "+" .. entry.upgrade) end
+    if entry.score then
+      if entry.score > 0 then right[#right + 1] = UI.Color("40ff40", string.format("+%d", math.floor(entry.score + 0.5))) end
+    elseif entry.upgrade and entry.upgrade > 0 and entry.fit ~= "no" then
+      right[#right + 1] = UI.Color("40ff40", "+" .. entry.upgrade)
+    end
     if item.ilvl then right[#right + 1] = string.format(L.ITEM_LEVEL_SHORT, item.ilvl) end
     if item.req and item.req > player.level then right[#right + 1] = UI.Color("ff5050", string.format(L.ITEM_REQ_SHORT, item.req)) end
     row.right:SetText(table.concat(right, "  "))
   end)
-  panel.list.onEnter = function(entry, row) I.ShowTooltip(row, entry.id) end
+  panel.list.onEnter = function(entry, row)
+    local extra = {}
+    if entry.source then extra[#extra + 1] = UI.Color("ffd100", string.format(L.LOOT_DROPS_FROM, entry.source)) end
+    if entry.diffs and #entry.diffs > 0 then
+      extra[#extra + 1] = L.LOOT_COMPARED .. " " .. ns.Compare.DiffText(entry.diffs, 6)
+    end
+    I.ShowTooltip(row, entry.id, extra)
+  end
 end
 
 local function showDetail(panel)
@@ -142,7 +153,7 @@ local function showDetail(panel)
 
   for _, m in ipairs(MODES) do
     panel.modes[m]:SetText(L["BTN_" .. string.upper(m)])
-    panel.modes[m]:SetEnabled(mode ~= m)
+    panel.modes[m]:SetActive(mode == m)
   end
 
   local isList = mode == "quests" or mode == "loot"
@@ -253,10 +264,9 @@ UI.RegisterTab({
       end
     end)
     panel.route:SetPoint("LEFT", previous, "RIGHT", 12, 0)
-    panel.route:SetScript("OnEnter", function(self)
+    panel.route:HookScript("OnEnter", function(self)
       UI.Tooltip(self, { L.BTN_ROUTE, self.origin == "observed" and L.ROUTE_OBSERVED or L.ROUTE_JOURNAL })
     end)
-    panel.route:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
     local body = CreateFrame("Frame", nil, detail)
     body:SetPoint("TOPLEFT", 0, -72)

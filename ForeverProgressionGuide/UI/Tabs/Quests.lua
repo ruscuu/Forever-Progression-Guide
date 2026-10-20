@@ -82,8 +82,8 @@ UI.RegisterTab({
   Refresh = function(panel)
     panel.available:SetText(L.QUESTS_MODE_AVAILABLE)
     panel.log:SetText(L.QUESTS_MODE_LOG)
-    panel.available:SetEnabled(mode ~= "available")
-    panel.log:SetEnabled(mode ~= "log")
+    panel.available:SetActive(mode == "available")
+    panel.log:SetActive(mode == "log")
     if mode == "available" then renderAvailable(panel) else renderLog(panel) end
   end,
 })

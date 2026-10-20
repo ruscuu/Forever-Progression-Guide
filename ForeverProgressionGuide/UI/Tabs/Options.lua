@@ -77,7 +77,7 @@ function UI.BuildOptions(panel)
     o.languages.auto:SetText(L.OPTIONS_LANGUAGE_AUTO)
     o.languages.es:SetText("Español")
     o.languages.en:SetText("English")
-    for lang, b in pairs(o.languages) do b:SetEnabled(ns.db.settings.language ~= lang) end
+    for lang, b in pairs(o.languages) do b:SetActive(ns.db.settings.language == lang) end
 
     o.generalTitle:SetText(L.OPTIONS_GENERAL)
     o.minimap.label:SetText(L.OPTIONS_MINIMAP)

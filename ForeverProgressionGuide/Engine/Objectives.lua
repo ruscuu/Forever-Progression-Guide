@@ -63,6 +63,22 @@ local function gearObjectives(list)
   end
 end
 
+-- La mejor mejora que ya llevas en las bolsas: el objetivo más fácil de cumplir.
+local function bagObjective(player, list)
+  local selection = ns.ClassFilter.Current()
+  local role = selection.isPlayer and selection.role or nil
+  for _, u in ipairs(ns.Compare.BagUpgrades(player.class, role, player.level)) do
+    if not u.future then
+      list[#list + 1] = {
+        id = "bag:" .. tostring(u.itemID), kind = "bag", priority = 12, confidence = "medium", icon = u.icon,
+        title = L("OBJ_BAG_UPGRADE", u.link), reasons = { ns.Compare.DiffText(u.diffs, 3) },
+        target = { tab = "gear" },
+      }
+      return
+    end
+  end
+end
+
 local function factionOk(entry, player)
   return not entry.faction or entry.faction == "both" or entry.faction == player.faction
 end
@@ -131,6 +147,7 @@ function O.Generate(player)
   local all = {}
   dungeonObjectives(player, all)
   ns.Safe("gearObjectives", gearObjectives, all)
+  ns.Safe("bagObjective", bagObjective, player, all)
   classQuestObjectives(player, all)
   zoneObjective(player, all)
   exploreObjectives(all)

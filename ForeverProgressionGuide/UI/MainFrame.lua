@@ -16,6 +16,19 @@ function UI.RegisterTab(def)
 end
 
 local LANGUAGE_CYCLE = { auto = "es", es = "en", en = "auto" }
+local HEADER_HEIGHT = 58
+local NAV_WIDTH = 140
+
+-- Icono de cada pestaña en la barra lateral.
+local TAB_ICONS = {
+  progress = "Interface\\Icons\\INV_Misc_Book_09",
+  dungeons = "Interface\\Icons\\INV_Misc_Bone_HumanSkull_01",
+  gear = "Interface\\Icons\\INV_Chest_Chain_05",
+  quests = "Interface\\Icons\\INV_Misc_Note_01",
+  professions = "Interface\\Icons\\Trade_BlackSmithing",
+  search = "Interface\\Icons\\INV_Misc_Spyglass_03",
+  options = "Interface\\Icons\\INV_Misc_Gear_01",
+}
 
 local function languageLabel()
   local setting = ns.db.settings.language
@@ -66,21 +79,34 @@ local function savePosition()
 end
 
 local function create()
-  frame = CreateFrame("Frame", "ForeverProgressionGuideFrame", UIParent, "BackdropTemplate")
+  frame = CreateFrame("Frame", "ForeverProgressionGuideFrame", UIParent)
   frame:SetFrameStrata("HIGH")
   frame:SetToplevel(true)
   local size = ns.char.window.size
   frame:SetSize(size and size[1] or 840, size and size[2] or 540)
   local pos = ns.char.window.point
   if pos then frame:SetPoint(pos[1], UIParent, pos[2], pos[3], pos[4]) else frame:SetPoint("CENTER") end
-  if frame.SetBackdrop then
-    frame:SetBackdrop({
-      bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
-      edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-      tile = true, tileSize = 16, edgeSize = 16,
-      insets = { left = 4, right = 4, top = 4, bottom = 4 },
-    })
-  end
+  local theme = UI.THEME
+  UI.Box(frame, theme.background, theme.border)
+
+  -- Cabecera: franja con una línea dorada debajo.
+  local header = frame:CreateTexture(nil, "BACKGROUND", nil, -6)
+  header:SetPoint("TOPLEFT", 1, -1)
+  header:SetPoint("TOPRIGHT", -1, -1)
+  header:SetHeight(HEADER_HEIGHT)
+  UI.Paint(header, theme.header)
+  local rule = frame:CreateTexture(nil, "BORDER")
+  rule:SetPoint("TOPLEFT", header, "BOTTOMLEFT")
+  rule:SetPoint("TOPRIGHT", header, "BOTTOMRIGHT")
+  rule:SetHeight(1)
+  UI.Paint(rule, { theme.accent[1], theme.accent[2], theme.accent[3], 0.6 })
+
+  -- Barra lateral de navegación.
+  local sidebar = frame:CreateTexture(nil, "BACKGROUND", nil, -6)
+  sidebar:SetPoint("TOPLEFT", 1, -HEADER_HEIGHT - 2)
+  sidebar:SetPoint("BOTTOMLEFT", 1, 1)
+  sidebar:SetWidth(NAV_WIDTH + 16)
+  UI.Paint(sidebar, theme.panel)
   frame:EnableMouse(true)
   frame:SetMovable(true)
   frame:RegisterForDrag("LeftButton")
@@ -105,8 +131,8 @@ local function create()
   close:SetPoint("TOPRIGHT", -2, -2)
 
   frame.logo = frame:CreateTexture(nil, "ARTWORK")
-  frame.logo:SetSize(40, 40)
-  frame.logo:SetPoint("TOPLEFT", 10, -8)
+  frame.logo:SetSize(44, 44)
+  frame.logo:SetPoint("TOPLEFT", 10, -7)
   frame.logo:SetTexture(UI.LOGO)
 
   frame.title = UI.Label(frame, "GameFontNormalLarge")
@@ -119,7 +145,7 @@ local function create()
     ns.SetLanguage(ns.db.settings.language)
     ns.Fire("LANGUAGE_CHANGED")
   end)
-  frame.language:SetPoint("TOPRIGHT", -36, -12)
+  frame.language:SetPoint("TOPRIGHT", -36, -18)
 
   -- Clase y especialización con las que se filtra la guía (por defecto, las del personaje).
   frame.specSelector = UI.Selector(frame, 140)
@@ -129,14 +155,24 @@ local function create()
 
   frame.nav = {}
   for i, key in ipairs(order) do
-    local b = UI.Button(frame, "", 130, function() UI.Select(key) end)
-    b:SetPoint("TOPLEFT", 12, -56 - (i - 1) * 26)
+    local b = UI.Button(frame, "", NAV_WIDTH, function() UI.Select(key) end)
+    b:SetHeight(30)
+    b:SetPoint("TOPLEFT", 8, -HEADER_HEIGHT - 10 - (i - 1) * 34)
+    b.icon = b:CreateTexture(nil, "ARTWORK")
+    b.icon:SetSize(22, 22)
+    b.icon:SetPoint("LEFT", 5, 0)
+    b.icon:SetTexture(TAB_ICONS[key] or "Interface\\Icons\\INV_Misc_QuestionMark")
+    b.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    b.label:ClearAllPoints()
+    b.label:SetPoint("LEFT", b.icon, "RIGHT", 8, 0)
+    b.label:SetPoint("RIGHT", -4, 0)
+    b.label:SetJustifyH("LEFT")
     frame.nav[key] = b
   end
 
   frame.content = CreateFrame("Frame", nil, frame)
-  frame.content:SetPoint("TOPLEFT", 152, -56)
-  frame.content:SetPoint("BOTTOMRIGHT", -14, 22)
+  frame.content:SetPoint("TOPLEFT", NAV_WIDTH + 30, -HEADER_HEIGHT - 12)
+  frame.content:SetPoint("BOTTOMRIGHT", -14, 24)
 
   for _, key in ipairs(order) do
     local panel = CreateFrame("Frame", nil, frame.content)
@@ -155,7 +191,7 @@ function UI.Select(key, arg)
   key = key or current or order[1]
   for k, def in pairs(tabs) do
     def.panel:SetShown(k == key)
-    frame.nav[k]:SetEnabled(k ~= key)
+    frame.nav[k]:SetActive(k == key)
   end
   current, currentArg = key, arg
   refreshHeader()

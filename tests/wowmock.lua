@@ -110,6 +110,16 @@ end
 function time() return 1760900000 end
 function GetInventoryItemLink(_, slot) return M.gear[slot] end
 function GetInventoryItemQuality() return 2 end
+function GetInventoryItemTexture(_, slot) return M.gear[slot] and "Interface\\Icons\\Equipped" or nil end
+
+-- Bolsas, estadísticas y tipo de cada objeto (por enlace o por "item:ID").
+M.bags, M.itemStats, M.itemInfo, M.itemReq = {}, {}, {}, {}
+C_Container = {
+  GetContainerNumSlots = function(bag) return #(M.bags[bag] or {}) end,
+  GetContainerItemLink = function(bag, slot) return (M.bags[bag] or {})[slot] end,
+}
+function GetItemInfo(link) return "x", link, 2, 10, M.itemReq[link] end
+ITEM_MOD_STRENGTH_SHORT, ITEM_MOD_STAMINA_SHORT, ITEM_MOD_INTELLECT_SHORT = "Fuerza", "Aguante", "Intelecto"
 
 -- Clases y especializaciones del cliente; el sacerdote no tiene, para probar ese caso.
 M.classes = { { "Guerrero", "WARRIOR", 1 }, { "Mago", "MAGE", 8 }, { "Sacerdote", "PRIEST", 5 } }
@@ -137,6 +147,11 @@ M.autoLoad = false
 C_Item = {
   GetDetailedItemLevelInfo = function(link) return tonumber(string.match(link, "ilvl(%d+)")) end,
   GetItemNameByID = function(id) return M.itemNames[id] end,
+  GetItemStats = function(link) return M.itemStats[link] end,
+  GetItemInfoInstant = function(link)
+    local i = M.itemInfo[link]
+    if i then return i.id, "", "", i.equipLoc, i.icon, i.classID, i.subclassID end
+  end,
   RequestLoadItemDataByID = function(id)
     M.requested[#M.requested + 1] = "item:" .. id
     if M.autoLoad then M.itemNames[id] = "Objeto " .. id end

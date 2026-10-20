@@ -10,8 +10,9 @@ D.REWARD = "reward"         -- reservado para cuando haya datos fiables de objet
 D.OPTIONAL = "optional"
 D.TOO_EARLY = "too_early"
 D.UNVERIFIED = "unverified"
+D.UNAVAILABLE = "unavailable" -- anunciada o cerrada todavía en Forever
 
-local CATEGORY_RANK = { recommended = 1, reward = 2, unverified = 3, optional = 4, too_early = 5 }
+local CATEGORY_RANK = { recommended = 1, reward = 2, unverified = 3, optional = 4, too_early = 5, unavailable = 6 }
 local CONFIDENCE = { verified_ingame = "high", datamined = "medium", classic_inherited = "low", announced = "low", unknown = "none" }
 
 -- Niveles por debajo del mínimo en los que una mazmorra ya se puede intentar.
@@ -23,7 +24,7 @@ function D.Confidence(d, field)
   return CONFIDENCE[status] or "none", status
 end
 
-function D.Name(d) return ns.Localized(d.name) or ("#" .. tostring(d.instanceID)) end
+function D.Name(d) return ns.Localized(d.name) or tostring(d.id) end
 function D.ZoneName(d) return ns.Localized(d.zone) end
 function D.WingName(w) return w and ns.Localized(w.name) end
 
@@ -60,7 +61,10 @@ function D.Evaluate(d, player)
     end
   end
 
-  if d.faction and d.faction ~= "both" and d.faction ~= player.faction and best.category == D.RECOMMENDED then
+  if d.available == false then
+    best.category = D.UNAVAILABLE
+    table.insert(best.reasons, 1, { "unavailable" })
+  elseif d.faction and d.faction ~= "both" and d.faction ~= player.faction and best.category == D.RECOMMENDED then
     best.category = D.OPTIONAL
     table.insert(best.reasons, { "other_faction" })
   end
@@ -80,7 +84,7 @@ local function discoveredRecords()
   local out = {}
   for _, info in ipairs(ns.Journal.Undocumented()) do
     out[#out + 1] = {
-      id = "journal_" .. info.instanceID,
+      id = "journal-" .. info.instanceID,
       instanceID = info.instanceID,
       type = info.isRaid and "raid" or "dungeon",
       name = { [ns.lang] = info.name },
@@ -106,12 +110,24 @@ function D.All()
   return list
 end
 
-function D.Get(instanceID)
-  local d = ns.Data.Dungeons and ns.Data.Dungeons[instanceID]
+-- Por id de la guía ("the-deadmines") o por ID de instancia del juego.
+function D.Get(key)
+  local d = ns.Data.Dungeons and ns.Data.Dungeons[key]
   if d then return d end
-  for _, rec in ipairs(discoveredRecords()) do
-    if rec.instanceID == instanceID then return rec end
+  for _, rec in pairs(ns.Data.Dungeons or {}) do
+    if rec.instanceID == key then return rec end
   end
+  for _, rec in ipairs(discoveredRecords()) do
+    if rec.id == key or rec.instanceID == key then return rec end
+  end
+end
+
+-- ¿Hay alguna mazmorra con este ID de instancia en los datos?
+function D.HasInstance(instanceID)
+  for _, rec in pairs(ns.Data.Dungeons or {}) do
+    if rec.instanceID == instanceID then return true end
+  end
+  return false
 end
 
 -- Mazmorras evaluadas, con las recomendadas primero y ordenadas por cercanía al nivel.
@@ -131,7 +147,7 @@ end
 -- Jefes: primero los del diario del cliente (siempre actuales y traducidos),
 -- después los de los datos incluidos.
 function D.Bosses(d)
-  local journal = ns.Journal.ForInstance(d.instanceID)
+  local journal = d.instanceID and ns.Journal.ForInstance(d.instanceID)
   if journal then
     local encounters = ns.Journal.Encounters(journal.journalID)
     if #encounters > 0 then return encounters, "journal" end

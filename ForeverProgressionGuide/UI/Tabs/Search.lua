@@ -4,6 +4,13 @@ local _, ns = ...
 local UI, D = ns.UI, ns.Dungeons
 local L = ns.L
 
+local ICONS = {
+  dungeon = "Interface\\LFGFrame\\LFGIcon-Dungeon",
+  wing = "Interface\\LFGFrame\\LFGIcon-Dungeon",
+  boss = "Interface\\TargetingFrame\\UI-TargetingFrame-Skull",
+  quest = "Interface\\GossipFrame\\AvailableQuestIcon",
+}
+
 local function matches(text, query)
   return text and string.find(string.lower(text), query, 1, true) ~= nil
 end
@@ -14,6 +21,17 @@ local function anyName(names, query)
     if matches(n, query) then return true end
   end
   return false
+end
+
+local MAX_RESULTS = 100
+
+-- Mazmorra donde cae un objeto, para poder abrirla desde el buscador.
+local function dungeonDropping(itemId)
+  for _, d in pairs(ns.Data.Dungeons or {}) do
+    for _, drop in ipairs(d.loot or {}) do
+      if drop.itemId == itemId then return d end
+    end
+  end
 end
 
 function ns.Search(query)
@@ -35,6 +53,20 @@ function ns.Search(query)
       end
     end
   end
+  for id, q in pairs(ns.Data.Quests or {}) do
+    if #results >= MAX_RESULTS then break end
+    if anyName(q.name, query) or matches(ns.Quests.Name(q), query) then
+      local d = q.dungeon and D.Get(q.dungeon)
+      results[#results + 1] = { kind = "quest", label = ns.Quests.Name(q) .. (d and (" · " .. D.Name(d)) or ""), dungeon = d, questId = id }
+    end
+  end
+  for id, item in pairs(ns.Data.Items or {}) do
+    if #results >= MAX_RESULTS then break end
+    if matches(item.name, query) or matches(ns.Items.Name(id), query) then
+      local d = dungeonDropping(id)
+      results[#results + 1] = { kind = "item", label = ns.Items.ColoredName(id) .. (d and (" · " .. D.Name(d)) or ""), dungeon = d, itemId = id }
+    end
+  end
   return results
 end
 
@@ -47,12 +79,17 @@ UI.RegisterTab({
     panel.box:SetAutoFocus(false)
     panel.hint = UI.Label(panel, "GameFontHighlightSmall")
     panel.hint:SetPoint("LEFT", panel.box, "RIGHT", 10, 0)
-    panel.list = UI.List(panel, 20)
+    panel.list = UI.List(panel, 22, UI.IconRow)
     panel.list:SetPoints(0, -34, 0, 0)
-    panel.list.onClick = function(r) UI.Select("dungeons", { instanceID = r.dungeon.instanceID }) end
+    panel.list.onClick = function(r) if r.dungeon then UI.Select("dungeons", { id = r.dungeon.id }) end end
+    panel.list.onEnter = function(r, row)
+      if r.itemId then ns.Items.ShowTooltip(row, r.itemId)
+      elseif r.questId then UI.Tooltip(row, ns.Quests.TooltipLines(ns.Quests.Get(r.questId))) end
+    end
     local function update()
       local results = ns.Search(panel.box:GetText())
       panel.list:SetData(results, function(row, r)
+        row.icon:SetTexture(r.itemId and ns.Items.Icon(r.itemId) or ICONS[r.kind])
         row.left:SetText(UI.Color("9d9d9d", "[" .. L["KIND_" .. string.upper(r.kind)] .. "] ") .. r.label)
         row.right:SetText("")
       end)

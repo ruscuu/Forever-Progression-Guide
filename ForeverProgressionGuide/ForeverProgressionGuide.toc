@@ -18,9 +18,16 @@ Localization\enUS.lua
 Localization\esES.lua
 Data\Meta.lua
 Data\Dungeons.lua
+Data\Quests.lua
+Data\Items.lua
+Data\Zones.lua
+Data\ClassQuests.lua
+Data\Rares.lua
 Engine\Journal.lua
 Engine\Dungeons.lua
 Engine\ClassFilter.lua
+Engine\Items.lua
+Engine\Quests.lua
 Engine\Gear.lua
 Engine\Objectives.lua
 Profile\Collector.lua

@@ -157,7 +157,10 @@ def _lua_key(k):
     return f"[{k}]"
 
 
-def to_lua(value, indent=0):
+def to_lua(value, indent=0, compact=False):
+    """Literal Lua determinista. Con compact=True, todo en una línea."""
+    if compact:
+        return _to_lua_compact(value)
     pad = "  " * indent
     if value is None:
         return "nil"
@@ -184,3 +187,13 @@ def to_lua(value, indent=0):
         items = [f"{pad}  {_lua_key(k)} = {to_lua(value[k], indent + 1)}," for k in keys]
         return "{\n" + "\n".join(items) + f"\n{pad}}}"
     raise TypeError(f"tipo no serializable a Lua: {type(value).__name__}")
+
+
+def _to_lua_compact(value):
+    if isinstance(value, (list, tuple)):
+        return "{" + ",".join(_to_lua_compact(v) for v in value) + "}"
+    if isinstance(value, dict):
+        keys = sorted((k for k in value if value[k] is not None),
+                      key=lambda k: (not isinstance(k, (int, float)), k if isinstance(k, (int, float)) else str(k)))
+        return "{" + ",".join(f"{_lua_key(k)}={_to_lua_compact(value[k])}" for k in keys) + "}"
+    return to_lua(value)

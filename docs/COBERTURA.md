@@ -13,6 +13,26 @@ su documentación técnica. Cada afirmación lleva su nivel de confianza:
 - **Indirecto**: visto en resultados de búsqueda o en descripciones de terceros.
 - **Sin confirmar**: lo afirma el plan, pero no se ha podido comprobar.
 
+> **Actualización (20-10-2026, con acceso a las webs):** H1 queda resuelto.
+> Forever Companion **sí** tiene una API pública (`/api/v1`), gratuita y sin
+> clave, que invita expresamente a usarla en *«an addon companion»* con una
+> condición: citarla con un enlace. Reúne datos de ForeverChanges, Wowhead y
+> Zockify, marca cada misión como `beta`, `classic` o `announced` y cuenta las
+> verificaciones de jugadores. Pasa a ser la **fuente principal**: 35
+> mazmorras (incluidas las nuevas de Forever), 257 misiones con su botín,
+> 1.746 objetos (todos los que aparecen en botines y recompensas), 40 zonas,
+> 44 misiones de clase y 28 raros. Ver `data-sources/sources.json`.
+>
+> - **Fallo de su servidor:** la caché de Netlify ignora los parámetros de
+>   los listados (`?offset=`, `?q=`, `?faction=`…), así que solo se obtiene la
+>   primera página. Las mazmorras y los objetos se piden por ID; las misiones de
+>   élite más allá de las 500 primeras quedan fuera hasta que lo arreglen.
+>   Conviene avisarles desde su formulario de feedback.
+> - **ForeverDB** sigue necesitando clave (inicio de sesión con Battle.net) y
+>   exige enlace visible y no revender los datos.
+> - **El diario del juego** existe en Forever pero, según las capturas en el
+>   juego, viene vacío: jefes y botín salen de Forever Companion.
+>
 > **Actualización (v0.1):** el desarrollo arrancó sin esperar a cerrar esta fase,
 > siguiendo el hallazgo H4: el addon toma del propio cliente todo lo que puede
 > (diario, mapas, jefes, botín y entradas) y solo incluye en el paquete los

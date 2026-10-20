@@ -1,0 +1,33 @@
+-- Generado por pipeline/build_data.py a partir de data-sources/. No editar a mano.
+local _, ns = ...
+ns.Data = ns.Data or {}
+ns.Data.Rares = {
+  ["baron-marinous"] = {coords={"59.2, 22.6"},elite=true,faction="both",id="baron-marinous",levels="11–19",name="Baron Marinous",zone="Darkshore"},
+  ["blightsculler"] = {coords={"17.2, 53.8","16.8, 57.8"},elite=false,faction="horde",id="blightsculler",levels="5–12",name="Blightsculler",zone="Tirisfal Glades"},
+  ["coldrasp"] = {coords={"19.7, 65.6"},elite=false,faction="horde",id="coldrasp",levels="5–12",name="Coldrasp",zone="Tirisfal Glades"},
+  ["decrepit-harvester"] = {coords={"52.2, 55.6"},elite=false,faction="horde",id="decrepit-harvester",levels="5–12",name="Decrepit Harvester",zone="Tirisfal Glades"},
+  ["dendralass"] = {coords={"61.2, 37.2"},elite=false,faction="both",id="dendralass",levels="3–12",name="Den'dralass",zone="Zephras Isle"},
+  ["dustwind-eggtender"] = {coords={"51.2, 20.6","52.2, 24.0"},elite=false,faction="horde",id="dustwind-eggtender",levels="5–10",name="Dustwind Eggtender",zone="Durotar"},
+  ["elder-finseer"] = {coords={"78.6, 56.2","79.6, 46.8"},elite=false,faction="alliance",id="elder-finseer",levels="5–10",name="Elder Finseer",zone="Elwynn Forest"},
+  ["fernfeather"] = {coords={"48.0, 85.4","53.8, 78.8"},elite=false,faction="both",id="fernfeather",levels="3–12",name="Fernfeather",zone="Zephras Isle"},
+  ["galemender-delanea"] = {coords={"62.4, 62.0"},elite=false,faction="both",id="galemender-delanea",levels="3–12",name="Galemender Delanea",zone="Zephras Isle"},
+  ["ghostfang"] = {coords={"74.2, 63.2","79.4, 42.8","80.4, 46.6","81.6, 55.4"},elite=false,faction="alliance",id="ghostfang",levels="4–12",name="Ghostfang",zone="Dun Morogh"},
+  ["humar"] = {coords={"61.0, 35.0"},elite=false,faction="both",id="humar",levels="10–25",loot={285331},name="Humar the Pridelord",zone="The Barrens"},
+  ["matriarch-bristlefur"] = {coords={"64.4, 77.0","59.0, 80.6","51.8, 79.2"},elite=false,faction="alliance",id="matriarch-bristlefur",levels="5–10",name="Matriarch Bristlefur",zone="Elwynn Forest"},
+  ["mystmane"] = {coords={"60.2, 34.6"},elite=false,faction="both",id="mystmane",levels="3–12",name="Mystmane",zone="Zephras Isle"},
+  ["nightscreech"] = {coords={"46.4, 33.6","40.0, 55.6"},elite=false,faction="alliance",id="nightscreech",levels="5–11",name="Nightscreech",zone="Teldrassil"},
+  ["nightveiled-rotheap"] = {coords={"49.0, 33.0"},elite=false,faction="both",id="nightveiled-rotheap",levels="20–30",loot={282283},name="Nightveiled Rotheap",zone="Wetlands"},
+  ["pexmit"] = {coords={"59.6, 49.2"},elite=false,faction="both",id="pexmit",levels="60",name="Pexmit",zone="Mount Hyjal"},
+  ["shalma"] = {coords={"59.8, 91.0","62.8, 96.8","68.6, 70.6"},elite=false,faction="horde",id="shalma",levels="5–10",name="Shal'ma",zone="Durotar"},
+  ["slydris"] = {coords={"50.2, 51.0"},elite=true,faction="both",id="slydris",levels="3–12",name="Slydris",zone="Zephras Isle"},
+  ["snarlsnout"] = {coords={"32.8, 65.4"},elite=false,faction="horde",id="snarlsnout",levels="5–10",name="Snarlsnout",zone="Mulgore"},
+  ["stormherald-ukta"] = {coords={"60.2, 58.2"},elite=false,faction="horde",id="stormherald-ukta",levels="5–10",name="Stormherald Ukta",zone="Mulgore"},
+  ["swiftmane"] = {coords={"60.4, 33.0","61.2, 29.6","61.8, 36.2"},elite=false,faction="both",id="swiftmane",levels="10–25",loot={285330},name="Swiftmane",zone="The Barrens"},
+  ["takk"] = {coords={"60.4, 9.4","58.2, 7.4","60.8, 13.4"},elite=false,faction="both",id="takk",levels="10–25",loot={285329},name="Takk the Leaper",zone="The Barrens"},
+  ["taskmaster-whipfang"] = {coords={"63.0, 53.0","61.4, 50.0","64.2, 57.0","61.2, 55.8"},elite=false,faction="both",id="taskmaster-whipfang",levels="15–25",loot={284386},name="Taskmaster Whipfang",zone="Stonetalon Mountains"},
+  ["teldaeor"] = {coords={"66.0, 53.8"},elite=false,faction="both",id="teldaeor",levels="3–12",name="Tel'daeor the Stormspeaker",zone="Zephras Isle"},
+  ["the-condemned-one"] = {coords={"67.0, 43.0","66.0, 46.8","71.0, 39.4","70.2, 44.2"},elite=false,faction="horde",id="the-condemned-one",levels="5–12",name="The Condemned One",zone="Tirisfal Glades"},
+  ["the-lost-one"] = {coords={"52.0, 46.4"},elite=true,faction="both",id="the-lost-one",levels="3–12",name="The Lost One",zone="Zephras Isle"},
+  ["thornstarter-igleg"] = {coords={"59.0, 31.6"},elite=false,faction="horde",id="thornstarter-igleg",levels="5–10",name="Thornstarter Igleg",zone="Mulgore"},
+  ["wrathvine"] = {coords={"53.4, 70.4","56.4, 67.6"},elite=false,faction="alliance",id="wrathvine",levels="5–11",name="Wrathvine",zone="Teldrassil"},
+}

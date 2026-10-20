@@ -8,6 +8,7 @@ local J = {}
 ns.Journal = J
 
 local instances      -- [instanceID] = { journalID, name, description, uiMapID, isRaid }
+local dungeonMaps    -- [nombre normalizado] = uiMapID
 local entrances      -- [journalID] = { uiMapID, x, y, name }
 
 function J.Available()
@@ -48,7 +49,7 @@ function J.Undocumented()
   if not instances then scanInstances() end
   local out = {}
   for instanceID, info in pairs(instances) do
-    if not (ns.Data.Dungeons and ns.Data.Dungeons[instanceID]) then out[#out + 1] = info end
+    if not ns.Dungeons.HasInstance(instanceID) then out[#out + 1] = info end
   end
   table.sort(out, function(a, b) return a.instanceID < b.instanceID end)
   return out
@@ -66,12 +67,61 @@ function J.Encounters(journalID)
   return out
 end
 
--- Mapa de la instancia: diario del cliente, o el que se haya observado al jugar.
+-- Nombre sin artículo inicial ni mayúsculas, para comparar nombres de mapas.
+local function normalize(name)
+  name = string.lower(name or "")
+  for _, article in ipairs({ "the ", "las ", "los ", "la ", "el " }) do
+    if string.sub(name, 1, #article) == article then return string.sub(name, #article + 1) end
+  end
+  return name
+end
+
+-- Mapas de mazmorra que conoce el cliente, aunque el diario esté vacío.
+local function scanDungeonMaps()
+  dungeonMaps = {}
+  local dungeonType = Enum and Enum.UIMapType and Enum.UIMapType.Dungeon or 4
+  for uiMapID = 1, 3000 do
+    local info = C.Call("C_Map.GetMapInfo", uiMapID)
+    if info and info.mapType == dungeonType and info.name and info.name ~= "" then
+      local key = normalize(info.name)
+      if not dungeonMaps[key] then dungeonMaps[key] = uiMapID end
+    end
+  end
+end
+
+function J.DungeonMapCount()
+  if not dungeonMaps then scanDungeonMaps() end
+  local n = 0
+  for _ in pairs(dungeonMaps) do n = n + 1 end
+  return n
+end
+
+-- Mapa de la instancia: diario del cliente, el observado al jugar o, si no,
+-- el mapa de mazmorra del cliente con el mismo nombre (en cualquier idioma).
 function J.MapFor(d)
-  local info = J.ForInstance(d.instanceID)
-  if info and info.uiMapID then return info.uiMapID end
+  local info = d.instanceID and J.ForInstance(d.instanceID)
+  if info and info.uiMapID then return info.uiMapID, "journal" end
   local observed = d.observed and d.observed.uiMapIDs
-  return observed and observed[1] or nil
+  if observed and observed[1] then return observed[1], "observed" end
+  if not dungeonMaps then scanDungeonMaps() end
+  for _, name in pairs(d.name or {}) do
+    local uiMapID = dungeonMaps[normalize(name)]
+    if uiMapID then return uiMapID, "name" end
+  end
+  for _, wing in ipairs(d.wings or {}) do
+    for _, name in pairs(wing.name or {}) do
+      local uiMapID = dungeonMaps[normalize(name)]
+      if uiMapID then return uiMapID, "name" end
+    end
+  end
+end
+
+-- Número de instancias del diario (0 si el cliente lo tiene vacío).
+function J.InstanceCount()
+  if not instances then scanInstances() end
+  local n = 0
+  for _ in pairs(instances) do n = n + 1 end
+  return n
 end
 
 -- Plantas del mapa (mazmorras con varios niveles), ordenadas.
@@ -136,7 +186,7 @@ end
 
 -- Entrada en el mapa del mundo: la del cliente o la anotada al entrar jugando.
 function J.Entrance(d)
-  local info = J.ForInstance(d.instanceID)
+  local info = d.instanceID and J.ForInstance(d.instanceID)
   if info then
     if not entrances then scanEntrances() end
     if entrances[info.journalID] then return entrances[info.journalID], "journal" end
@@ -181,5 +231,5 @@ end
 ns.On("EJ_LOOT_DATA_RECIEVED", function() ns.Fire("JOURNAL_LOOT_UPDATED") end)
 
 function J.Reset()
-  instances, entrances = nil, nil
+  instances, entrances, dungeonMaps = nil, nil, nil
 end

@@ -34,10 +34,13 @@ UI.RegisterTab({
     panel.intro:SetPoint("RIGHT", 0, 0)
     panel.list = UI.List(panel, 20)
     panel.list:SetPoints(0, -60, 0, 0)
+    panel.empty = UI.Label(panel, "GameFontNormal", "CENTER")
+    panel.empty:SetPoint("CENTER")
   end,
   Refresh = function(panel)
     panel.intro:SetText(L.PROFESSIONS_INTRO)
     local rows = professions()
+    panel.empty:SetText(#rows == 0 and L.PROFESSIONS_EMPTY or "")
     panel.list:SetData(rows, function(row, p)
       row.left:SetText(p.isHeader and UI.Color("ffd100", p.name) or ("   " .. p.name))
       row.right:SetText((not p.isHeader and p.rank) and (p.rank .. " / " .. (p.maxRank or "?")) or "")

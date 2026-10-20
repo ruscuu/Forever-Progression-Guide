@@ -49,6 +49,15 @@ tiene Forever rellenas (ver [lista de pruebas](#lista-de-pruebas-en-el-juego)).
 
 ## 2. Paquete de datos: actualización automática
 
+**Fuente principal: [Forever Companion](https://forevercompanion.io)** (API
+pública, sin clave, se cita en el addon como piden). `pipeline/fetch_forevercompanion.py`
+descarga mazmorras con sus misiones y botín, misiones, objetos, zonas,
+misiones de clase y raros, y guarda una copia normalizada en
+`data-sources/imported/forevercompanion.json`. Su caché ignora los parámetros
+de los listados, así que el importador pide las mazmorras y los objetos por ID
+y reutiliza la copia anterior: cada ejecución solo pide los objetos nuevos y
+renueva 150 de los ya guardados.
+
 Lo que el cliente no ofrece (rangos de nivel recomendados, procedencia y
 confianza de cada dato) viaja en `ForeverProgressionGuide/Data/`, generado por
 `pipeline/build_data.py`. El flujo `.github/workflows/update-data.yml`:
@@ -140,7 +149,11 @@ Esto no se ha podido probar sin el cliente. Las pruebas automáticas usan Lua
 5.1 real con una API simulada, pero falta confirmar en Forever:
 
 - [x] El addon carga y `/wfg errors` no muestra errores (v0.1.1, build 1.60.1.70450).
-- [x] `/wfg info` indica «diario: sí»: Forever expone el diario de mazmorras.
+- [x] `/wfg info` indica «diario: sí»: Forever tiene las funciones del diario de mazmorras.
+- [ ] Pero, según las capturas de la v0.1.2, el diario parece **vacío**: los jefes
+      salen de los datos de la guía y «Cómo llegar» no tiene entrada. `/wfg diag`
+      lo confirma (número de instancias del diario). Por eso, desde la v0.1.3 el
+      mapa también se busca por nombre entre los mapas de mazmorra del cliente.
 - [ ] Mazmorras → Las Minas de la Muerte → **Mapa** dibuja el mapa y los jefes.
 - [ ] **Botín** muestra objetos (el diario tiene botín en Forever) y cambia al
       elegir otra clase o especialización en la cabecera.

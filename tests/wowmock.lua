@@ -126,7 +126,7 @@ function GetSpecializationInfoForClassID(classID, i)
   if s then return s[1], s[2], "", 0, s[3] end
 end
 function GetSpecialization() return M.playerSpec end
-function GetSpecializationInfo(i) local s = M.specs[M.player.classID][i] if s then return s[1], s[2] end end
+function GetSpecializationInfo(i) local s = (M.specs[M.player.classID] or {})[i] if s then return s[1], s[2] end end
 
 local function vector(x, y) return { GetXY = function() return x, y end } end
 
@@ -212,7 +212,9 @@ C_EncounterJournal = {
   GetLootInfoByIndex = function(i) return M.journal.loot[i] end,
 }
 
+M.completedQuests = {}
 C_QuestLog = {
+  IsQuestFlaggedCompleted = function(id) return M.completedQuests[id] or false end,
   GetLogIndexForQuestID = function() return 1 end,
   GetInfo = function() return { title = "La Hermandad Defias", level = 18, questID = 155, isHeader = false } end,
   GetNumQuestLogEntries = function() return 1 end,

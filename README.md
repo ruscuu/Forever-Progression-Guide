@@ -72,3 +72,7 @@ python pipeline\package.py 0.1.0                # crear release\ForeverProgressi
 Para cambiar datos, edita `data-sources/seed/` o añade observaciones, nunca `ForeverProgressionGuide/Data/`. CI comprueba que los datos generados están al día.
 
 Para publicar a mano una versión, sube una etiqueta: `git tag v0.1.0 && git push origin v0.1.0`.
+
+## Licencia
+
+El código se publica con la [licencia MIT](LICENSE). Los datos de Forever Companion siguen sus propias condiciones: se pueden usar en el addon citando la fuente con un enlace.

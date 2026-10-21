@@ -28620,9 +28620,11 @@
    "itemLevel": 25,
    "name": "Schematic: Flame Deflector",
    "quality": "uncommon",
-   "requiredLevel": null,
+   "requiredLevel": 15,
    "slot": null,
-   "stats": [],
+   "stats": [
+    "fire"
+   ],
    "verified": null,
    "weaponType": null
   },
@@ -28641,16 +28643,18 @@
    "weaponType": null
   },
   {
-   "armor": null,
+   "armor": "cloth",
    "classicOnly": false,
    "icon": "inv_scroll_03",
    "id": 4415,
    "itemLevel": 37,
    "name": "Schematic: Craftsman's Monocle",
    "quality": "rare",
-   "requiredLevel": null,
-   "slot": null,
-   "stats": [],
+   "requiredLevel": 32,
+   "slot": "Head",
+   "stats": [
+    "int"
+   ],
    "verified": null,
    "weaponType": null
   },
@@ -66593,7 +66597,7 @@
   ],
   "url": "https://forevercompanion.io"
  },
- "updatedAt": "2026-10-20T06:03:51.867+00:00",
+ "updatedAt": "2026-10-21T12:02:25.072+00:00",
  "zones": [
   {
    "faction": "both",

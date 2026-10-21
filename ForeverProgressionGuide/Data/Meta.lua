@@ -14,11 +14,11 @@ ns.Data.Meta = {
   credits = {
     name = "Forever Companion",
     sources = { "ForeverChanges", "Wowhead", "Zockify" },
-    updatedAt = "2026-10-20T06:03:51.867+00:00",
+    updatedAt = "2026-10-21T12:02:25.072+00:00",
     url = "https://forevercompanion.io",
   },
-  generated = "2026-10-20",
-  hash = "452b7c589c",
+  generated = "2026-10-21",
+  hash = "d439d17601",
   statusCounts = { announced = 5, classic_inherited = 7, datamined = 30 },
-  version = "2026.10.20-452b7c",
+  version = "2026.10.21-d439d1",
 }

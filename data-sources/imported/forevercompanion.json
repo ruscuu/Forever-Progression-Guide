@@ -12667,7 +12667,7 @@
     {
      "itemId": 10765,
      "name": "Bonefingers",
-     "quality": "uncommon",
+     "quality": "rare",
      "slot": "hands",
      "source": "Amnennar the Coldbringer"
     },
@@ -23022,39 +23022,53 @@
      "source": "Ancient Stone Keeper"
     },
     {
-     "itemId": 9415,
-     "name": "Grimlok's Tribal Vestments",
+     "itemId": 11310,
+     "name": "Flameseer Mantle",
      "quality": "rare",
-     "slot": "chest",
-     "source": "Grimlok"
+     "slot": "shoulder",
+     "source": "Galgann Firehammer"
     },
     {
-     "itemId": 9416,
-     "name": "Grimlok's Charge",
+     "itemId": 9412,
+     "name": "Galgann's Fireblaster",
+     "quality": "rare",
+     "slot": "ranged",
+     "source": "Galgann Firehammer"
+    },
+    {
+     "itemId": 11311,
+     "name": "Emberscale Cape",
+     "quality": "rare",
+     "slot": "back",
+     "source": "Galgann Firehammer"
+    },
+    {
+     "itemId": 9419,
+     "name": "Galgann's Firehammer",
+     "quality": "rare",
+     "slot": "main-hand",
+     "source": "Galgann Firehammer"
+    },
+    {
+     "itemId": 11118,
+     "name": "Archaedic Stone",
+     "quality": "rare",
+     "slot": "ring",
+     "source": "Archaedas"
+    },
+    {
+     "itemId": 9413,
+     "name": "The Rockpounder",
      "quality": "rare",
      "slot": "two-hand",
-     "source": "Grimlok"
+     "source": "Archaedas"
     },
     {
-     "itemId": 9414,
-     "name": "Oilskin Leggings",
+     "itemId": 9418,
+     "name": "Stoneslayer",
      "quality": "rare",
-     "slot": "legs",
-     "source": "Grimlok"
-    },
-    {
-     "itemId": 7670,
-     "name": "Shattered Necklace Sapphire",
-     "quality": "common",
-     "slot": "other",
-     "source": "Grimlok"
-    },
-    {
-     "itemId": 7740,
-     "name": "Gni'kiv Medallion",
-     "quality": "common",
-     "slot": "other",
-     "source": "Baelog's Chest"
+     "slot": "two-hand",
+     "source": "Archaedas"
     },
     {
      "itemId": 7669,
@@ -23127,53 +23141,74 @@
      "source": "Obsidian Sentinel"
     },
     {
-     "itemId": 11310,
-     "name": "Flameseer Mantle",
-     "quality": "rare",
-     "slot": "shoulder",
-     "source": "Galgann Firehammer"
-    },
-    {
-     "itemId": 9412,
-     "name": "Galgann's Fireblaster",
-     "quality": "rare",
-     "slot": "ranged",
-     "source": "Galgann Firehammer"
-    },
-    {
-     "itemId": 11311,
-     "name": "Emberscale Cape",
-     "quality": "rare",
-     "slot": "back",
-     "source": "Galgann Firehammer"
-    },
-    {
-     "itemId": 9419,
-     "name": "Galgann's Firehammer",
-     "quality": "rare",
-     "slot": "main-hand",
-     "source": "Galgann Firehammer"
-    },
-    {
-     "itemId": 11118,
-     "name": "Archaedic Stone",
-     "quality": "rare",
-     "slot": "ring",
-     "source": "Archaedas"
-    },
-    {
-     "itemId": 9413,
-     "name": "The Rockpounder",
+     "itemId": 274430,
+     "name": "Rock Sentinel Slicer",
      "quality": "rare",
      "slot": "two-hand",
-     "source": "Archaedas"
+     "source": "Obsidian Sentinel"
     },
     {
-     "itemId": 9418,
-     "name": "Stoneslayer",
+     "itemId": 274428,
+     "name": "Dark Golem Breastplate",
+     "quality": "rare",
+     "slot": "chest",
+     "source": "Obsidian Sentinel"
+    },
+    {
+     "itemId": 274425,
+     "name": "White Obsidian Wand",
+     "quality": "rare",
+     "slot": "wand",
+     "source": "Obsidian Sentinel"
+    },
+    {
+     "itemId": 274485,
+     "name": "Axe of Lingering Dread",
      "quality": "rare",
      "slot": "two-hand",
-     "source": "Archaedas"
+     "source": "Obsidian Sentinel"
+    },
+    {
+     "itemId": 251400,
+     "name": "Plans: Warder's Boots",
+     "quality": "rare",
+     "slot": "other",
+     "source": "Obsidian Sentinel"
+    },
+    {
+     "itemId": 9415,
+     "name": "Grimlok's Tribal Vestments",
+     "quality": "rare",
+     "slot": "chest",
+     "source": "Grimlok"
+    },
+    {
+     "itemId": 9416,
+     "name": "Grimlok's Charge",
+     "quality": "rare",
+     "slot": "two-hand",
+     "source": "Grimlok"
+    },
+    {
+     "itemId": 9414,
+     "name": "Oilskin Leggings",
+     "quality": "rare",
+     "slot": "legs",
+     "source": "Grimlok"
+    },
+    {
+     "itemId": 7670,
+     "name": "Shattered Necklace Sapphire",
+     "quality": "common",
+     "slot": "other",
+     "source": "Grimlok"
+    },
+    {
+     "itemId": 7740,
+     "name": "Gni'kiv Medallion",
+     "quality": "common",
+     "slot": "other",
+     "source": "Baelog's Chest"
     },
     {
      "itemId": 7671,
@@ -23358,7 +23393,7 @@
      "source": "Trash mobs"
     }
    ],
-   "lootCount": 59,
+   "lootCount": 64,
    "maxLevel": 51,
    "minLevel": 41,
    "name": "Uldaman",
@@ -29655,16 +29690,20 @@
    "weaponType": null
   },
   {
-   "armor": null,
+   "armor": "leather",
    "classicOnly": false,
    "icon": "inv_scroll_06",
    "id": 6476,
    "itemLevel": 23,
    "name": "Pattern: Deviate Scale Belt",
    "quality": "uncommon",
-   "requiredLevel": null,
-   "slot": null,
-   "stats": [],
+   "requiredLevel": 18,
+   "slot": "Waist",
+   "stats": [
+    "str",
+    "agi",
+    "sta"
+   ],
    "verified": null,
    "weaponType": null
   },
@@ -51945,6 +51984,20 @@
    "weaponType": null
   },
   {
+   "armor": null,
+   "classicOnly": false,
+   "icon": "inv_scroll_03",
+   "id": 251400,
+   "itemLevel": 45,
+   "name": "Plans: Warder's Boots",
+   "quality": "rare",
+   "requiredLevel": null,
+   "slot": null,
+   "stats": [],
+   "verified": null,
+   "weaponType": null
+  },
+  {
    "armor": "cloth",
    "classicOnly": false,
    "icon": "inv_bracer_10",
@@ -55068,6 +55121,71 @@
    ],
    "verified": null,
    "weaponType": null
+  },
+  {
+   "armor": null,
+   "classicOnly": false,
+   "icon": "inv_wand_07",
+   "id": 274425,
+   "itemLevel": 44,
+   "name": "White Obsidian Wand",
+   "quality": "rare",
+   "requiredLevel": 39,
+   "slot": "Ranged",
+   "stats": [
+    "sp"
+   ],
+   "verified": null,
+   "weaponType": "Wand"
+  },
+  {
+   "armor": "plate",
+   "classicOnly": false,
+   "icon": "inv_chest_plate10",
+   "id": 274428,
+   "itemLevel": 44,
+   "name": "Dark Golem Breastplate",
+   "quality": "rare",
+   "requiredLevel": 39,
+   "slot": "Chest",
+   "stats": [
+    "sta",
+    "str"
+   ],
+   "verified": null,
+   "weaponType": null
+  },
+  {
+   "armor": null,
+   "classicOnly": false,
+   "icon": "inv_axe_04",
+   "id": 274430,
+   "itemLevel": 44,
+   "name": "Rock Sentinel Slicer",
+   "quality": "rare",
+   "requiredLevel": 39,
+   "slot": "Two-Hand",
+   "stats": [
+    "int",
+    "healing",
+    "sp"
+   ],
+   "verified": null,
+   "weaponType": "Axe"
+  },
+  {
+   "armor": null,
+   "classicOnly": false,
+   "icon": "inv_axe_01",
+   "id": 274485,
+   "itemLevel": 44,
+   "name": "Axe of Lingering Dread",
+   "quality": "rare",
+   "requiredLevel": 39,
+   "slot": "Two-Hand",
+   "stats": [],
+   "verified": null,
+   "weaponType": "Axe"
   },
   {
    "armor": null,
@@ -66597,7 +66715,7 @@
   ],
   "url": "https://forevercompanion.io"
  },
- "updatedAt": "2026-10-21T12:02:25.072+00:00",
+ "updatedAt": "2026-10-24T06:03:10.46+00:00",
  "zones": [
   {
    "faction": "both",

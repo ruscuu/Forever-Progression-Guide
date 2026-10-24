@@ -9947,24 +9947,32 @@
         "source": "Ancient Stone Keeper"
       },
       {
-        "itemId": 9415,
-        "source": "Grimlok"
+        "itemId": 11310,
+        "source": "Galgann Firehammer"
       },
       {
-        "itemId": 9416,
-        "source": "Grimlok"
+        "itemId": 9412,
+        "source": "Galgann Firehammer"
       },
       {
-        "itemId": 9414,
-        "source": "Grimlok"
+        "itemId": 11311,
+        "source": "Galgann Firehammer"
       },
       {
-        "itemId": 7670,
-        "source": "Grimlok"
+        "itemId": 9419,
+        "source": "Galgann Firehammer"
       },
       {
-        "itemId": 7740,
-        "source": "Baelog's Chest"
+        "itemId": 11118,
+        "source": "Archaedas"
+      },
+      {
+        "itemId": 9413,
+        "source": "Archaedas"
+      },
+      {
+        "itemId": 9418,
+        "source": "Archaedas"
       },
       {
         "itemId": 7669,
@@ -10007,32 +10015,44 @@
         "source": "Obsidian Sentinel"
       },
       {
-        "itemId": 11310,
-        "source": "Galgann Firehammer"
+        "itemId": 274430,
+        "source": "Obsidian Sentinel"
       },
       {
-        "itemId": 9412,
-        "source": "Galgann Firehammer"
+        "itemId": 274428,
+        "source": "Obsidian Sentinel"
       },
       {
-        "itemId": 11311,
-        "source": "Galgann Firehammer"
+        "itemId": 274425,
+        "source": "Obsidian Sentinel"
       },
       {
-        "itemId": 9419,
-        "source": "Galgann Firehammer"
+        "itemId": 274485,
+        "source": "Obsidian Sentinel"
       },
       {
-        "itemId": 11118,
-        "source": "Archaedas"
+        "itemId": 251400,
+        "source": "Obsidian Sentinel"
       },
       {
-        "itemId": 9413,
-        "source": "Archaedas"
+        "itemId": 9415,
+        "source": "Grimlok"
       },
       {
-        "itemId": 9418,
-        "source": "Archaedas"
+        "itemId": 9416,
+        "source": "Grimlok"
+      },
+      {
+        "itemId": 9414,
+        "source": "Grimlok"
+      },
+      {
+        "itemId": 7670,
+        "source": "Grimlok"
+      },
+      {
+        "itemId": 7740,
+        "source": "Baelog's Chest"
       },
       {
         "itemId": 7671,

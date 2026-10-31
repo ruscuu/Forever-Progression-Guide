@@ -134,96 +134,12 @@
     },
     "loot": [
       {
-        "itemId": 6907,
-        "source": "Ghamoo-ra"
+        "itemId": 6909,
+        "source": "Aku'mai"
       },
       {
-        "itemId": 6908,
-        "source": "Ghamoo-ra"
-      },
-      {
-        "itemId": 273839,
-        "source": "Ghamoo-ra"
-      },
-      {
-        "itemId": 888,
-        "source": "Lady Sarevess"
-      },
-      {
-        "itemId": 3078,
-        "source": "Lady Sarevess"
-      },
-      {
-        "itemId": 11121,
-        "source": "Lady Sarevess"
-      },
-      {
-        "itemId": 6906,
-        "source": "Gelihast"
-      },
-      {
-        "itemId": 6905,
-        "source": "Gelihast"
-      },
-      {
-        "itemId": 1470,
-        "source": "Gelihast"
-      },
-      {
-        "itemId": 273840,
-        "source": "Gelihast"
-      },
-      {
-        "itemId": 273141,
-        "source": "Gelihast"
-      },
-      {
-        "itemId": 252512,
-        "source": "Gelihast / Lorgus Jett / Twilight Lord Kelris / Aku'mai"
-      },
-      {
-        "itemId": 252515,
-        "source": "Gelihast / Twilight Lord Kelris / Aku'mai"
-      },
-      {
-        "itemId": 252456,
-        "source": "Gelihast / Lorgus Jett / Baron Aquanis / Twilight Lord Kelris / Old Serra'kis / Aku'mai"
-      },
-      {
-        "itemId": 252513,
-        "source": "Gelihast / Lorgus Jett / Twilight Lord Kelris"
-      },
-      {
-        "itemId": 252514,
-        "source": "Gelihast / Aku'mai"
-      },
-      {
-        "itemId": 252455,
-        "source": "Gelihast / Lorgus Jett / Twilight Lord Kelris / Old Serra'kis / Aku'mai"
-      },
-      {
-        "itemId": 273843,
-        "source": "Lorgus Jett"
-      },
-      {
-        "itemId": 273841,
-        "source": "Lorgus Jett"
-      },
-      {
-        "itemId": 273842,
-        "source": "Lorgus Jett"
-      },
-      {
-        "itemId": 16782,
-        "source": "Baron Aquanis"
-      },
-      {
-        "itemId": 1155,
-        "source": "Twilight Lord Kelris"
-      },
-      {
-        "itemId": 6903,
-        "source": "Twilight Lord Kelris"
+        "itemId": 6911,
+        "source": "Aku'mai"
       },
       {
         "itemId": 273846,
@@ -234,24 +150,108 @@
         "source": "Old Serra'kis"
       },
       {
+        "itemId": 6910,
+        "source": "Aku'mai"
+      },
+      {
+        "itemId": 1155,
+        "source": "Twilight Lord Kelris"
+      },
+      {
+        "itemId": 6906,
+        "source": "Gelihast"
+      },
+      {
         "itemId": 6904,
         "source": "Old Serra'kis"
+      },
+      {
+        "itemId": 273843,
+        "source": "Lorgus Jett"
+      },
+      {
+        "itemId": 273840,
+        "source": "Gelihast"
+      },
+      {
+        "itemId": 6903,
+        "source": "Twilight Lord Kelris"
+      },
+      {
+        "itemId": 273141,
+        "source": "Gelihast"
+      },
+      {
+        "itemId": 273842,
+        "source": "Lorgus Jett"
+      },
+      {
+        "itemId": 252512,
+        "source": "Gelihast / Lorgus Jett / Twilight Lord Kelris / Aku'mai"
+      },
+      {
+        "itemId": 273841,
+        "source": "Lorgus Jett"
       },
       {
         "itemId": 6902,
         "source": "Old Serra'kis"
       },
       {
-        "itemId": 6911,
-        "source": "Aku'mai"
+        "itemId": 252515,
+        "source": "Gelihast / Twilight Lord Kelris / Aku'mai"
       },
       {
-        "itemId": 6910,
-        "source": "Aku'mai"
+        "itemId": 11121,
+        "source": "Lady Sarevess"
       },
       {
-        "itemId": 6909,
-        "source": "Aku'mai"
+        "itemId": 6908,
+        "source": "Ghamoo-ra"
+      },
+      {
+        "itemId": 252456,
+        "source": "Gelihast / Lorgus Jett / Baron Aquanis / Twilight Lord Kelris / Old Serra'kis / Aku'mai"
+      },
+      {
+        "itemId": 888,
+        "source": "Lady Sarevess"
+      },
+      {
+        "itemId": 252513,
+        "source": "Gelihast / Lorgus Jett / Twilight Lord Kelris"
+      },
+      {
+        "itemId": 3078,
+        "source": "Lady Sarevess"
+      },
+      {
+        "itemId": 252514,
+        "source": "Gelihast / Aku'mai"
+      },
+      {
+        "itemId": 252455,
+        "source": "Gelihast / Lorgus Jett / Twilight Lord Kelris / Old Serra'kis / Aku'mai"
+      },
+      {
+        "itemId": 6905,
+        "source": "Gelihast"
+      },
+      {
+        "itemId": 273839,
+        "source": "Ghamoo-ra"
+      },
+      {
+        "itemId": 6907,
+        "source": "Ghamoo-ra"
+      },
+      {
+        "itemId": 1470,
+        "source": "Gelihast"
+      },
+      {
+        "itemId": 16782,
+        "source": "Baron Aquanis"
       },
       {
         "itemId": 1486,
@@ -2915,64 +2915,36 @@
     },
     "loot": [
       {
-        "itemId": 273022,
-        "source": "Saltspine"
-      },
-      {
-        "itemId": 273023,
-        "source": "Saltspine"
-      },
-      {
-        "itemId": 273024,
-        "source": "Saltspine"
-      },
-      {
-        "itemId": 273025,
-        "source": "Shadetooth"
-      },
-      {
-        "itemId": 273026,
-        "source": "Shadetooth"
-      },
-      {
-        "itemId": 273027,
-        "source": "Shadetooth"
-      },
-      {
-        "itemId": 273106,
-        "source": "Shadetooth"
-      },
-      {
-        "itemId": 270180,
-        "source": "Highland Horror"
+        "itemId": 273029,
+        "source": "Relic Guardian"
       },
       {
         "itemId": 273028,
         "source": "Relic Guardian"
       },
       {
-        "itemId": 273030,
-        "source": "Relic Guardian"
+        "itemId": 273024,
+        "source": "Saltspine"
+      },
+      {
+        "itemId": 273027,
+        "source": "Shadetooth"
+      },
+      {
+        "itemId": 273025,
+        "source": "Shadetooth"
+      },
+      {
+        "itemId": 273023,
+        "source": "Saltspine"
+      },
+      {
+        "itemId": 273022,
+        "source": "Saltspine"
       },
       {
         "itemId": 270865,
         "source": "Relic Guardian"
-      },
-      {
-        "itemId": 273029,
-        "source": "Relic Guardian"
-      },
-      {
-        "itemId": 273097,
-        "source": "Relic Guardian"
-      },
-      {
-        "itemId": 287068,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 286983,
-        "source": "Trash mobs"
       }
     ],
     "name": {
@@ -3099,27 +3071,59 @@
     },
     "loot": [
       {
+        "itemId": 4415,
+        "source": "Mekgineer Thermaplugg"
+      },
+      {
         "itemId": 9444,
         "source": "Techbot"
       },
       {
-        "itemId": 9445,
-        "source": "Grubbis"
+        "itemId": 9461,
+        "source": "Mekgineer Thermaplugg"
       },
       {
         "itemId": 274043,
         "source": "Grubbis"
       },
       {
+        "itemId": 9458,
+        "source": "Mekgineer Thermaplugg"
+      },
+      {
+        "itemId": 9447,
+        "source": "Electrocutioner 6000"
+      },
+      {
         "itemId": 274042,
         "source": "Grubbis"
       },
       {
-        "itemId": 9454,
-        "source": "Viscous Fallout"
+        "itemId": 9446,
+        "source": "Electrocutioner 6000"
       },
       {
-        "itemId": 9453,
+        "itemId": 9450,
+        "source": "Crowd Pummeler 9-60"
+      },
+      {
+        "itemId": 9445,
+        "source": "Grubbis"
+      },
+      {
+        "itemId": 9449,
+        "source": "Crowd Pummeler 9-60"
+      },
+      {
+        "itemId": 9448,
+        "source": "Electrocutioner 6000"
+      },
+      {
+        "itemId": 274068,
+        "source": "Crowd Pummeler 9-60"
+      },
+      {
+        "itemId": 9454,
         "source": "Viscous Fallout"
       },
       {
@@ -3127,44 +3131,40 @@
         "source": "Viscous Fallout"
       },
       {
-        "itemId": 9447,
-        "source": "Electrocutioner 6000"
+        "itemId": 9453,
+        "source": "Viscous Fallout"
       },
       {
-        "itemId": 9446,
-        "source": "Electrocutioner 6000"
+        "itemId": 11828,
+        "source": "Mekgineer Thermaplugg"
       },
       {
-        "itemId": 9448,
-        "source": "Electrocutioner 6000"
-      },
-      {
-        "itemId": 6893,
-        "source": "Electrocutioner 6000"
-      },
-      {
-        "itemId": 9449,
-        "source": "Crowd Pummeler 9-60"
-      },
-      {
-        "itemId": 9450,
-        "source": "Crowd Pummeler 9-60"
-      },
-      {
-        "itemId": 274068,
-        "source": "Crowd Pummeler 9-60"
+        "itemId": 4413,
+        "source": "Mekgineer Thermaplugg"
       },
       {
         "itemId": 274049,
         "source": "Crowd Pummeler 9-60"
       },
       {
+        "itemId": 4411,
+        "source": "Mekgineer Thermaplugg"
+      },
+      {
         "itemId": 9455,
         "source": "Dark Iron Ambassador"
       },
       {
+        "itemId": 7742,
+        "source": "Mekgineer Thermaplugg"
+      },
+      {
         "itemId": 9456,
         "source": "Dark Iron Ambassador"
+      },
+      {
+        "itemId": 6893,
+        "source": "Electrocutioner 6000"
       },
       {
         "itemId": 9457,
@@ -3175,35 +3175,7 @@
         "source": "Mekgineer Thermaplugg"
       },
       {
-        "itemId": 9461,
-        "source": "Mekgineer Thermaplugg"
-      },
-      {
-        "itemId": 9458,
-        "source": "Mekgineer Thermaplugg"
-      },
-      {
         "itemId": 9459,
-        "source": "Mekgineer Thermaplugg"
-      },
-      {
-        "itemId": 4415,
-        "source": "Mekgineer Thermaplugg"
-      },
-      {
-        "itemId": 4413,
-        "source": "Mekgineer Thermaplugg"
-      },
-      {
-        "itemId": 4411,
-        "source": "Mekgineer Thermaplugg"
-      },
-      {
-        "itemId": 7742,
-        "source": "Mekgineer Thermaplugg"
-      },
-      {
-        "itemId": 11828,
         "source": "Mekgineer Thermaplugg"
       },
       {
@@ -3395,52 +3367,40 @@
     },
     "loot": [
       {
-        "itemId": 270227,
-        "source": "Faldrim Anvilmar"
-      },
-      {
         "itemId": 271096,
         "source": "Faldrim Anvilmar"
-      },
-      {
-        "itemId": 271097,
-        "source": "Faldrim Anvilmar"
-      },
-      {
-        "itemId": 270230,
-        "source": "Magmatus"
-      },
-      {
-        "itemId": 270231,
-        "source": "Magmatus"
-      },
-      {
-        "itemId": 271095,
-        "source": "Magmatus"
-      },
-      {
-        "itemId": 270228,
-        "source": "Plunder"
-      },
-      {
-        "itemId": 270229,
-        "source": "Plunder"
-      },
-      {
-        "itemId": 271098,
-        "source": "Plunder"
-      },
-      {
-        "itemId": 270256,
-        "source": "Durgen Dirgehammer"
       },
       {
         "itemId": 270260,
         "source": "Durgen Dirgehammer"
       },
       {
+        "itemId": 270256,
+        "source": "Durgen Dirgehammer"
+      },
+      {
+        "itemId": 270227,
+        "source": "Faldrim Anvilmar"
+      },
+      {
+        "itemId": 271098,
+        "source": "Plunder"
+      },
+      {
+        "itemId": 270228,
+        "source": "Plunder"
+      },
+      {
         "itemId": 270261,
         "source": "Durgen Dirgehammer"
+      },
+      {
+        "itemId": 271097,
+        "source": "Faldrim Anvilmar"
+      },
+      {
+        "itemId": 270229,
+        "source": "Plunder"
       },
       {
         "itemId": 274286,
@@ -4718,16 +4678,20 @@
         "source": "Oggleflint"
       },
       {
-        "itemId": 272996,
-        "source": "Oggleflint"
-      },
-      {
         "itemId": 272998,
         "source": "Oggleflint"
       },
       {
-        "itemId": 14149,
-        "source": "Taragaman the Hungerer"
+        "itemId": 14147,
+        "source": "Jergosh the Invoker"
+      },
+      {
+        "itemId": 14151,
+        "source": "Jergosh the Invoker"
+      },
+      {
+        "itemId": 273007,
+        "source": "Bazzalan"
       },
       {
         "itemId": 14148,
@@ -4742,24 +4706,20 @@
         "source": "Jergosh the Invoker"
       },
       {
-        "itemId": 14147,
-        "source": "Jergosh the Invoker"
-      },
-      {
-        "itemId": 14151,
-        "source": "Jergosh the Invoker"
+        "itemId": 273005,
+        "source": "Bazzalan"
       },
       {
         "itemId": 273003,
         "source": "Bazzalan"
       },
       {
-        "itemId": 273005,
-        "source": "Bazzalan"
+        "itemId": 14149,
+        "source": "Taragaman the Hungerer"
       },
       {
-        "itemId": 273007,
-        "source": "Bazzalan"
+        "itemId": 272996,
+        "source": "Oggleflint"
       }
     ],
     "name": {
@@ -4877,15 +4837,35 @@
     },
     "loot": [
       {
+        "itemId": 10765,
+        "source": "Amnennar the Coldbringer"
+      },
+      {
         "itemId": 10776,
         "source": "Tuten'kash"
       },
       {
-        "itemId": 10775,
-        "source": "Tuten'kash"
+        "itemId": 10761,
+        "source": "Amnennar the Coldbringer"
       },
       {
         "itemId": 10777,
+        "source": "Tuten'kash"
+      },
+      {
+        "itemId": 10764,
+        "source": "Amnennar the Coldbringer"
+      },
+      {
+        "itemId": 10763,
+        "source": "Amnennar the Coldbringer"
+      },
+      {
+        "itemId": 10762,
+        "source": "Amnennar the Coldbringer"
+      },
+      {
+        "itemId": 10775,
         "source": "Tuten'kash"
       },
       {
@@ -4897,31 +4877,11 @@
         "source": "Glutton"
       },
       {
-        "itemId": 10763,
-        "source": "Amnennar the Coldbringer"
-      },
-      {
-        "itemId": 10762,
-        "source": "Amnennar the Coldbringer"
-      },
-      {
-        "itemId": 10764,
-        "source": "Amnennar the Coldbringer"
-      },
-      {
-        "itemId": 10761,
-        "source": "Amnennar the Coldbringer"
-      },
-      {
-        "itemId": 10765,
-        "source": "Amnennar the Coldbringer"
-      },
-      {
-        "itemId": 10769,
+        "itemId": 10771,
         "source": "Mordresh Fire Eye"
       },
       {
-        "itemId": 10771,
+        "itemId": 10769,
         "source": "Mordresh Fire Eye"
       },
       {
@@ -5112,12 +5072,20 @@
     },
     "loot": [
       {
-        "itemId": 6681,
-        "source": "Aggem Thorncurse / Trash mobs"
+        "itemId": 6693,
+        "source": "Charlga Razorflank"
       },
       {
         "itemId": 274158,
         "source": "Aggem Thorncurse"
+      },
+      {
+        "itemId": 6692,
+        "source": "Charlga Razorflank"
+      },
+      {
+        "itemId": 6691,
+        "source": "Agathelos the Raging"
       },
       {
         "itemId": 274159,
@@ -5128,24 +5096,44 @@
         "source": "Aggem Thorncurse / Death Speaker Jargba / Roogug / Overlord Ramtusk / Agathelos the Raging / Charlga Razorflank"
       },
       {
+        "itemId": 6687,
+        "source": "Overlord Ramtusk"
+      },
+      {
         "itemId": 252455,
         "source": "Aggem Thorncurse / Agathelos the Raging / Charlga Razorflank / Earthcaller Halmgar"
       },
       {
-        "itemId": 252456,
-        "source": "Aggem Thorncurse / Charlga Razorflank"
+        "itemId": 6690,
+        "source": "Agathelos the Raging"
       },
       {
-        "itemId": 252515,
-        "source": "Aggem Thorncurse / Death Speaker Jargba / Overlord Ramtusk / Charlga Razorflank"
+        "itemId": 274161,
+        "source": "Overlord Ramtusk"
+      },
+      {
+        "itemId": 6686,
+        "source": "Overlord Ramtusk"
       },
       {
         "itemId": 2816,
         "source": "Death Speaker Jargba"
       },
       {
+        "itemId": 252456,
+        "source": "Aggem Thorncurse / Charlga Razorflank"
+      },
+      {
         "itemId": 6685,
         "source": "Death Speaker Jargba"
+      },
+      {
+        "itemId": 252515,
+        "source": "Aggem Thorncurse / Death Speaker Jargba / Overlord Ramtusk / Charlga Razorflank"
+      },
+      {
+        "itemId": 6681,
+        "source": "Aggem Thorncurse"
       },
       {
         "itemId": 6682,
@@ -5156,24 +5144,16 @@
         "source": "Roogug"
       },
       {
-        "itemId": 274149,
-        "source": "Roogug"
-      },
-      {
         "itemId": 274152,
         "source": "Roogug"
       },
       {
-        "itemId": 6687,
-        "source": "Overlord Ramtusk"
+        "itemId": 17008,
+        "source": "Charlga Razorflank"
       },
       {
-        "itemId": 6686,
-        "source": "Overlord Ramtusk"
-      },
-      {
-        "itemId": 274161,
-        "source": "Overlord Ramtusk"
+        "itemId": 274149,
+        "source": "Roogug"
       },
       {
         "itemId": 252513,
@@ -5182,14 +5162,6 @@
       {
         "itemId": 6679,
         "source": "Razorfen Spearhide / Trash mobs"
-      },
-      {
-        "itemId": 6691,
-        "source": "Agathelos the Raging"
-      },
-      {
-        "itemId": 6690,
-        "source": "Agathelos the Raging"
       },
       {
         "itemId": 274160,
@@ -5208,19 +5180,7 @@
         "source": "Blind Hunter"
       },
       {
-        "itemId": 6693,
-        "source": "Charlga Razorflank"
-      },
-      {
         "itemId": 6694,
-        "source": "Charlga Razorflank"
-      },
-      {
-        "itemId": 6692,
-        "source": "Charlga Razorflank"
-      },
-      {
-        "itemId": 17008,
         "source": "Charlga Razorflank"
       },
       {
@@ -5493,28 +5453,24 @@
         "source": "Quest: Abominable Creatures"
       },
       {
-        "itemId": 271204,
-        "source": "The Baron"
+        "itemId": 6641,
+        "source": "Lordaeron Captain"
       },
       {
-        "itemId": 271205,
-        "source": "The Baron"
+        "itemId": 6642,
+        "source": "Lordaeron Captain"
       },
       {
-        "itemId": 271206,
-        "source": "The Baron"
+        "itemId": 271215,
+        "source": "Rath'mael"
       },
       {
-        "itemId": 271201,
-        "source": "Witherfang"
+        "itemId": 271213,
+        "source": "Rath'mael"
       },
       {
-        "itemId": 271202,
-        "source": "Witherfang"
-      },
-      {
-        "itemId": 271203,
-        "source": "Witherfang"
+        "itemId": 271212,
+        "source": "Viktor the Vile"
       },
       {
         "itemId": 271208,
@@ -5525,11 +5481,15 @@
         "source": "The Abandoned"
       },
       {
-        "itemId": 271209,
-        "source": "Bjork"
+        "itemId": 271218,
+        "source": "Viktor the Vile"
       },
       {
-        "itemId": 271210,
+        "itemId": 271211,
+        "source": "Viktor the Vile"
+      },
+      {
+        "itemId": 271209,
         "source": "Bjork"
       },
       {
@@ -5537,52 +5497,20 @@
         "source": "Bjork"
       },
       {
-        "itemId": 271213,
-        "source": "Rath'mael"
+        "itemId": 271210,
+        "source": "Bjork"
       },
       {
-        "itemId": 271215,
-        "source": "Rath'mael"
+        "itemId": 271201,
+        "source": "Witherfang"
       },
       {
-        "itemId": 273085,
-        "source": "Rath'mael"
+        "itemId": 271203,
+        "source": "Witherfang"
       },
       {
-        "itemId": 273103,
-        "source": "Rath'mael"
-      },
-      {
-        "itemId": 271211,
-        "source": "Viktor the Vile"
-      },
-      {
-        "itemId": 271212,
-        "source": "Viktor the Vile"
-      },
-      {
-        "itemId": 271218,
-        "source": "Viktor the Vile"
-      },
-      {
-        "itemId": 6641,
-        "source": "Lordaeron Captain"
-      },
-      {
-        "itemId": 6642,
-        "source": "Lordaeron Captain"
-      },
-      {
-        "itemId": 286980,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 286979,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 286978,
-        "source": "Trash mobs"
+        "itemId": 271202,
+        "source": "Witherfang"
       }
     ],
     "name": {
@@ -6384,24 +6312,76 @@
     },
     "loot": [
       {
-        "itemId": 5254,
-        "source": "Rethilgore"
+        "itemId": 6392,
+        "source": "Archmage Arugal"
       },
       {
-        "itemId": 273456,
-        "source": "Rethilgore"
+        "itemId": 3748,
+        "source": "Wolf Master Nandos"
       },
       {
-        "itemId": 273457,
-        "source": "Rethilgore"
+        "itemId": 6220,
+        "source": "Archmage Arugal"
       },
       {
-        "itemId": 6341,
-        "source": "Fel Steed / Shadow Charger / Trash mobs"
+        "itemId": 6324,
+        "source": "Archmage Arugal"
       },
       {
-        "itemId": 932,
-        "source": "Fel Steed / Shadow Charger"
+        "itemId": 3230,
+        "source": "Fenrus the Devourer"
+      },
+      {
+        "itemId": 6340,
+        "source": "Fenrus the Devourer"
+      },
+      {
+        "itemId": 273646,
+        "source": "Fenrus the Devourer"
+      },
+      {
+        "itemId": 6314,
+        "source": "Wolf Master Nandos"
+      },
+      {
+        "itemId": 3191,
+        "source": "Commander Springvale"
+      },
+      {
+        "itemId": 6323,
+        "source": "Baron Silverlaine"
+      },
+      {
+        "itemId": 273637,
+        "source": "Baron Silverlaine"
+      },
+      {
+        "itemId": 273645,
+        "source": "Odo the Blindwatcher"
+      },
+      {
+        "itemId": 6320,
+        "source": "Commander Springvale"
+      },
+      {
+        "itemId": 6319,
+        "source": "Odo the Blindwatcher"
+      },
+      {
+        "itemId": 6318,
+        "source": "Odo the Blindwatcher"
+      },
+      {
+        "itemId": 6321,
+        "source": "Baron Silverlaine"
+      },
+      {
+        "itemId": 273643,
+        "source": "Commander Springvale"
+      },
+      {
+        "itemId": 273647,
+        "source": "Wolf Master Nandos"
       },
       {
         "itemId": 1292,
@@ -6416,148 +6396,16 @@
         "source": "Razorclaw the Butcher"
       },
       {
-        "itemId": 273096,
-        "source": "Razorclaw the Butcher"
+        "itemId": 273456,
+        "source": "Rethilgore"
       },
       {
-        "itemId": 6321,
-        "source": "Baron Silverlaine"
+        "itemId": 5254,
+        "source": "Rethilgore"
       },
       {
-        "itemId": 6323,
-        "source": "Baron Silverlaine"
-      },
-      {
-        "itemId": 273637,
-        "source": "Baron Silverlaine"
-      },
-      {
-        "itemId": 6320,
-        "source": "Commander Springvale"
-      },
-      {
-        "itemId": 3191,
-        "source": "Commander Springvale"
-      },
-      {
-        "itemId": 273643,
-        "source": "Commander Springvale"
-      },
-      {
-        "itemId": 273105,
-        "source": "Commander Springvale"
-      },
-      {
-        "itemId": 6318,
-        "source": "Odo the Blindwatcher"
-      },
-      {
-        "itemId": 6319,
-        "source": "Odo the Blindwatcher"
-      },
-      {
-        "itemId": 273645,
-        "source": "Odo the Blindwatcher"
-      },
-      {
-        "itemId": 6642,
-        "source": "Deathsworn Captain"
-      },
-      {
-        "itemId": 6641,
-        "source": "Deathsworn Captain"
-      },
-      {
-        "itemId": 5943,
-        "source": "Arugal's Voidwalker / Trash mobs"
-      },
-      {
-        "itemId": 6340,
-        "source": "Fenrus the Devourer"
-      },
-      {
-        "itemId": 3230,
-        "source": "Fenrus the Devourer"
-      },
-      {
-        "itemId": 273646,
-        "source": "Fenrus the Devourer"
-      },
-      {
-        "itemId": 3748,
-        "source": "Wolf Master Nandos"
-      },
-      {
-        "itemId": 6314,
-        "source": "Wolf Master Nandos"
-      },
-      {
-        "itemId": 273647,
-        "source": "Wolf Master Nandos"
-      },
-      {
-        "itemId": 6324,
-        "source": "Archmage Arugal"
-      },
-      {
-        "itemId": 6392,
-        "source": "Archmage Arugal"
-      },
-      {
-        "itemId": 6220,
-        "source": "Archmage Arugal"
-      },
-      {
-        "itemId": 6895,
-        "source": "Jordan's Smithing Hammer"
-      },
-      {
-        "itemId": 6283,
-        "source": "The Book of Ur"
-      },
-      {
-        "itemId": 2292,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 1489,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 1974,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 2807,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 1482,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 1935,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 1483,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 1318,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 3194,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 2205,
-        "source": "Trash mobs"
-      },
-      {
-        "itemId": 1484,
-        "source": "Trash mobs"
+        "itemId": 273457,
+        "source": "Rethilgore"
       }
     ],
     "name": {
@@ -9278,107 +9126,11 @@
     },
     "loot": [
       {
-        "itemId": 872,
-        "source": "Rhahk'Zor"
-      },
-      {
-        "itemId": 5187,
-        "source": "Rhahk'Zor"
-      },
-      {
-        "itemId": 273289,
-        "source": "Rhahk'Zor"
-      },
-      {
-        "itemId": 5443,
-        "source": "Miner Johnson"
-      },
-      {
-        "itemId": 5444,
-        "source": "Miner Johnson"
-      },
-      {
-        "itemId": 5194,
-        "source": "Sneed"
-      },
-      {
-        "itemId": 5195,
-        "source": "Sneed"
-      },
-      {
-        "itemId": 273293,
-        "source": "Sneed"
-      },
-      {
-        "itemId": 273092,
-        "source": "Sneed"
-      },
-      {
-        "itemId": 1937,
-        "source": "Sneed's Shredder"
-      },
-      {
-        "itemId": 2169,
-        "source": "Sneed's Shredder"
-      },
-      {
-        "itemId": 285292,
-        "source": "Sneed's Shredder"
-      },
-      {
-        "itemId": 1156,
-        "source": "Gilnid"
-      },
-      {
-        "itemId": 5199,
-        "source": "Gilnid"
-      },
-      {
-        "itemId": 273297,
-        "source": "Gilnid"
-      },
-      {
-        "itemId": 273086,
-        "source": "Gilnid"
-      },
-      {
-        "itemId": 7230,
-        "source": "Mr. Smite"
-      },
-      {
-        "itemId": 5192,
-        "source": "Mr. Smite"
-      },
-      {
-        "itemId": 5196,
-        "source": "Mr. Smite"
-      },
-      {
-        "itemId": 284715,
-        "source": "Mr. Smite"
-      },
-      {
-        "itemId": 5201,
-        "source": "Captain Greenskin"
-      },
-      {
-        "itemId": 10403,
-        "source": "Captain Greenskin"
-      },
-      {
-        "itemId": 5200,
-        "source": "Captain Greenskin"
+        "itemId": 253940,
+        "source": "Edwin VanCleef"
       },
       {
         "itemId": 5193,
-        "source": "Edwin VanCleef"
-      },
-      {
-        "itemId": 5202,
-        "source": "Edwin VanCleef"
-      },
-      {
-        "itemId": 10399,
         "source": "Edwin VanCleef"
       },
       {
@@ -9386,88 +9138,120 @@
         "source": "Edwin VanCleef"
       },
       {
-        "itemId": 2874,
-        "source": "Edwin VanCleef"
+        "itemId": 1937,
+        "source": "Sneed"
       },
       {
-        "itemId": 253940,
-        "source": "Edwin VanCleef"
-      },
-      {
-        "itemId": 5198,
-        "source": "Cookie"
-      },
-      {
-        "itemId": 5197,
-        "source": "Cookie"
-      },
-      {
-        "itemId": 8490,
-        "source": "Cookie"
+        "itemId": 273297,
+        "source": "Gilnid"
       },
       {
         "itemId": 273298,
         "source": "Cookie"
       },
       {
-        "itemId": 273102,
+        "itemId": 872,
+        "source": "Rhahk'Zor"
+      },
+      {
+        "itemId": 7230,
+        "source": "Mr. Smite"
+      },
+      {
+        "itemId": 5194,
+        "source": "Sneed"
+      },
+      {
+        "itemId": 10399,
+        "source": "Edwin VanCleef"
+      },
+      {
+        "itemId": 10403,
+        "source": "Captain Greenskin"
+      },
+      {
+        "itemId": 5198,
         "source": "Cookie"
       },
       {
-        "itemId": 8492,
-        "source": "Trash mobs"
+        "itemId": 5202,
+        "source": "Edwin VanCleef"
       },
       {
-        "itemId": 1934,
-        "source": "Trash mobs"
+        "itemId": 5201,
+        "source": "Captain Greenskin"
       },
       {
-        "itemId": 10402,
-        "source": "Trash mobs"
+        "itemId": 284715,
+        "source": "Mr. Smite"
       },
       {
-        "itemId": 1943,
-        "source": "Trash mobs"
+        "itemId": 5195,
+        "source": "Sneed"
       },
       {
-        "itemId": 1951,
-        "source": "Trash mobs"
+        "itemId": 5443,
+        "source": "Miner Johnson"
       },
       {
-        "itemId": 10400,
-        "source": "Trash mobs"
+        "itemId": 5200,
+        "source": "Captain Greenskin"
       },
       {
-        "itemId": 10401,
-        "source": "Trash mobs"
+        "itemId": 1156,
+        "source": "Gilnid"
       },
       {
-        "itemId": 1929,
-        "source": "Trash mobs"
+        "itemId": 5444,
+        "source": "Miner Johnson"
       },
       {
-        "itemId": 1930,
-        "source": "Trash mobs"
+        "itemId": 273289,
+        "source": "Rhahk'Zor"
       },
       {
-        "itemId": 1936,
-        "source": "Trash mobs"
+        "itemId": 5192,
+        "source": "Mr. Smite"
       },
       {
-        "itemId": 1944,
-        "source": "Trash mobs"
+        "itemId": 273293,
+        "source": "Sneed"
       },
       {
-        "itemId": 1945,
-        "source": "Trash mobs"
+        "itemId": 2169,
+        "source": "Sneed"
       },
       {
-        "itemId": 1925,
-        "source": "Trash mobs"
+        "itemId": 5197,
+        "source": "Cookie"
       },
       {
-        "itemId": 5397,
-        "source": "Defias Gunpowder"
+        "itemId": 285292,
+        "source": "Sneed"
+      },
+      {
+        "itemId": 5187,
+        "source": "Rhahk'Zor"
+      },
+      {
+        "itemId": 5199,
+        "source": "Gilnid"
+      },
+      {
+        "itemId": 5196,
+        "source": "Mr. Smite"
+      },
+      {
+        "itemId": 273092,
+        "source": "Sneed"
+      },
+      {
+        "itemId": 8490,
+        "source": "Cookie"
+      },
+      {
+        "itemId": 2874,
+        "source": "Edwin VanCleef"
       }
     ],
     "name": {
@@ -9674,52 +9458,24 @@
     },
     "loot": [
       {
-        "itemId": 273804,
-        "source": "Targorr the Dread"
+        "itemId": 273829,
+        "source": "Bazil Thredd"
       },
       {
-        "itemId": 273805,
-        "source": "Targorr the Dread"
+        "itemId": 273827,
+        "source": "Bazil Thredd"
       },
       {
-        "itemId": 273806,
-        "source": "Targorr the Dread"
+        "itemId": 273824,
+        "source": "Bazil Thredd"
       },
       {
-        "itemId": 2280,
-        "source": "Kam Deepfury"
+        "itemId": 273825,
+        "source": "Bazil Thredd"
       },
       {
         "itemId": 273807,
         "source": "Kam Deepfury"
-      },
-      {
-        "itemId": 273808,
-        "source": "Kam Deepfury"
-      },
-      {
-        "itemId": 252515,
-        "source": "Kam Deepfury / Dextren Ward / Bazil Thredd"
-      },
-      {
-        "itemId": 252455,
-        "source": "Kam Deepfury / Hamhock / Bazil Thredd"
-      },
-      {
-        "itemId": 252512,
-        "source": "Kam Deepfury / Hamhock / Dextren Ward / Bazil Thredd"
-      },
-      {
-        "itemId": 252513,
-        "source": "Kam Deepfury / Hamhock"
-      },
-      {
-        "itemId": 252456,
-        "source": "Kam Deepfury / Hamhock / Dextren Ward / Bazil Thredd"
-      },
-      {
-        "itemId": 252514,
-        "source": "Kam Deepfury / Dextren Ward / Bazil Thredd"
       },
       {
         "itemId": 273809,
@@ -9734,32 +9490,60 @@
         "source": "Hamhock"
       },
       {
+        "itemId": 252515,
+        "source": "Kam Deepfury / Dextren Ward / Bazil Thredd"
+      },
+      {
+        "itemId": 273808,
+        "source": "Kam Deepfury"
+      },
+      {
+        "itemId": 252455,
+        "source": "Kam Deepfury / Hamhock / Bazil Thredd"
+      },
+      {
+        "itemId": 252512,
+        "source": "Kam Deepfury / Hamhock / Dextren Ward / Bazil Thredd"
+      },
+      {
+        "itemId": 2280,
+        "source": "Kam Deepfury"
+      },
+      {
+        "itemId": 273820,
+        "source": "Targorr the Dread"
+      },
+      {
+        "itemId": 252513,
+        "source": "Kam Deepfury / Hamhock"
+      },
+      {
+        "itemId": 273805,
+        "source": "Targorr the Dread"
+      },
+      {
+        "itemId": 252456,
+        "source": "Kam Deepfury / Hamhock / Dextren Ward / Bazil Thredd"
+      },
+      {
+        "itemId": 273806,
+        "source": "Targorr the Dread"
+      },
+      {
+        "itemId": 252514,
+        "source": "Kam Deepfury / Dextren Ward / Bazil Thredd"
+      },
+      {
+        "itemId": 273804,
+        "source": "Targorr the Dread"
+      },
+      {
         "itemId": 273817,
         "source": "Dextren Ward"
       },
       {
         "itemId": 273819,
         "source": "Dextren Ward"
-      },
-      {
-        "itemId": 273820,
-        "source": "Dextren Ward"
-      },
-      {
-        "itemId": 273824,
-        "source": "Bazil Thredd"
-      },
-      {
-        "itemId": 273825,
-        "source": "Bazil Thredd"
-      },
-      {
-        "itemId": 273827,
-        "source": "Bazil Thredd"
-      },
-      {
-        "itemId": 273829,
-        "source": "Bazil Thredd"
       },
       {
         "itemId": 3228,
@@ -9903,12 +9687,24 @@
     },
     "loot": [
       {
+        "itemId": 9416,
+        "source": "Grimlok"
+      },
+      {
         "itemId": 9394,
         "source": "Eric \"The Swift\""
       },
       {
+        "itemId": 9415,
+        "source": "Grimlok"
+      },
+      {
         "itemId": 9398,
         "source": "Eric \"The Swift\""
+      },
+      {
+        "itemId": 9414,
+        "source": "Grimlok"
       },
       {
         "itemId": 2459,
@@ -9919,12 +9715,24 @@
         "source": "Olaf"
       },
       {
+        "itemId": 9411,
+        "source": "Ancient Stone Keeper"
+      },
+      {
         "itemId": 9403,
         "source": "Olaf"
       },
       {
+        "itemId": 9390,
+        "source": "Revelosh"
+      },
+      {
         "itemId": 1177,
         "source": "Olaf"
+      },
+      {
+        "itemId": 9389,
+        "source": "Revelosh"
       },
       {
         "itemId": 9409,
@@ -9935,76 +9743,24 @@
         "source": "Ironaya"
       },
       {
+        "itemId": 8053,
+        "source": "Obsidian Sentinel"
+      },
+      {
         "itemId": 9408,
         "source": "Ironaya"
-      },
-      {
-        "itemId": 9410,
-        "source": "Ancient Stone Keeper"
-      },
-      {
-        "itemId": 9411,
-        "source": "Ancient Stone Keeper"
-      },
-      {
-        "itemId": 9415,
-        "source": "Grimlok"
-      },
-      {
-        "itemId": 9416,
-        "source": "Grimlok"
-      },
-      {
-        "itemId": 9414,
-        "source": "Grimlok"
       },
       {
         "itemId": 7670,
         "source": "Grimlok"
       },
       {
-        "itemId": 7740,
-        "source": "Baelog's Chest"
-      },
-      {
-        "itemId": 7669,
-        "source": "Shadowforge Cache"
-      },
-      {
-        "itemId": 9401,
-        "source": "Baelog"
-      },
-      {
-        "itemId": 9399,
-        "source": "Baelog"
-      },
-      {
-        "itemId": 9400,
-        "source": "Baelog"
-      },
-      {
-        "itemId": 9389,
-        "source": "Revelosh"
-      },
-      {
-        "itemId": 9388,
-        "source": "Revelosh"
-      },
-      {
-        "itemId": 9390,
-        "source": "Revelosh"
-      },
-      {
-        "itemId": 9387,
-        "source": "Revelosh"
+        "itemId": 9410,
+        "source": "Ancient Stone Keeper"
       },
       {
         "itemId": 7741,
         "source": "Revelosh"
-      },
-      {
-        "itemId": 8053,
-        "source": "Obsidian Sentinel"
       },
       {
         "itemId": 11310,
@@ -10033,6 +9789,54 @@
       {
         "itemId": 9418,
         "source": "Archaedas"
+      },
+      {
+        "itemId": 7669,
+        "source": "Shadowforge Cache"
+      },
+      {
+        "itemId": 9401,
+        "source": "Baelog"
+      },
+      {
+        "itemId": 9399,
+        "source": "Baelog"
+      },
+      {
+        "itemId": 9400,
+        "source": "Baelog"
+      },
+      {
+        "itemId": 9388,
+        "source": "Revelosh"
+      },
+      {
+        "itemId": 9387,
+        "source": "Revelosh"
+      },
+      {
+        "itemId": 274430,
+        "source": "Obsidian Sentinel"
+      },
+      {
+        "itemId": 274428,
+        "source": "Obsidian Sentinel"
+      },
+      {
+        "itemId": 274425,
+        "source": "Obsidian Sentinel"
+      },
+      {
+        "itemId": 274485,
+        "source": "Obsidian Sentinel"
+      },
+      {
+        "itemId": 251400,
+        "source": "Obsidian Sentinel"
+      },
+      {
+        "itemId": 7740,
+        "source": "Baelog's Chest"
       },
       {
         "itemId": 7671,
@@ -10768,8 +10572,68 @@
     },
     "loot": [
       {
+        "itemId": 6461,
+        "source": "Mutanus the Devourer"
+      },
+      {
+        "itemId": 6463,
+        "source": "Mutanus the Devourer"
+      },
+      {
+        "itemId": 6630,
+        "source": "Verdan the Everliving"
+      },
+      {
+        "itemId": 6472,
+        "source": "Lord Pythas"
+      },
+      {
+        "itemId": 6469,
+        "source": "Lord Serpentis"
+      },
+      {
+        "itemId": 6473,
+        "source": "Lord Pythas"
+      },
+      {
+        "itemId": 6449,
+        "source": "Skum"
+      },
+      {
+        "itemId": 13245,
+        "source": "Kresh"
+      },
+      {
+        "itemId": 6631,
+        "source": "Verdan the Everliving"
+      },
+      {
+        "itemId": 6627,
+        "source": "Mutanus the Devourer"
+      },
+      {
+        "itemId": 6459,
+        "source": "Lord Serpentis"
+      },
+      {
+        "itemId": 5970,
+        "source": "Lord Serpentis"
+      },
+      {
+        "itemId": 5404,
+        "source": "Lady Anacondra"
+      },
+      {
+        "itemId": 273084,
+        "source": "Kresh"
+      },
+      {
         "itemId": 6460,
         "source": "Lord Cobrahn"
+      },
+      {
+        "itemId": 10411,
+        "source": "Lord Serpentis"
       },
       {
         "itemId": 10410,
@@ -10780,132 +10644,40 @@
         "source": "Lord Cobrahn"
       },
       {
-        "itemId": 253908,
-        "source": "Lord Cobrahn"
-      },
-      {
-        "itemId": 10412,
-        "source": "Lady Anacondra"
-      },
-      {
-        "itemId": 5404,
-        "source": "Lady Anacondra"
-      },
-      {
-        "itemId": 6446,
-        "source": "Lady Anacondra"
-      },
-      {
-        "itemId": 273088,
-        "source": "Lady Anacondra"
-      },
-      {
-        "itemId": 273098,
-        "source": "Lady Anacondra"
-      },
-      {
-        "itemId": 13245,
-        "source": "Kresh"
-      },
-      {
-        "itemId": 6447,
-        "source": "Kresh"
-      },
-      {
-        "itemId": 273084,
-        "source": "Kresh"
-      },
-      {
-        "itemId": 6472,
-        "source": "Lord Pythas"
-      },
-      {
-        "itemId": 6473,
-        "source": "Lord Pythas"
+        "itemId": 273137,
+        "source": "Skum"
       },
       {
         "itemId": 273089,
         "source": "Lord Pythas"
       },
       {
-        "itemId": 253938,
-        "source": "Lord Pythas / Verdan the Everliving"
-      },
-      {
-        "itemId": 6449,
-        "source": "Skum"
-      },
-      {
-        "itemId": 6448,
-        "source": "Skum"
-      },
-      {
-        "itemId": 273137,
-        "source": "Skum"
-      },
-      {
-        "itemId": 253944,
-        "source": "Skum"
-      },
-      {
-        "itemId": 6469,
-        "source": "Lord Serpentis"
-      },
-      {
-        "itemId": 5970,
-        "source": "Lord Serpentis"
-      },
-      {
-        "itemId": 10411,
-        "source": "Lord Serpentis"
-      },
-      {
-        "itemId": 6459,
-        "source": "Lord Serpentis"
-      },
-      {
-        "itemId": 273087,
-        "source": "Lord Serpentis"
-      },
-      {
-        "itemId": 6630,
-        "source": "Verdan the Everliving"
-      },
-      {
-        "itemId": 6631,
-        "source": "Verdan the Everliving"
+        "itemId": 273088,
+        "source": "Lady Anacondra"
       },
       {
         "itemId": 6629,
         "source": "Verdan the Everliving"
       },
       {
-        "itemId": 6461,
-        "source": "Mutanus the Devourer"
+        "itemId": 10412,
+        "source": "Lady Anacondra"
       },
       {
-        "itemId": 6627,
-        "source": "Mutanus the Devourer"
+        "itemId": 6448,
+        "source": "Skum"
       },
       {
-        "itemId": 6463,
-        "source": "Mutanus the Devourer"
+        "itemId": 6447,
+        "source": "Kresh"
+      },
+      {
+        "itemId": 6446,
+        "source": "Lady Anacondra"
       },
       {
         "itemId": 10441,
         "source": "Mutanus the Devourer"
-      },
-      {
-        "itemId": 5243,
-        "source": "Deviate Faerie Dragon"
-      },
-      {
-        "itemId": 6632,
-        "source": "Deviate Faerie Dragon"
-      },
-      {
-        "itemId": 10413,
-        "source": "Trash mobs"
       }
     ],
     "name": {

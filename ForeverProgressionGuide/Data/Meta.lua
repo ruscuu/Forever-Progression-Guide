@@ -5,8 +5,8 @@ ns.Data.Meta = {
   counts = {
     classQuests = 44,
     dungeons = 42,
-    items = 1746,
-    quests = 257,
+    items = 1841,
+    quests = 542,
     questsObserved = 0,
     rares = 28,
     zones = 40,
@@ -14,11 +14,11 @@ ns.Data.Meta = {
   credits = {
     name = "Forever Companion",
     sources = { "ForeverChanges", "Wowhead", "Zockify" },
-    updatedAt = "2026-10-21T12:02:25.072+00:00",
+    updatedAt = "2026-11-21T18:03:30.002+00:00",
     url = "https://forevercompanion.io",
   },
-  generated = "2026-10-21",
-  hash = "d439d17601",
+  generated = "2026-11-21",
+  hash = "57e1ead47d",
   statusCounts = { announced = 5, classic_inherited = 7, datamined = 30 },
-  version = "2026.10.21-d439d1",
+  version = "2026.11.21-57e1ea",
 }
